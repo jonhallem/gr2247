@@ -9,7 +9,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
  
-public class ReadJSONExample 
+public class dbService 
 {
     @SuppressWarnings("unchecked")
     public static void main(String[] args) 
