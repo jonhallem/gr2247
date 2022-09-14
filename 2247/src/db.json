@@ -1,0 +1,36 @@
+{
+    "locations": {
+        "1": {
+            "name": "Lerkendal",
+            "bikes": ["Sykkel 1", "Sykkel 2", "Sykkel 3", "Sykkel 4"]
+        },
+        "2": {
+            "name": "Handels",
+            "bikes": ["Sykkel 5", "Sykkel 6", "Sykkel 7", "Sykkel 8"]
+        },
+        "3": {
+            "name": "Gløshaugen",
+            "bikes": ["Sykkel 9", "Sykkel 10", "Sykkel 11", "Sykkel 12"]
+        }
+    },
+    "customers": {
+        "1": {
+            "username": "andreas@hotmail.com",
+            "name": "Andreas",
+            "password": "passordAndreas",
+            "bike": false
+        },
+        "2": {
+            "username": "Ola@hotmail.com",
+            "name": "Ola",
+            "password": "passordOla",
+            "bike": "Sykkel 13"
+        },
+        "3": {
+            "username": "kari@hotmail.com",
+            "name": "Kari",
+            "password": "passordKari",
+            "bike": false
+        }
+    }
+}
