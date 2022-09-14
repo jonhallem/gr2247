@@ -17,16 +17,16 @@ public class ReadJSONExample
         //JSON parser object to parse read file
         JSONParser jsonParser = new JSONParser();
          
-        try (FileReader reader = new FileReader("employees.json"))
+        try (FileReader reader = new FileReader("db.json"))
         {
             //Read JSON file
             Object obj = jsonParser.parse(reader);
- 
+    
             JSONArray employeeList = (JSONArray) obj;
             System.out.println(employeeList);
              
             //Iterate over employee array
-            employeeList.forEach( emp -> parseEmployeeObject( (JSONObject) emp ) );
+          //  employeeList.forEach( emp -> parseEmployeeObject( (JSONObject) emp ) );
  
         } catch (FileNotFoundException e) {
             e.printStackTrace();
