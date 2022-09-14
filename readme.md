@@ -1,9 +1,19 @@
 # Group gr2247 repository 
  
-Welcome to IT1901 Fall 2022 course 
- 
-Good luck! 
 
+
+**Applikasjon for sykkelutleie**
+
+Funksjonalitet til appen skal gjøre det mulig for bruker å leie sykler på utvalgte sykkelparkeringer i Trondheim. Applikasjonen skal tilby korttidsleie av sykler.
+
+Koden til applikasjonen ligger i mappen *2247*.
+
+Dokumentasjon ligger i mappen *docs*, med undermapper for hver release.
+
+
+
+
+**Notater:**
 Ide til app:
 
 Sykkelutleie
