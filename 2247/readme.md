@@ -17,3 +17,11 @@ Like enkelt er det å levere!
 ## Skjermbilde
 
 ## Brukerhistorie
+
+Som en kunde av *BikeRentalApp* ønsker jeg å kunne leie en sykkel for å kunne få fysisk aktivitet inn i min ellers travle pendler hverdag.
+
+### Personas
+
+Petter (34 år) ønsker å få aktivitet inn i hverdagen sin i form av den tiden han allerede bruker på å pendle til jobben.
+Petter bor på Tiller, men arbeider like ved Nidarosdomen - så det er en lang pendlertur han likegodt kan bruke på å holde helsen ved like. 
+Petter er ...
