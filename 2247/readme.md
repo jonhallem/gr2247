@@ -22,6 +22,6 @@ Som en kunde av *BikeRentalApp* ønsker jeg å kunne leie en sykkel for å kunne
 
 ### Personas
 
-Petter (34 år) ønsker å få aktivitet inn i hverdagen sin i form av den tiden han allerede bruker på å pendle til jobben.
-Petter bor på Tiller, men arbeider like ved Nidarosdomen - så det er en lang pendlertur han likegodt kan bruke på å holde helsen ved like. 
-Petter er ...
+Petter (36 år) hadde en svært aktiv livstid, men har vært på latsia de siste årene. Han ønsker å få mer aktivitet inn i hans ellers travle hverdag. Den tiden har alikevell bruker på pendling til jobb, kunne tenker Petter likegreit kunne blitt brukt til fysisk aktivtet! 
+Petter bor på Tiller, men arbeider like ved Nidarosdomen - en lang pendlertur han likegodt kan bruke på å holde helsen ved like. 
+Ettersom Petter er ganske ukjent med sykkel som fremkomstmiddel, men regner med å ha stor progresjon, ønsker han å kunne prøve ulike typer sykler uten å måtte forplikte seg til en gitt modell. 
