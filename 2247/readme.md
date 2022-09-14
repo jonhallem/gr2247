@@ -5,7 +5,7 @@
 **Skal denne ligge her??**
 
 BikeRentalApp er en applikasjon for korttids- (og muligens) langtidsleie av sykler i Trondheim. 
-Trondheim Bysykkel's #1 utfordrer?
+Trondheim Bysykkel's nr. 1 utfordrer?
 
 Kortidsleie av en ledig sykkel startes ved et tastetrykk, og gjøres ved et av BikeRentalApps mange utleiesteder. 
 Like enkelt er det å levere! 
