@@ -1,4 +1,4 @@
-package com.howtodoinjava.demo.jsonsimple;
+package BikeRentalApp;
  
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -9,7 +9,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
  
-public class ReadJSONExample 
+public class dbService 
 {
     @SuppressWarnings("unchecked")
     public static void main(String[] args) 
@@ -17,16 +17,16 @@ public class ReadJSONExample
         //JSON parser object to parse read file
         JSONParser jsonParser = new JSONParser();
          
-        try (FileReader reader = new FileReader("employees.json"))
+        try (FileReader reader = new FileReader("db.json"))
         {
             //Read JSON file
             Object obj = jsonParser.parse(reader);
- 
+    
             JSONArray employeeList = (JSONArray) obj;
             System.out.println(employeeList);
              
             //Iterate over employee array
-            employeeList.forEach( emp -> parseEmployeeObject( (JSONObject) emp ) );
+          //  employeeList.forEach( emp -> parseEmployeeObject( (JSONObject) emp ) );
  
         } catch (FileNotFoundException e) {
             e.printStackTrace();
