@@ -1,4 +1,4 @@
-package com.howtodoinjava.demo.jsonsimple;
+package BikeRentalApp;
  
 import java.io.FileNotFoundException;
 import java.io.FileReader;
