@@ -69,9 +69,5 @@ public class Bike {
     public String getColour() {
         return this.colour;
     }
-
-    public static void main(String[] args) {
-        Bike bike = new Bike(null, null, null);
-    }
     
 }
