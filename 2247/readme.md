@@ -14,6 +14,10 @@ Like enkelt er det å levere!
 
 ## Skjermbilde
 
+![alt text](skjermbilder/BikeRentalAppSkjermbilde1.jpg "GUI for applikasjonen før utlån")
+![alt text](skjermbilder/BikeRentalAppSkjermbilde2.jpg "GUI for applikasjonen etter utlån")
+![alt text](skjermbilder/BikeRentalAppSkjermbilde3.jpg "GUI for applikasjonen ved innlevering")
+
 ## Brukerhistorie-1
 
 Som en tidsskvist hverdagspendler ønsker jeg å kunne sykle til og/eller fra jobb, uten å måtte forplikte meg til å sykle begge veier. 
