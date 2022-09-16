@@ -39,7 +39,7 @@ For å være tilgjengelig for Bike Rental App's kunder, er vi tilgejngelige der 
 
 Som en tidsskvist hverdagspendler ønsker jeg å kunne sykle til og/eller fra jobb, uten å måtte forplikte meg til å sykle begge veier. 
 
-### Personas
+#### Personas
 
 Petter (36 år) hadde en svært aktiv livstid, men har vært på latsia de siste årene. Han ønsker å få mer aktivitet inn i hans ellers travle hverdag. Den tiden har alikevell bruker på pendling til jobb, kunne tenker Petter likegreit kunne blitt brukt til fysisk aktivtet! Grunnet jobbsituasjon og privatliv er det ikke alltids Petter kan sykle begge veier, derfor er det gunstig å kunne være fleksibel. 
 
