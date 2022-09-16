@@ -29,9 +29,17 @@ Petter (36 år) hadde en svært aktiv livstid, men har vært på latsia de siste
 Petter bor på Tiller, men arbeider like ved Nidarosdomen - en lang pendlertur han likegodt kan bruke på å holde helsen ved like. 
 Ettersom Petter er ganske ukjent med sykkel som fremkomstmiddel, men regner med å ha stor progresjon, ønsker han å kunne prøve ulike typer sykler uten å måtte forplikte seg til en gitt modell. 
 
+### Viktig å kunne se
+En oversikt over tilgjengelige sykler på de ulike utleieområdene. 
+En oversikt over ulike tilgjengelige sykkeltyper.
+Hvilken sykkel du leier. 
+Hvilken bruker du er logget inn med. 
+
+## Viktig å kunne gjøre 
+Leie og levere en sykkel ved ulike utleieområder. 
+
 ## Brukerhistorie-2
 
 Som uerfaren sykler ønsker jeg å kunne leie å leie en sykkel for å få mer fysisk aktivitet inn i min ellers travle pendlerhverdag. 
 
 ### Personas
-
