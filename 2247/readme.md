@@ -9,6 +9,7 @@ Kortidsleie av en ledig sykkel startes ved et tastetrykk, og gjøres ved et av B
 Like enkelt er det å levere! 
 
 ## Sykkler:
+Applikasjonen vil tilby et bredt utvalg av sykketyper for utleie. 
 
 ## Utleiesteder:
 
@@ -35,7 +36,7 @@ En oversikt over ulike tilgjengelige sykkeltyper.
 Hvilken sykkel du leier. 
 Hvilken bruker du er logget inn med. 
 
-## Viktig å kunne gjøre 
+### Viktig å kunne gjøre 
 Leie og levere en sykkel ved ulike utleieområder. 
 
 ## Brukerhistorie-2
