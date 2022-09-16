@@ -121,7 +121,7 @@
           <version>3.0.0-M5</version>
             <configuration>
                 <argLine>
-                --add-opens BikeRentalApp/BikeRentalApp=ALL-UNNAMED --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+                --add-opens bikeRentalApp.core/bikeRentalApp.core=ALL-UNNAMED --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
                 </argLine>
             </configuration>
         </plugin>
@@ -157,7 +157,7 @@
           <!-- Default configuration for running -->
           <!-- Usage: mvn javafx:run -->
           <configuration>
-              <mainClass>BikeRentalApp.App</mainClass>
+              <mainClass>bikeRentalApp.core.App</mainClass>
           </configuration>
         </plugin>
 

@@ -1,4 +1,4 @@
-package BikeRentalApp;
+package bikeRentalApp.core;
  
 import java.io.FileNotFoundException;
 import java.io.FileReader;

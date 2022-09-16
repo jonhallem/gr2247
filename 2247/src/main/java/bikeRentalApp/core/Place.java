@@ -1,4 +1,4 @@
-package BikeRentalApp;
+package bikeRentalApp.core;
 
 import java.util.ArrayList;
 import java.util.List;

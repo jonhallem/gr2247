@@ -1,4 +1,4 @@
-package BikeRentalApp;
+package bikeRentalApp.core;
 
 /**
  * Hello world!
