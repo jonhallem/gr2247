@@ -9,9 +9,25 @@ Kortidsleie av en ledig sykkel startes ved et tastetrykk, og gjøres ved et av B
 Like enkelt er det å levere! 
 
 ## Sykkler:
-Applikasjonen vil tilby et bredt utvalg av sykketyper for utleie. 
+Applikasjonen vil tilby et bredt utvalg av sykkeltyper for utleie:
+- Landeveissykkel 
+- Terrengsykkel
+- Elektrisk terrengsykkel 
+- Fjellsykkel
+- Fatbike 
+- Elektrisk fatbike
+- Barnesykkel 
+- Tandemsykkel
+- Elektrisk tandemsykkel
+- Christiania sykkel  
 
 ## Utleiesteder:
+For å være tilgjengelig for Bike Rental App's kunder, er vi tilgejngelige der du er!
+- Tiller
+- Nidarosdomen
+- Gløshaugen
+- Lade
+- Munkholmen 
 
 ## Skjermbilde
 
