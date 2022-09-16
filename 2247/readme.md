@@ -9,8 +9,25 @@ Kortidsleie av en ledig sykkel startes ved et tastetrykk, og gjøres ved et av B
 Like enkelt er det å levere! 
 
 ## Sykkler:
+Applikasjonen vil tilby et bredt utvalg av sykkeltyper for utleie:
+- Landeveissykkel 
+- Terrengsykkel
+- Elektrisk terrengsykkel 
+- Fjellsykkel
+- Fatbike 
+- Elektrisk fatbike
+- Tandemsykkel
+- Elektrisk tandemsykkel
+- Christianiasykkel  
+- Hybridsykkel
 
 ## Utleiesteder:
+For å være tilgjengelig for Bike Rental App's kunder, er vi tilgejngelige der du er!
+- Tiller
+- Nidarosdomen
+- Gløshaugen
+- Lade
+- Munkholmen 
 
 ## Skjermbilde
 
@@ -22,7 +39,7 @@ Like enkelt er det å levere!
 
 Som en tidsskvist hverdagspendler ønsker jeg å kunne sykle til og/eller fra jobb, uten å måtte forplikte meg til å sykle begge veier. 
 
-### Personas
+#### Personas
 
 Petter (36 år) hadde en svært aktiv livstid, men har vært på latsia de siste årene. Han ønsker å få mer aktivitet inn i hans ellers travle hverdag. Den tiden har alikevell bruker på pendling til jobb, kunne tenker Petter likegreit kunne blitt brukt til fysisk aktivtet! Grunnet jobbsituasjon og privatliv er det ikke alltids Petter kan sykle begge veier, derfor er det gunstig å kunne være fleksibel. 
 
@@ -35,7 +52,7 @@ En oversikt over ulike tilgjengelige sykkeltyper.
 Hvilken sykkel du leier. 
 Hvilken bruker du er logget inn med. 
 
-## Viktig å kunne gjøre 
+### Viktig å kunne gjøre 
 Leie og levere en sykkel ved ulike utleieområder. 
 
 ## Brukerhistorie-2
