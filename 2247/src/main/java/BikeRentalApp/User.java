@@ -29,16 +29,19 @@ public class User {
     }
 
     public void setBike(Bike bike) {
-        if(validateBike(bike)) {
+        if(validateBike(bike) && this.bike == null) {
             this.bike = bike;
         }
     }
 
-    public Bike removeBike() {
-        if(this.bike =! null){
-            return this.bike;
+    public Bike returnBike() {
+        if(this.bike != null){
+            Bike tmpBike = this.bike;
             this.bike = null;
-        }
+            return tmpBike;
+        } else {
+            throw new IllegalArgumentException("Du kan ikke fjerne og returnere en sykkel om du ikke har en");
+        } 
     }
 
     private boolean validateUsername(String username) {
@@ -61,7 +64,7 @@ public class User {
 
     private boolean validateBike(Bike bike) {
         // TODO
-        if(bike.instanceOf(Bike)) {
+        if(bike instanceof Bike) {
             return true;
         } else {
             throw new IllegalArgumentException("Ikke gyldig sykkel");
