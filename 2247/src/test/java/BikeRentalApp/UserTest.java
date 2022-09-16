@@ -45,7 +45,16 @@ public class UserTest {
     @DisplayName("Tester det å opprette en ny bruker")
     void testAddBike() {
         User user = new User("username", "password1234");
+        Bike bike = new Bike("TESTIDN1", "Landeveissykkel", "Blå");
         
+        assertEquals(user.getBike(), null, "getBike skal returnere null om ikke noe Bike er satt");
+        
+        user.setBike(bike);
+        Bike bike2 = new Bike("TESTIDN2", "Terrengsykkel", "Rød");
+        assertThrows(IllegalStateException.class, () -> {
+            user.setBike(bike2); }, "IllegalState skal utløses dersom du setter en ny sykkel for en bruker som allerede har en sykkel.");
+    
+
     }
 
 }
