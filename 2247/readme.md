@@ -16,10 +16,10 @@ Applikasjonen vil tilby et bredt utvalg av sykkeltyper for utleie:
 - Fjellsykkel
 - Fatbike 
 - Elektrisk fatbike
-- Barnesykkel 
 - Tandemsykkel
 - Elektrisk tandemsykkel
-- Christiania sykkel  
+- Christianiasykkel  
+- Hybridsykkel
 
 ## Utleiesteder:
 For å være tilgjengelig for Bike Rental App's kunder, er vi tilgejngelige der du er!
