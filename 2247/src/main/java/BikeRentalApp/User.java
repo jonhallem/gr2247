@@ -1,5 +1,8 @@
 package BikeRentalApp;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class User {
     
     private String username;
@@ -29,8 +32,10 @@ public class User {
     }
 
     public void setBike(Bike bike) {
-        if(validateBike(bike) && this.bike == null) {
+        if(this.bike == null) {
             this.bike = bike;
+        } else {
+            throw new IllegalStateException("Det er allerede registrert en sykkel");
         }
     }
 
@@ -45,8 +50,16 @@ public class User {
     }
 
     private boolean validateUsername(String username) {
-        // TODO
-        if(!username.isEmpty()) {
+
+        // Forbehold om at BikeRentalManager sjekker om brukernavnet er tilgjengelig
+        if(username == null) {
+            throw new IllegalArgumentException("Brukernavnet må være noe annet enn null.");
+        }
+        String regex = "^[a-zA-Z0-9]{3,}$"; // bokstaver og tall, og må minst være 3 tegn langt
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(username);
+        
+        if(matcher.matches()) {
             return true;
         } else {
             throw new IllegalArgumentException("Ikke gyldig brukernavn");
@@ -54,20 +67,18 @@ public class User {
     }
 
     private boolean validatePassword(String password) {
-        // TODO
-        if(!password.isEmpty()) {
-            return true;
-        } else {
-            throw new IllegalArgumentException("Ikke gyldig passord");
+        // Strengere passordvalidering?
+        if(password == null) {
+            throw new IllegalArgumentException("Passordet må være noe annet enn null.");
         }
-    }
+        String regex = "^(?=.*[0-9])(?=.*[a-zA-Z]).{3,}$"; //  minst en bokstav og et tall, og må minst være 3 tegn langt
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(password);
 
-    private boolean validateBike(Bike bike) {
-        // TODO
-        if(bike instanceof Bike) {
+        if(matcher.matches()) {
             return true;
         } else {
-            throw new IllegalArgumentException("Ikke gyldig sykkel");
+            throw new IllegalArgumentException("Passordet oppfyller ikke kravet. \nPassordet må inneholde minst en bokstav og ett tall, \nog være minst 3 tegn langt.");
         }
     }
 }
