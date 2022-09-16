@@ -29,20 +29,29 @@ public class Bike {
     //Valideringsmetoder
 
     private void validateID(String iD) {
+        this.inputNotNullValidator(iD);
         if (!Pattern.matches("[A-Z0-9]{8}", iD)) {
             throw new IllegalArgumentException("ID-format ugyldig. Må bestå av tall og store bokstaver og ha en lengde på 8 tegn.");
         }
     }
 
     private void validateType(String type) {
+        this.inputNotNullValidator(type);
         if (!this.validTypes.contains(type)) {
             throw new IllegalArgumentException("Type-input ugyldig.");
         }
     }
 
     private void validateColour(String colour) {
+        this.inputNotNullValidator(colour);
         if (!this.validColours.contains(colour)) {
             throw new IllegalArgumentException("Farge-input ugyldig.");
+        }
+    }
+
+    private void inputNotNullValidator(Object input) {
+        if (input == null) {
+            throw new IllegalArgumentException("Input kan ikke være null");
         }
     }
 
@@ -59,6 +68,10 @@ public class Bike {
 
     public String getColour() {
         return this.colour;
+    }
+
+    public static void main(String[] args) {
+        Bike bike = new Bike(null, null, null);
     }
     
 }
