@@ -10,12 +10,11 @@ public class User {
     private Bike bike;
 
     public User (String username, String password) {
-        if(validateUsername(username)) {
-            this.username = username;
-        }
-        if(validatePassword(password)){
-            this.password = password;
-        }
+        validateUsername(username);
+        validatePassword(password);
+        
+        this.username = username;
+        this.password = password;
         this.bike = null;
     }
     
@@ -32,21 +31,19 @@ public class User {
     }
 
     public void setBike(Bike bike) {
-        if(this.bike == null) {
-            this.bike = bike;
-        } else {
+        if(this.bike != null) {
             throw new IllegalStateException("Det er allerede registrert en sykkel");
         }
+        this.bike = bike;
     }
 
-    public Bike returnBike() {
-        if(this.bike != null){
-            Bike tmpBike = this.bike;
-            this.bike = null;
-            return tmpBike;
-        } else {
+    public Bike removeAndReturnBike() {
+        if(this.bike == null) {
             throw new IllegalArgumentException("Du kan ikke fjerne og returnere en sykkel om du ikke har en");
-        } 
+        }
+        Bike tmpBike = this.bike;
+        this.bike = null;
+        return tmpBike;
     }
 
     private boolean validateUsername(String username) {
