@@ -12,8 +12,10 @@ Dokumentasjon ligger i mappen *docs*, med undermapper for hver release.
 
 
 
-Kildehenvisning til ikoner brukt i applikasjonen:
+Bildehenvisning til ikoner brukt i applikasjonen:
+
 cyclingIcon: "https://www.flaticon.com/free-icons/cycling" Cycling icons created by kosonicon - Flaticon
+
 bicycleIcon: "https://www.flaticon.com/free-icons/bicycle" Bicycle icons created by Freepik - Flaticon
 
 
