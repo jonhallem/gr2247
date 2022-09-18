@@ -30,6 +30,10 @@ public class Place implements Iterable<Bike> {
         return this.name;
     }
 
+    public int getMaximumNumberOfBikes() {
+        return this.maximumNumberOfBikes;
+    }
+
     public List<Bike> getBikes() {
         return new ArrayList<>(bikes);
     }
