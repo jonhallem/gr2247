@@ -1,4 +1,4 @@
-package BikeRentalApp;
+package bikeRentalApp.core;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;

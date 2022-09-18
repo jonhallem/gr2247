@@ -1,4 +1,4 @@
-package BikeRentalApp;
+package bikeRentalApp.core;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,7 +39,7 @@ public class User {
 
     public Bike removeAndReturnBike() {
         if(this.bike == null) {
-            throw new IllegalArgumentException("Du kan ikke fjerne og returnere en sykkel om du ikke har en");
+            throw new IllegalStateException("Du kan ikke fjerne og returnere en sykkel om du ikke har en");
         }
         Bike tmpBike = this.bike;
         this.bike = null;
