@@ -123,10 +123,12 @@ public class BikeRentalAppController {
         usernameInput.getText();
         passwordInput.getText();
 
-        if (logInSuccessful) {
+        try (-----) {
             rentedBikeIDText.setText("");
             userInformationGroup.setVisible(true);
             logInGroup.setVisible(false);
+        } catch (Exception e) {
+            // TODO: handle exception
         }
 
 
