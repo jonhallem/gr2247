@@ -18,8 +18,12 @@ public class BikeDeserializer extends JsonDeserializer<Bike> {
     @Override
     public Bike deserialize(JsonParser parser, DeserializationContext context) throws IOException, JacksonException {
         TreeNode treeNode = parser.getCodec().readTree(parser);
-        if (treeNode instanceof ObjectNode) {
-            ObjectNode objectNode = (ObjectNode) treeNode;
+        return this.deserialize((JsonNode) treeNode);
+    }
+
+    public Bike deserialize(JsonNode jsonNode) {
+        if (jsonNode instanceof ObjectNode) {
+            ObjectNode objectNode = (ObjectNode) jsonNode;
             JsonNode iDNode = objectNode.get("iD");
             JsonNode typeNode = objectNode.get("type");
             JsonNode colourNode = objectNode.get("colour");
@@ -29,5 +33,7 @@ public class BikeDeserializer extends JsonDeserializer<Bike> {
         }
         return null;
     }
+
+
     
 }

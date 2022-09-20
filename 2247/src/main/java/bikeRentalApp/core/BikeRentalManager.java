@@ -45,6 +45,22 @@ public class BikeRentalManager {
 
     // ----------- Metoder -------------
 
+    public void testMethod() {
+        Bike bike1 = new Bike("12345678", "Fjellsykkel", "Blå");
+        Bike bike2 = new Bike("87654321", "Tandemsykkel", "Rød");
+
+        Place place1 = new Place("Munkholmen", 2);
+        Place place2 = new Place("Nidaros", 5);
+
+        place1.addBike(bike1);
+        place1.addBike(bike2);
+        this.places.add(place1);
+        this.places.add(place2);
+        
+    }
+
+
+
     public void logIn(String username, String password) {
 
         for (User user : users) {

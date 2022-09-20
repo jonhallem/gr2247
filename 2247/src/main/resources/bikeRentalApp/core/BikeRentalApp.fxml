@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="839.0" prefWidth="541.0" style="-fx-background-color: f2f2f7;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="839.0" prefWidth="541.0" style="-fx-background-color: f2f2f7;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bikeRentalApp.core.BikeRentalAppController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1fffa9" height="139.0" layoutX="-55.0" layoutY="-15.0" stroke="TRANSPARENT" strokeType="INSIDE" width="597.0">
          <effect>
@@ -83,7 +83,7 @@
       </Pane>
       <Pane fx:id="arrivalGroup" layoutX="1.0" layoutY="128.0" prefHeight="502.0" prefWidth="539.0" visible="false">
          <children>
-            <Button fx:id="returnBikeButton" layoutX="164.0" layoutY="348.0" mnemonicParsing="false" prefHeight="98.0" prefWidth="202.0" style="-fx-background-color: red;" text="Lever sykkel">
+            <Button fx:id="returnBikeButton" layoutX="164.0" layoutY="348.0" mnemonicParsing="false" onAction="#showReturnGroup" prefHeight="98.0" prefWidth="202.0" style="-fx-background-color: red;" text="Lever sykkel">
                <font>
                   <Font size="24.0" />
                </font>
@@ -106,9 +106,9 @@
                </font>
             </Label>
             <ComboBox fx:id="selectArrivalLocation" layoutX="124.0" layoutY="98.0" prefHeight="26.0" prefWidth="269.0" promptText="Velg sted for innlevering" />
-            <Button fx:id="confirmReturnBikeButton" layoutX="166.0" layoutY="355.0" mnemonicParsing="false" prefHeight="98.0" prefWidth="202.0" style="-fx-background-color: red;" text="Lever sykkel">
+            <Button fx:id="confirmReturnBikeButton" layoutX="166.0" layoutY="355.0" mnemonicParsing="false" onAction="#deliverBike" prefHeight="98.0" prefWidth="202.0" style="-fx-background-color: red;" text="Bekreft innlevering">
                <font>
-                  <Font size="24.0" />
+                  <Font size="18.0" />
                </font>
                <effect>
                   <DropShadow />
