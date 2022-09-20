@@ -114,7 +114,7 @@ public class BikeRentalAppController {
 
 
 
-    // -------------- Metoder for riktig innlasting av innhold -----------------
+    // -------------- Metoder for riktig innlasting av GUI innhold -----------------
 
 
     @FXML
@@ -177,31 +177,51 @@ public class BikeRentalAppController {
     }
 
 
-
     @FXML
     private void rentBike() {
-
-        departureGroup.setVisible(false);
-        arrivalGroup.setVisible(true);
-
-        String bikeID = listOfAvailableBikes.getSelectionModel().getSelectedItem().split(" --- ")[0].split(": ")[1];
         
-        for (Bike bike : chosenDepartureLocation) {
-            if (bike.getID().equals(bikeID)) {
-                bikeRentalManager.rentBike(selectDepartureLocation.getValue(), bike.getID());
-                rentedBikeIDText.setText(bike.getType() + " - " + bike.getID());
-            }
-        }
-    }
+        String selectedBike = listOfAvailableBikes.getSelectionModel().getSelectedItem();
 
+        if (selectedBike != null) {
+            
+            String bikeID = selectedBike.split(" --- ")[0].split(": ")[1];
+
+            for (Bike bike : chosenDepartureLocation.getBikes()) {
+                if (bike.getID().equals(bikeID)) {
+                    bikeRentalManager.rentBike(selectDepartureLocation.getValue(), bike.getID());
+                    rentedBikeIDText.setText(bike.getType() + " - " + bike.getID());
+                }
+            }
+
+            departureGroup.setVisible(false);
+            arrivalGroup.setVisible(true);
+
+        } else {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Feilmelding");
+            alert.setContentText("Velg en sykkel du ønsker å låne!");
+            alert.showAndWait();
+        }
+
+
+        
+
+    }
 
     @FXML
     private void deliverBike() {
-        bikeRentalManager.deliverBike(selectArrivalLocation.getValue());
-        arrivalConfirmationGroup.setVisible(false);
-        departureGroup.setVisible(true);
-        rentedBikeIDText.setText("");
-        loadBikesIntoView();
+        try {
+            bikeRentalManager.deliverBike(selectArrivalLocation.getValue());
+            arrivalConfirmationGroup.setVisible(false);
+            departureGroup.setVisible(true);
+            rentedBikeIDText.setText("");
+            loadBikesIntoView();
+        } catch (Exception e) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Feilmelding");
+            alert.setContentText(e.toString());
+            alert.showAndWait();
+        }
     }
 
     @FXML
