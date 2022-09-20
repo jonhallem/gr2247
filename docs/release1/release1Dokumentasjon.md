@@ -1,10 +1,22 @@
 
 ```plantuml
 @startuml
-Class01 <|-- Class02
-Class03 *-- Class04
-Class05 o-- Class06
-Class07 .. Class08
-Class09 -- Class10
+BikeRentalManager -- Place
+BikeRentalManager -- User
+Place -- Bike
+User -- Bike
+
+Class BikeRentalManager {
+    List<Place> places
+    List<User> users
+    User loggedInUser
+    public List<Place> getPlaces()
+    public List<Bike> getBikeInPlace(Place place)
+    public User getLoggedInUser()
+    public void logIn(String username, String  password)
+    public void signUp(String username, String password)
+    public void rentBike(String placeName, String  bikeID)
+    public void deliverBike(String placeName)
+}
 @enduml
 ```
