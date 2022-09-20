@@ -50,7 +50,7 @@ public class UserTest {
     }
 
     @Test
-    @DisplayName("Tester det å legge til sykkler til en bruker. ")
+    @DisplayName("Tester det å fjerne sykkler fra en bruker ")
     void testReturnAndRomeveBike() {
         User user = new User("username", "password1234");
         Bike bike = new Bike("TESTIDN1", "Landeveissykkel", "Blå");
