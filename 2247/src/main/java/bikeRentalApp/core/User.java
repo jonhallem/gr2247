@@ -78,4 +78,9 @@ public class User {
             throw new IllegalArgumentException("Passordet oppfyller ikke kravet. \nPassordet må inneholde minst en bokstav og ett tall, \nog være minst 3 tegn langt.");
         }
     }
+
+    @Override
+    public String toString() {
+        return "username: " + getUsername() + ", password: " + getPassword() + ", bike: " + getBike().getID();
+    }
 }
