@@ -111,6 +111,28 @@ public class BikeRentalAppController {
     // -------------- Metoder for riktig innlasting av innhold -----------------
 
 
+    @FXML
+    void initialize() {
+        logInGroup.setVisible(true);
+    }
+
+    private void logIn() {
+
+        //TODO: connection login to db
+
+        usernameInput.getText();
+        passwordInput.getText();
+
+        if (logInSuccessful) {
+            rentedBikeIDText.setText("");
+            userInformationGroup.setVisible(true);
+            logInGroup.setVisible(false);
+        }
+
+
+    }
+
+
 
 
 
