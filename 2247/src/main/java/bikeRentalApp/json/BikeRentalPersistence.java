@@ -48,8 +48,3 @@ public class BikeRentalPersistence {
     // public void writeTodoModel(BikeRentalManager bikeRentalManager, Writer writer) throws IOException {
     //     mapper.writerWithDefaultPrettyPrinter().writeValue(writer, bikeRentalManager);
     }
-      
-
-    
-    
-}
