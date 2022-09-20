@@ -1,0 +1,23 @@
+{
+"Jarl": {
+    "username": "Jarl",
+    "password": "123A",
+    "bike": [ 
+        { 
+          "id": "BIKEIDN7",
+         "type": "Tandemsykkel",
+          "colour": "Gul"}
+    ]
+},
+"Jon": {
+    "username": "Jon",
+    "password": "123B",
+    "bike": [ 
+        { 
+          "id": "BIKEIDN8",
+         "type": "Tandemsykkel",
+          "colour": "Gul"}
+    ]
+}
+
+}

@@ -46,7 +46,7 @@ public class User {
         return tmpBike;
     }
 
-    private boolean validateUsername(String username) {
+    private void validateUsername(String username) {
 
         // Forbehold om at BikeRentalManager sjekker om brukernavnet er tilgjengelig
         if(username == null) {
@@ -56,14 +56,12 @@ public class User {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(username);
         
-        if(matcher.matches()) {
-            return true;
-        } else {
+        if(!matcher.matches()) {
             throw new IllegalArgumentException("Ikke gyldig brukernavn");
-        }
+        } 
     }
 
-    private boolean validatePassword(String password) {
+    private void validatePassword(String password) {
         // Strengere passordvalidering?
         if(password == null) {
             throw new IllegalArgumentException("Passordet må være noe annet enn null.");
@@ -72,11 +70,9 @@ public class User {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(password);
 
-        if(matcher.matches()) {
-            return true;
-        } else {
+        if(!matcher.matches()) {
             throw new IllegalArgumentException("Passordet oppfyller ikke kravet. \nPassordet må inneholde minst en bokstav og ett tall, \nog være minst 3 tegn langt.");
-        }
+        } 
     }
 
     @Override
