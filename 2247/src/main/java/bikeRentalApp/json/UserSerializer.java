@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 import bikeRentalApp.core.User;
-import bikeRentalApp.core.Bike;
 
 public class UserSerializer extends JsonSerializer<User>{
 
@@ -16,9 +15,8 @@ public class UserSerializer extends JsonSerializer<User>{
         {
             "username": "...",
             "password": "...",
-            "bike": "[...]"
+            "bike": [...]
         }
-
      */
 
     @Override
@@ -26,9 +24,7 @@ public class UserSerializer extends JsonSerializer<User>{
         jGen.writeStartObject();
         jGen.writeStringField("username", user.getUsername());
         jGen.writeStringField("password", user.getPassword());
-        jGen.writeArrayFieldStart("bike");
-        jGen.writeObject(user.getBike());
-        jGen.writeEndArray();
+        jGen.writePOJOField("bike", user.getBike());
         jGen.writeEndObject();
     }
     
