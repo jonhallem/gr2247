@@ -20,8 +20,6 @@ public class BikeRentalAppController {
 
     private Place chosenDepartureLocation;
 
-    private Place chosenArrivalLocation;
-
 
 
     // -------------- Statisk innhold alltid synlig i applikasjonen -----------------
@@ -170,18 +168,33 @@ public class BikeRentalAppController {
     @FXML
     private void rentBike(Bike bike) {
 
-        Place chosenLocation = 
+        departureGroup.setVisible(false);
+        arrivalGroup.setVisible(true);
 
-        bikeRentalManager.rentBike(placeName, bike.getID());
+        bikeRentalManager.rentBike(selectDepartureLocation.getValue(), bike.getID());
+        rentedBikeIDText.setText(bike.getID());
     }
 
+
+    @FXML
+    private void deliverBike() {
+        bikeRentalManager.deliverBike(selectArrivalLocation.getValue());
+        arrivalConfirmationGroup.setVisible(false);
+        departureGroup.setVisible(true);
+    }
+
+    @FXML
+    private void showReturnGroup() {
+        departureGroup.setVisible(false);
+        arrivalConfirmationGroup.setVisible(true);
+    }
 
 
 
 
     // ---------- Hjelpemetoder -------------
 
-
+    
     @FXML
     private void loadBikesIntoView() {
 
@@ -195,8 +208,8 @@ public class BikeRentalAppController {
             listOfAvailableBikes.getItems().add(bike.getID());
         }
 
+        // TODO: bruke denne i stedet?
         // bikeRentalManager.getBikeInPlace(chosenDepartureLocation);
-
     }
 
 
