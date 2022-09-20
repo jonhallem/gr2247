@@ -1,10 +1,10 @@
 
 ```plantuml
 @startuml
-BikeRentalManager -- Place
-BikeRentalManager -- User
-Place -- Bike
-User -- Bike
+BikeRentalManager --> "places: *" Place : contains
+BikeRentalManager --> "users: *, loggedInUser: 1"  User : contains
+Place --> "bikes: maximumNumberOfBikes" Bike : contains
+User --> "bike: 1" Bike : contains
 
 Class BikeRentalManager {
     -List<Place> places
