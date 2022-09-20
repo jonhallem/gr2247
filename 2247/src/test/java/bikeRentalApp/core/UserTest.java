@@ -44,6 +44,9 @@ public class UserTest {
         
         // Setter bike til user, oppretter bike2, og forsøker å legge bike2 til bruker. 
         user.setBike(bike);
+
+        assertEquals(user.getBike().getID(), "TESTIDN1", "Sykkel med riktig ID skal være satt");
+
         Bike bike2 = new Bike("TESTIDN2", "Terrengsykkel", "Rød");
         assertThrows(IllegalStateException.class, () -> {
             user.setBike(bike2); }, "IllegalState skal utløses dersom du setter en ny sykkel for en bruker som allerede har en sykkel.");
@@ -59,7 +62,7 @@ public class UserTest {
         assertEquals(user.removeAndReturnBike(), bike, "removeAndReturnBike skal returnere et bike-objekt");
         assertEquals(user.getBike(), null, "getBike skal returnere null om removeAndReturnBike er utført");
         assertThrows(IllegalStateException.class, () -> {
-            user.removeAndReturnBike(); }, "IllegalState skal utløses dersom du prøver å fjerne en sykkel når du ikke har en satt.");
+            user.removeAndReturnBike(); }, "IllegalState skal utløses dersom du prøver å fjerne en sykkel når du ikke har satt en. ");
     
     }
 
