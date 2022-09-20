@@ -119,6 +119,8 @@ public class BikeRentalAppController {
 
         bikeRentalManager = new BikeRentalManager();
 
+        bikeRentalManager.testMethod();
+
         logInGroup.setVisible(true);
 
         updateLocations();
@@ -139,10 +141,12 @@ public class BikeRentalAppController {
             rentedBikeIDText.setText("");
             userInformationGroup.setVisible(true);
             logInGroup.setVisible(false);
+            departureGroup.setVisible(true);
         } catch (IllegalArgumentException e) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Feilmelding");
             alert.setContentText(e.toString());
+            alert.showAndWait();
         }
     }
 
@@ -159,10 +163,12 @@ public class BikeRentalAppController {
             rentedBikeIDText.setText("");
             userInformationGroup.setVisible(true);
             logInGroup.setVisible(false);
+            departureGroup.setVisible(true);
         } catch (IllegalArgumentException e) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Feilmelding");
             alert.setContentText(e.toString());
+            alert.showAndWait();
         }
     }
 
