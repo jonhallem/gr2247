@@ -10,7 +10,9 @@ import java.util.Scanner;
 
 public class BikeRentalDataHandler {
 
-
+public BikeRentalDataHandler() {
+    
+}
 
     public List<User> readUsers() throws FileNotFoundException {
 

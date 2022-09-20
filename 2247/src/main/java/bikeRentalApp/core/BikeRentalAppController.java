@@ -1,5 +1,7 @@
 package bikeRentalApp.core;
 
+import java.io.FileNotFoundException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -19,6 +21,8 @@ public class BikeRentalAppController {
     private BikeRentalManager bikeRentalManager;
 
     private Place chosenDepartureLocation;
+
+    private BikeRentalDataHandler dataHandler;
 
 
 
@@ -118,12 +122,13 @@ public class BikeRentalAppController {
 
 
     @FXML
-    void initialize() {
+    void initialize() throws FileNotFoundException {
 
         bikeRentalManager = new BikeRentalManager();
 
         bikeRentalManager.testMethod();
         rentedBikeIDText.setText("");
+        dataHandler.readUsers();
 
         logInGroup.setVisible(true);
 
