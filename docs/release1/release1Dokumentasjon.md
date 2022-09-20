@@ -33,5 +33,19 @@ Class Place {
     -void inputNotNullValidator(Object input)
     +Iterator<Bike> iterator()
 }
+
+Class User {
+    -String username
+    -String password
+    -Bike bike
+    +String getUserName()
+    +String getPassword()
+    +Bike getBike()
+    +void setBike(Bike bike)
+    +Bike removeAndReturnBike()
+    -void validateUsername(String username)
+    -void validatePassword(String password)
+    +String toString()
+}
 @enduml
 ```
