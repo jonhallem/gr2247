@@ -136,7 +136,25 @@ public class BikeRentalAppController {
             userInformationGroup.setVisible(true);
             logInGroup.setVisible(false);
         } catch (IllegalArgumentException e) {
-            // TODO: handle exception
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Feilmelding");
+            alert.setContentText(e.toString());
+        }
+    }
+
+    private void signUp() {
+
+        //TODO: connection login to db
+
+    String username = usernameInput.getText();
+    String password = passwordInput.getText();
+
+        try {
+            bikeRentalManager.signUp(username, password);
+            rentedBikeIDText.setText("");
+            userInformationGroup.setVisible(true);
+            logInGroup.setVisible(false);
+        } catch (IllegalArgumentException e) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Feilmelding");
             alert.setContentText(e.toString());
