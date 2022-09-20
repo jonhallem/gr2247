@@ -63,6 +63,23 @@ public class BikeRentalManager {
 
     }
 
+    public void rentBike(String placeName, String bikeID) {
+
+        for (Place place : places) {
+            if (place.getName().equals(placeName)) {
+                for (Bike bike : place) {
+                    if (bike.getID().equals(bikeID)) {
+                        this.loggedInUser.setBike(bike);
+                        place.removeBike(bikeID);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    
+
 
 
 
