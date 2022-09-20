@@ -1,11 +1,13 @@
 package bikeRentalApp.core;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 
 public class BikeRentalAppController {
@@ -14,9 +16,7 @@ public class BikeRentalAppController {
 
     // -------------- Kobling til applikasjon -----------------
 
-
-    // TODO: link masterclass
-
+    private BikeRentalManager bikeRentalManager;
 
 
 
@@ -119,22 +119,28 @@ public class BikeRentalAppController {
         logInGroup.setVisible(true);
     }
 
+
+
+
+
     private void logIn() {
 
         //TODO: connection login to db
 
-        usernameInput.getText();
-        passwordInput.getText();
+    String username = usernameInput.getText();
+    String password = passwordInput.getText();
 
-        try (-----) {
+        try {
+            bikeRentalManager.logIn(username, password);
             rentedBikeIDText.setText("");
             userInformationGroup.setVisible(true);
             logInGroup.setVisible(false);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             // TODO: handle exception
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Feilmelding");
+            alert.setContentText(e.toString());
         }
-
-
     }
 
 

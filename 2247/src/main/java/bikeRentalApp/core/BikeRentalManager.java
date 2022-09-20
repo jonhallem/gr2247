@@ -33,6 +33,13 @@ public class BikeRentalManager {
         return new ArrayList<>(places);
     }
 
+    public List<Bike> getBikeInPlace(Place place) {
+        return new ArrayList<>(place.getBikes());
+    }
+
+    public User getLoggedInUser() {
+        return loggedInUser;
+    }
 
 
 
