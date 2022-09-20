@@ -18,7 +18,7 @@ public class BikeRentalModule extends SimpleModule {
 
     super(NAME, Version.unknownVersion());
     addSerializer(User.class, new UserSerializer());
-    //addDeserializer(User.class, new UserDerializer());
+    addDeserializer(User.class, new UserDeserializer());
     
     addSerializer(Bike.class, new BikeSerializer());
     addDeserializer(Bike.class, new BikeDeserializer());
