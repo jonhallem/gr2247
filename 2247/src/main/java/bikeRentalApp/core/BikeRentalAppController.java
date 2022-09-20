@@ -49,6 +49,9 @@ public class BikeRentalAppController {
     @FXML
     private Button logInButton;
 
+    @FXML
+    private Button signUpButton;
+
 
 
 

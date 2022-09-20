@@ -49,4 +49,13 @@ public class BikeRentalManager {
         throw new IllegalArgumentException("Brukernavn eller passord er ikke gyldig");
 
     }
+
+    
+
+
+
+
+
+
+
 }
