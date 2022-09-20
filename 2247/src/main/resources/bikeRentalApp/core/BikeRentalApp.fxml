@@ -25,11 +25,6 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Label fx:id="yourBikeTitle" alignment="CENTER" layoutX="157.0" layoutY="633.0" prefHeight="37.0" prefWidth="233.0" text="Din sykkel:" textAlignment="CENTER">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
       <Pane fx:id="logInGroup" layoutX="126.0" layoutY="178.0" prefHeight="336.0" prefWidth="290.0">
          <children>
             <ImageView fitHeight="159.0" fitWidth="154.0" layoutX="71.0" layoutY="-17.0" preserveRatio="true">
@@ -87,6 +82,11 @@
                   <Image url="@../../img/bicycleIcon.png" />
                </image>
             </ImageView>
+            <Label fx:id="yourBikeTitle" alignment="CENTER" layoutX="118.0" layoutY="-35.0" prefHeight="37.0" prefWidth="233.0" text="Din sykkel:" textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Pane fx:id="arrivalGroup" layoutX="1.0" layoutY="128.0" prefHeight="502.0" prefWidth="539.0" visible="false">

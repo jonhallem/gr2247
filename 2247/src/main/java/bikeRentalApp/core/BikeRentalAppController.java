@@ -123,6 +123,7 @@ public class BikeRentalAppController {
         bikeRentalManager = new BikeRentalManager();
 
         bikeRentalManager.testMethod();
+        rentedBikeIDText.setText("");
 
         logInGroup.setVisible(true);
 
@@ -199,6 +200,7 @@ public class BikeRentalAppController {
         bikeRentalManager.deliverBike(selectArrivalLocation.getValue());
         arrivalConfirmationGroup.setVisible(false);
         departureGroup.setVisible(true);
+        rentedBikeIDText.setText("");
         loadBikesIntoView();
     }
 
