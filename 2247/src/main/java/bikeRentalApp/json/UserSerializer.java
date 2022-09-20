@@ -4,11 +4,9 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
-//import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 import bikeRentalApp.core.User;
-//import bikeRentalApp.core.Bike;
 
 public class UserSerializer extends JsonSerializer<User>{
 
@@ -19,7 +17,6 @@ public class UserSerializer extends JsonSerializer<User>{
             "password": "...",
             "bike": [...]
         }
-
      */
 
     @Override
@@ -27,10 +24,7 @@ public class UserSerializer extends JsonSerializer<User>{
         jGen.writeStartObject();
         jGen.writeStringField("username", user.getUsername());
         jGen.writeStringField("password", user.getPassword());
-        //jGen.writeArrayFieldStart("bike");
         jGen.writePOJOField("bike", user.getBike());
-        //jGen.writeObject(user.getBike());
-        jGen.writeEndArray();
         jGen.writeEndObject();
     }
     
