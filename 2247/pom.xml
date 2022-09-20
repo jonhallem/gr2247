@@ -137,6 +137,8 @@
                 <argLine>
                 --add-opens bikeRentalApp.core/bikeRentalApp.core=ALL-UNNAMED --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
                 </argLine>
+                <source>1.8</source>
+                <target>1.8</target>
             </configuration>
         </plugin>
 
