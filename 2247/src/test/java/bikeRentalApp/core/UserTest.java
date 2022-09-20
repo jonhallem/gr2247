@@ -56,7 +56,6 @@ public class UserTest {
         Bike bike = new Bike("TESTIDN1", "Landeveissykkel", "Blå");
         user.setBike(bike);
 
-
         assertEquals(user.removeAndReturnBike(), bike, "removeAndReturnBike skal returnere et bike-objekt");
         assertEquals(user.getBike(), null, "getBike skal returnere null om removeAndReturnBike er utført");
         assertThrows(IllegalStateException.class, () -> {
