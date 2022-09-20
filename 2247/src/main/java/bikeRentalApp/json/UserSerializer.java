@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 import bikeRentalApp.core.User;
+import bikeRentalApp.core.Bike;
 
 public class UserSerializer extends JsonSerializer<User>{
 
@@ -15,15 +16,20 @@ public class UserSerializer extends JsonSerializer<User>{
         {
             "username": "...",
             "password": "...",
-            "bike": "..."
+            "bike": "[...]"
         }
 
      */
 
     @Override
-    public void serialize(User arg0, JsonGenerator arg1, SerializerProvider arg2) throws IOException {
-        // TODO Auto-generated method stub
-        
+    public void serialize(User user, JsonGenerator jGen, SerializerProvider serializerProvider) throws IOException {
+        jGen.writeStartObject();
+        jGen.writeStringField("username", user.getUsername());
+        jGen.writeStringField("password", user.getPassword());
+        jGen.writeArrayFieldStart("bike");
+        jGen.writeObject(user.getBike());
+        jGen.writeEndArray();
+        jGen.writeEndObject();
     }
     
 }
