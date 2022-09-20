@@ -131,7 +131,7 @@ public class BikeRentalAppController {
     }
 
 
-
+    // -------- Brukerinnlogging og opprettelse ---------------
     @FXML
     private void logIn() {
 
@@ -176,7 +176,9 @@ public class BikeRentalAppController {
         }
     }
 
+    // ------------ Metoder for utlån og innlevering av sykler -----------
 
+    // utlån av sykkel
     @FXML
     private void rentBike() {
         
@@ -202,12 +204,9 @@ public class BikeRentalAppController {
             alert.setContentText("Velg en sykkel du ønsker å låne!");
             alert.showAndWait();
         }
-
-
-        
-
     }
 
+    // innlevering av sykkel
     @FXML
     private void deliverBike() {
         try {
@@ -215,7 +214,7 @@ public class BikeRentalAppController {
             arrivalConfirmationGroup.setVisible(false);
             departureGroup.setVisible(true);
             rentedBikeIDText.setText("");
-            loadBikesIntoView();
+            loadBikesIntoList();
         } catch (Exception e) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Feilmelding");
@@ -224,6 +223,7 @@ public class BikeRentalAppController {
         }
     }
 
+    // Visning av bekreftelses-vindu for innlevering
     @FXML
     private void showReturnGroup() {
         arrivalGroup.setVisible(false);
@@ -237,7 +237,7 @@ public class BikeRentalAppController {
 
     
     @FXML
-    private void loadBikesIntoView() {
+    private void loadBikesIntoList() {
         
         listOfAvailableBikes.getItems().clear();
 
@@ -267,9 +267,9 @@ public class BikeRentalAppController {
     }
 
 
+    // legger inn lokasjoner i comboboxer
     private void updateLocations() {
 
-        // legger inn lokasjoner i comboboxer
         for (Place place : bikeRentalManager.getPlaces()) {
             selectDepartureLocation.getItems().add(place.getName());
             selectArrivalLocation.getItems().add(place.getName());
