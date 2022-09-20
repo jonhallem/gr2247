@@ -47,5 +47,20 @@ Class User {
     -void validatePassword(String password)
     +String toString()
 }
+
+Class Bike {
+    -String iD
+    -String type
+    -String colour
+    -Collection<String> validTypes
+    -Collection<String> validColours
+    -void validateID(String iD)
+    -void validateType(String type)
+    -void validateColour(String colour)
+    -void inputNotNullValidator(Object input)
+    +String getID()
+    +String getType()
+    +String getColour()
+}
 @enduml
 ```
