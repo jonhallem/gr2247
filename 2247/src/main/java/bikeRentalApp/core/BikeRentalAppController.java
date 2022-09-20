@@ -116,6 +116,9 @@ public class BikeRentalAppController {
 
     @FXML
     void initialize() {
+
+        bikeRentalManager = new BikeRentalManager();
+
         logInGroup.setVisible(true);
 
         updateLocations();

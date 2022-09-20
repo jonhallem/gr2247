@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="839.0" prefWidth="541.0" style="-fx-background-color: f2f2f7;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="839.0" prefWidth="541.0" style="-fx-background-color: f2f2f7;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bikeRentalApp.core.BikeRentalAppController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1fffa9" height="139.0" layoutX="-55.0" layoutY="-15.0" stroke="TRANSPARENT" strokeType="INSIDE" width="597.0">
          <effect>
@@ -98,7 +98,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane fx:id="arrivalConfirmationGroup" layoutX="1.0" layoutY="123.0" prefHeight="506.0" prefWidth="540.0">
+      <Pane fx:id="arrivalConfirmationGroup" layoutX="1.0" layoutY="123.0" prefHeight="506.0" prefWidth="540.0" visible="false">
          <children>
             <Label layoutX="153.0" layoutY="51.0" text="Hvor skal du levere sykkelen?">
                <font>
