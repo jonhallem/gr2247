@@ -18,7 +18,9 @@ public class BikeRentalAppController {
 
     private BikeRentalManager bikeRentalManager;
 
+    private Place chosenDepartureLocation;
 
+    private Place chosenArrivalLocation;
 
 
 
@@ -63,10 +65,10 @@ public class BikeRentalAppController {
 
     //TODO: Generer innhold med utgangspunkt i etablerte lokasjoner
     @FXML
-    private ComboBox selectDepartureLocation;
+    private ComboBox<String> selectDepartureLocation;
 
     @FXML
-    private ListView listOfAvailableBikes;
+    private ListView<String> listOfAvailableBikes;
 
 
 
@@ -90,7 +92,7 @@ public class BikeRentalAppController {
     private Pane arrivalConfirmationGroup;
 
     @FXML
-    private ComboBox selectArrivalLocation;
+    private ComboBox<String> selectArrivalLocation;
 
     @FXML
     private Button confirmReturnBikeButton;
@@ -117,12 +119,13 @@ public class BikeRentalAppController {
     @FXML
     void initialize() {
         logInGroup.setVisible(true);
+
+        updateLocations();
     }
 
 
 
-
-
+    @FXML
     private void logIn() {
 
         //TODO: connection login to db
@@ -142,6 +145,7 @@ public class BikeRentalAppController {
         }
     }
 
+    @FXML
     private void signUp() {
 
         //TODO: connection login to db
@@ -163,6 +167,47 @@ public class BikeRentalAppController {
 
 
 
+    @FXML
+    private void rentBike(Bike bike) {
 
+        Place chosenLocation = 
+
+        bikeRentalManager.rentBike(placeName, bike.getID());
+    }
+
+
+
+
+
+    // ---------- Hjelpemetoder -------------
+
+
+    @FXML
+    private void loadBikesIntoView() {
+
+        for (Place place : bikeRentalManager.getPlaces()) {
+            if (place.getName().equals(selectDepartureLocation.getValue())) {
+                chosenDepartureLocation = place;
+            }
+        }
+
+        for (Bike bike : chosenDepartureLocation) {
+            listOfAvailableBikes.getItems().add(bike.getID());
+        }
+
+        // bikeRentalManager.getBikeInPlace(chosenDepartureLocation);
+
+    }
+
+
+    private void updateLocations() {
+
+        // legger inn lokasjoner i comboboxer
+        for (Place place : bikeRentalManager.getPlaces()) {
+            selectDepartureLocation.getItems().add(place.getName());
+            selectArrivalLocation.getItems().add(place.getName());
+        }
+
+    }
 
 }
