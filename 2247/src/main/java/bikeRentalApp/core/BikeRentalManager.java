@@ -50,9 +50,18 @@ public class BikeRentalManager {
 
     }
 
-    
+    public void signUp(String username, String password) {
 
+        for (User user : users) {
+           if (user.getUsername().equals(username)) {
+                throw new IllegalArgumentException("Brukernavnet er tatt!");
+           }
+        }
+        User user = new User(username, password);
+        this.users.add(user);
+        this.loggedInUser = user;
 
+    }
 
 
 
