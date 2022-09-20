@@ -68,6 +68,9 @@ public class BikeRentalAppController {
     @FXML
     private ListView<String> listOfAvailableBikes;
 
+    @FXML
+    private Button rentBikeButton;
+
 
 
 
@@ -175,13 +178,19 @@ public class BikeRentalAppController {
 
 
     @FXML
-    private void rentBike(Bike bike) {
+    private void rentBike() {
 
         departureGroup.setVisible(false);
         arrivalGroup.setVisible(true);
 
-        bikeRentalManager.rentBike(selectDepartureLocation.getValue(), bike.getID());
-        rentedBikeIDText.setText(bike.getID());
+        String bikeID = listOfAvailableBikes.getSelectionModel().getSelectedItem().split(" --- ")[0].split(": ")[1];
+        
+        for (Bike bike : chosenDepartureLocation) {
+            if (bike.getID().equals(bikeID)) {
+                bikeRentalManager.rentBike(selectDepartureLocation.getValue(), bike.getID());
+                rentedBikeIDText.setText(bike.getType() + " - " + bike.getID());
+            }
+        }
     }
 
 
@@ -190,11 +199,12 @@ public class BikeRentalAppController {
         bikeRentalManager.deliverBike(selectArrivalLocation.getValue());
         arrivalConfirmationGroup.setVisible(false);
         departureGroup.setVisible(true);
+        loadBikesIntoView();
     }
 
     @FXML
     private void showReturnGroup() {
-        departureGroup.setVisible(false);
+        arrivalGroup.setVisible(false);
         arrivalConfirmationGroup.setVisible(true);
     }
 
@@ -206,6 +216,8 @@ public class BikeRentalAppController {
     
     @FXML
     private void loadBikesIntoView() {
+        
+        listOfAvailableBikes.getItems().clear();
 
         for (Place place : bikeRentalManager.getPlaces()) {
             if (place.getName().equals(selectDepartureLocation.getValue())) {
@@ -214,7 +226,18 @@ public class BikeRentalAppController {
         }
 
         for (Bike bike : chosenDepartureLocation) {
-            listOfAvailableBikes.getItems().add(bike.getID());
+            
+            StringBuilder sb = new StringBuilder();
+            sb.append("SykkelID: ");
+            sb.append(bike.getID());
+            sb.append(" --- ");
+            sb.append("Type: ");
+            sb.append(bike.getType());
+            sb.append(" --- ");
+            sb.append("Farge: ");
+            sb.append(bike.getColour());
+            
+            listOfAvailableBikes.getItems().add(sb.toString());
         }
 
         // TODO: bruke denne i stedet?
