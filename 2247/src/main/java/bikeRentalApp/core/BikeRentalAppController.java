@@ -1,5 +1,7 @@
 package bikeRentalApp.core;
 
+import java.io.FileNotFoundException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -19,6 +21,8 @@ public class BikeRentalAppController {
     private BikeRentalManager bikeRentalManager;
 
     private Place chosenDepartureLocation;
+
+    private BikeRentalDataHandler dataHandler;
 
 
 
@@ -114,15 +118,17 @@ public class BikeRentalAppController {
 
 
 
-    // -------------- Metoder for riktig innlasting av innhold -----------------
+    // -------------- Metoder for riktig innlasting av GUI innhold -----------------
 
 
     @FXML
-    void initialize() {
+    void initialize() throws FileNotFoundException {
 
         bikeRentalManager = new BikeRentalManager();
 
         bikeRentalManager.testMethod();
+        rentedBikeIDText.setText("");
+        dataHandler.readUsers();
 
         logInGroup.setVisible(true);
 
@@ -130,7 +136,7 @@ public class BikeRentalAppController {
     }
 
 
-
+    // -------- Brukerinnlogging og opprettelse ---------------
     @FXML
     private void logIn() {
 
@@ -175,33 +181,54 @@ public class BikeRentalAppController {
         }
     }
 
+    // ------------ Metoder for utlån og innlevering av sykler -----------
 
-
+    // utlån av sykkel
     @FXML
     private void rentBike() {
-
-        departureGroup.setVisible(false);
-        arrivalGroup.setVisible(true);
-
-        String bikeID = listOfAvailableBikes.getSelectionModel().getSelectedItem().split(" --- ")[0].split(": ")[1];
         
-        for (Bike bike : chosenDepartureLocation) {
-            if (bike.getID().equals(bikeID)) {
-                bikeRentalManager.rentBike(selectDepartureLocation.getValue(), bike.getID());
-                rentedBikeIDText.setText(bike.getType() + " - " + bike.getID());
+        String selectedBike = listOfAvailableBikes.getSelectionModel().getSelectedItem();
+
+        if (selectedBike != null) {
+            
+            String bikeID = selectedBike.split(" --- ")[0].split(": ")[1];
+
+            for (Bike bike : chosenDepartureLocation.getBikes()) {
+                if (bike.getID().equals(bikeID)) {
+                    bikeRentalManager.rentBike(selectDepartureLocation.getValue(), bike.getID());
+                    rentedBikeIDText.setText(bike.getType() + " - " + bike.getID());
+                }
             }
+
+            departureGroup.setVisible(false);
+            arrivalGroup.setVisible(true);
+
+        } else {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Feilmelding");
+            alert.setContentText("Velg en sykkel du ønsker å låne!");
+            alert.showAndWait();
         }
     }
 
-
+    // innlevering av sykkel
     @FXML
     private void deliverBike() {
-        bikeRentalManager.deliverBike(selectArrivalLocation.getValue());
-        arrivalConfirmationGroup.setVisible(false);
-        departureGroup.setVisible(true);
-        loadBikesIntoView();
+        try {
+            bikeRentalManager.deliverBike(selectArrivalLocation.getValue());
+            arrivalConfirmationGroup.setVisible(false);
+            departureGroup.setVisible(true);
+            rentedBikeIDText.setText("");
+            loadBikesIntoList();
+        } catch (Exception e) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Feilmelding");
+            alert.setContentText(e.toString());
+            alert.showAndWait();
+        }
     }
 
+    // Visning av bekreftelses-vindu for innlevering
     @FXML
     private void showReturnGroup() {
         arrivalGroup.setVisible(false);
@@ -215,7 +242,7 @@ public class BikeRentalAppController {
 
     
     @FXML
-    private void loadBikesIntoView() {
+    private void loadBikesIntoList() {
         
         listOfAvailableBikes.getItems().clear();
 
@@ -245,9 +272,9 @@ public class BikeRentalAppController {
     }
 
 
+    // legger inn lokasjoner i comboboxer
     private void updateLocations() {
 
-        // legger inn lokasjoner i comboboxer
         for (Place place : bikeRentalManager.getPlaces()) {
             selectDepartureLocation.getItems().add(place.getName());
             selectArrivalLocation.getItems().add(place.getName());

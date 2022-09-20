@@ -25,11 +25,6 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Label fx:id="yourBikeTitle" alignment="CENTER" layoutX="157.0" layoutY="633.0" prefHeight="37.0" prefWidth="233.0" text="Din sykkel:" textAlignment="CENTER">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
       <Pane fx:id="logInGroup" layoutX="126.0" layoutY="178.0" prefHeight="336.0" prefWidth="290.0">
          <children>
             <ImageView fitHeight="159.0" fitWidth="154.0" layoutX="71.0" layoutY="-17.0" preserveRatio="true">
@@ -58,7 +53,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ComboBox fx:id="selectDepartureLocation" layoutX="134.0" layoutY="77.0" onAction="#loadBikesIntoView" prefHeight="26.0" prefWidth="269.0" promptText="Velg sted for avreise" />
+            <ComboBox fx:id="selectDepartureLocation" layoutX="134.0" layoutY="77.0" onAction="#loadBikesIntoList" prefHeight="26.0" prefWidth="269.0" promptText="Velg sted for avreise" />
             <ListView fx:id="listOfAvailableBikes" layoutX="54.0" layoutY="124.0" prefHeight="256.0" prefWidth="429.0" />
             <Button fx:id="rentBikeButton" layoutX="171.0" layoutY="411.0" mnemonicParsing="false" onAction="#rentBike" prefHeight="59.0" prefWidth="202.0" style="-fx-background-color: green;" text="Lån valgt sykkel">
                <font>
@@ -77,7 +72,7 @@
                   <DropShadow />
                </effect>
             </Rectangle>
-            <Label fx:id="rentedBikeIDText" layoutX="234.0" prefHeight="131.0" prefWidth="215.0" text="Fjellsykkel 23539A" wrapText="true">
+            <Label fx:id="rentedBikeIDText" layoutX="234.0" prefHeight="131.0" prefWidth="237.0" text="Fjellsykkel 12345678" wrapText="true">
                <font>
                   <Font size="24.0" />
                </font>
@@ -87,6 +82,11 @@
                   <Image url="@../../img/bicycleIcon.png" />
                </image>
             </ImageView>
+            <Label fx:id="yourBikeTitle" alignment="CENTER" layoutX="118.0" layoutY="-35.0" prefHeight="37.0" prefWidth="233.0" text="Din sykkel:" textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Pane fx:id="arrivalGroup" layoutX="1.0" layoutY="128.0" prefHeight="502.0" prefWidth="539.0" visible="false">
@@ -108,13 +108,18 @@
       </Pane>
       <Pane fx:id="arrivalConfirmationGroup" layoutX="1.0" layoutY="123.0" prefHeight="506.0" prefWidth="540.0" visible="false">
          <children>
-            <Label layoutX="153.0" layoutY="51.0" text="Hvor skal du levere sykkelen?">
+            <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#1fffa9" height="282.0" layoutX="105.0" layoutY="118.0" stroke="TRANSPARENT" strokeType="INSIDE" width="346.0">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Rectangle>
+            <Label layoutX="174.0" layoutY="127.0" text="Hvor skal du levere sykkelen?">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <ComboBox fx:id="selectArrivalLocation" layoutX="124.0" layoutY="98.0" prefHeight="26.0" prefWidth="269.0" promptText="Velg sted for innlevering" />
-            <Button fx:id="confirmReturnBikeButton" layoutX="166.0" layoutY="355.0" mnemonicParsing="false" onAction="#deliverBike" prefHeight="98.0" prefWidth="202.0" style="-fx-background-color: red;" text="Bekreft innlevering">
+            <ComboBox fx:id="selectArrivalLocation" layoutX="145.0" layoutY="174.0" prefHeight="26.0" prefWidth="269.0" promptText="Velg sted for innlevering" />
+            <Button fx:id="confirmReturnBikeButton" layoutX="177.0" layoutY="301.0" mnemonicParsing="false" onAction="#deliverBike" prefHeight="55.0" prefWidth="202.0" style="-fx-background-color: red;" text="Bekreft innlevering">
                <font>
                   <Font size="18.0" />
                </font>
