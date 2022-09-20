@@ -92,8 +92,7 @@ public class BikeRentalManager {
             if (place.getName().equals(placeName)) {
                 for (Bike bike : place) {
                     if (bike.getID().equals(bikeID)) {
-                        this.loggedInUser.setBike(bike);
-                        place.removeBike(bikeID);
+                        this.loggedInUser.setBike(place.removeAndGetBike(bikeID));
                         return;
                     }
                 }
