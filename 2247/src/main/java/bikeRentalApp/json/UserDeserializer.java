@@ -7,9 +7,10 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.POJONode;
-import com.mashape.unirest.http.JsonNode;
+import com.fasterxml.jackson.databind.node.TextNode;
 
 import bikeRentalApp.core.Bike;
 import bikeRentalApp.core.User;
@@ -23,16 +24,17 @@ public class UserDeserializer extends JsonDeserializer<User>{
         TreeNode treeNode = parser.getCodec().readTree(parser);
         if(treeNode instanceof ObjectNode) {
             ObjectNode objectNode = (ObjectNode) treeNode;
-            JsonNode nameNode = objectNode.get("username");
+            JsonNode usernameNode = objectNode.get("username");
             JsonNode passwordNode = objectNode.get("password");
             JsonNode bikeNode = objectNode.get("bike");
-            
-            // Bike newJsonNode = bikeNode.treeToValue(bikeNode, Bike.class)
-        }
 
+            Bike bike = bikeDeserializer.deserialize(bikeNode);
+
+            if(usernameNode instanceof TextNode && passwordNode instanceof TextNode &&
+            bikeNode instanceof POJONode) {
+                return new User(((TextNode) usernameNode).asText(), ((TextNode) passwordNode).asText(), bike);
+            }
+        }
         return null;
-        
-        
     }
-    
 }

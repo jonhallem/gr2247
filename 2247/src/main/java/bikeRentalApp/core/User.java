@@ -17,6 +17,14 @@ public class User {
         this.password = password;
         this.bike = null;
     }
+
+    public User(String username, String password, Bike bike) {
+        validateUsername(username);
+        validatePassword(password);
+        this.username = username;
+        this.password = password;
+        setBike(bike);
+    }
     
     public String getUsername() {
         return this.username;
