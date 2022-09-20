@@ -52,7 +52,7 @@ public class Place implements Iterable<Bike> {
 
     //Legge til og fjerne sykler
     
-    public Bike removeBike(String bikeID) {
+    public Bike removeAndGetBike(String bikeID) {
         validateID(bikeID);
         Bike bikeToRemove = this.bikes.stream().filter(bike -> bike.getID().equals(bikeID)).findFirst().get();
         this.bikes.remove(bikeToRemove);
@@ -90,6 +90,8 @@ public class Place implements Iterable<Bike> {
         }
     }
 
+
+    //Iteratormetode
 
     @Override
     public Iterator<Bike> iterator() {
