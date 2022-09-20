@@ -7,16 +7,16 @@ Place -- Bike
 User -- Bike
 
 Class BikeRentalManager {
-    List<Place> places
-    List<User> users
-    User loggedInUser
-    public List<Place> getPlaces()
-    public List<Bike> getBikeInPlace(Place place)
-    public User getLoggedInUser()
-    public void logIn(String username, String  password)
-    public void signUp(String username, String password)
-    public void rentBike(String placeName, String  bikeID)
-    public void deliverBike(String placeName)
+    -List<Place> places
+    -List<User> users
+    -User loggedInUser
+    +List<Place> getPlaces()
+    +List<Bike> getBikeInPlace(Place place)
+    +User getLoggedInUser()
+    +void logIn(String username, String  +password)
+    +void signUp(String username, String password)
+    +void rentBike(String placeName, String  bikeID)
+    +void deliverBike(String placeName)
 }
 @enduml
 ```
