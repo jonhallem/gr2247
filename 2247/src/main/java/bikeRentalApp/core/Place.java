@@ -12,7 +12,7 @@ public class Place implements Iterable<Bike> {
     private int maximumNumberOfBikes;
     private List<Bike> bikes;
 
-    //Konstruktør
+    //Konstruktører
     public Place(String name, int maximumNumberOfBikes){
         this.nameValidator(name);
         if (maximumNumberOfBikes < 1) {
@@ -22,6 +22,17 @@ public class Place implements Iterable<Bike> {
         this.maximumNumberOfBikes = maximumNumberOfBikes;
         this.bikes = new ArrayList<>();
     }
+
+    public Place(String name, int maximumNumberOfBikes, List<Bike> bikes){
+        this.nameValidator(name);
+        if (maximumNumberOfBikes < 1) {
+            throw new IllegalArgumentException("Stedet må minst kunne holde på én sykkel.");
+        }
+        this.name = name;
+        this.maximumNumberOfBikes = maximumNumberOfBikes;
+        this.bikes = bikes;
+    }
+
 
 
     //Gettere

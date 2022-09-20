@@ -24,7 +24,7 @@ public class PlaceSerializer extends JsonSerializer<Place> {
     public void serialize(Place place, JsonGenerator jGen, SerializerProvider serializerProvider) throws IOException {
         jGen.writeStartObject();
         jGen.writeStringField("name", place.getName());
-        jGen.writeNumber(place.getMaximumNumberOfBikes());;
+        jGen.writeStringField("maximumNumberOfBikes", String.valueOf(place.getMaximumNumberOfBikes()));
         jGen.writeArrayFieldStart("bikes");
         for (Bike bike : place) {
             jGen.writeObject(bike);
