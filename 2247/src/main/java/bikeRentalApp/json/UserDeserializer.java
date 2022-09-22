@@ -22,16 +22,23 @@ public class UserDeserializer extends JsonDeserializer<User>{
     @Override
     public User deserialize(JsonParser parser, DeserializationContext context) throws IOException, JacksonException {
         TreeNode treeNode = parser.getCodec().readTree(parser);
-        if(treeNode instanceof ObjectNode) {
-            ObjectNode objectNode = (ObjectNode) treeNode;
+        return this.deserialize((JsonNode) treeNode);
+    }
+    
+    public User deserialize(JsonNode jsonNode) {
+        if(jsonNode instanceof ObjectNode) {
+            ObjectNode objectNode = (ObjectNode) jsonNode;
             JsonNode usernameNode = objectNode.get("username");
             JsonNode passwordNode = objectNode.get("password");
             JsonNode bikeNode = objectNode.get("bike");
 
-            Bike bike = bikeDeserializer.deserialize(bikeNode);
-
-            if(usernameNode instanceof TextNode && passwordNode instanceof TextNode &&
-            bikeNode instanceof POJONode) {
+            Bike bike = null;
+    
+            if (bikeNode.asText() != "null") {
+                bike = bikeDeserializer.deserialize(bikeNode);
+            }
+    
+            if(usernameNode instanceof TextNode && passwordNode instanceof TextNode) {
                 return new User(((TextNode) usernameNode).asText(), ((TextNode) passwordNode).asText(), bike);
             }
         }
