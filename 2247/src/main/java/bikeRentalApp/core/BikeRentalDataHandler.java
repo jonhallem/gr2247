@@ -72,8 +72,8 @@ public class BikeRentalDataHandler {
                 String[] savedata = scanner.nextLine().split(";");
 
                 // TODO: får ikke lov til å endre til int?
-                Place place = new Place(savedata[0], savedata[1].parseInt());
-                placeList.add(place);
+                //Place place = new Place(savedata[0], savedata[1].parseInt());
+                //placeList.add(place);
                 
             }
             scanner.close();

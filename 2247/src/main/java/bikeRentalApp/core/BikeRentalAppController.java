@@ -126,7 +126,7 @@ public class BikeRentalAppController {
 
         bikeRentalManager.testMethod();
         rentedBikeIDText.setText("");
-        dataHandler.readUsers();
+        //dataHandler.readUsers();
 
         logInGroup.setVisible(true);
 
