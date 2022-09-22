@@ -22,11 +22,6 @@ I denne releasen er følgende utarbeidet og/eller implementert:
 ```plantuml
 @startuml
 BikeRentalManager --> "bikeRentalPersisence: 1" BikeRentalPersistence
-BikeRentalManager --> "loggedInUser: 1" User : contains
-PlaceContainer --> "places: *" Place : contains
-UserContainer --> "users: *" User : contains
-Place --> "bikes: maximumNumberOfBikes" Bike : contains
-User --> "bike: 1" Bike : contains
 
 @enduml
 ```
