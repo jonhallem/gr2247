@@ -3,10 +3,6 @@
     "name" : "Bymarka",
     "maximumNumberOfBikes" : "10",
     "bikes" : [ {
-      "iD" : "BIKEIDN1",
-      "type" : "Tandemsykkel",
-      "colour" : "Gul"
-    }, {
       "iD" : "BIKEIDN2",
       "type" : "Tandemsykkel",
       "colour" : "Gul"
@@ -24,6 +20,10 @@
       "colour" : "Gul"
     }, {
       "iD" : "BIKEIDN4",
+      "type" : "Tandemsykkel",
+      "colour" : "Gul"
+    }, {
+      "iD" : "BIKEIDN1",
       "type" : "Tandemsykkel",
       "colour" : "Gul"
     } ]
