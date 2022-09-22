@@ -13,29 +13,56 @@ I denne releasen er følgende utarbeidet og/eller implementert:
 - En fungerende [modell](../2247/src/main/java/bikeRentalApp/core/) for begrenset funksjonalitet basert på brukerhistoriene
 - En [controller-klasse](../2247/src/main/java/bikeRentalApp/core/BikeRentalAppController.java) som knytter brukergrensesnittet til foreløpig funksjonalitet i modell
 - En [test for User-klassen](../2247/src/test/java/bikeRentalApp/core/UserTest.java)
-- [Serialiserere og deserialiserere](../2247/src/main/java/bikeRentalApp/json/) for klassene som etter hvert skal støtte lagring av tilstand i JSON-format
-- 
+- [Serialiserere og deserialiserere](../2247/src/main/java/bikeRentalApp/json/) for klassene til støtte for lagring av tilstand i JSON-format
+- [Lagring av tilstand](../2247/src/main/java/bikeRentalApp/json/BikeRentalPersistence.java)
+- Støtte for JaCoCo, funksjonalitet for rapportering av støttedekningsgrad
 
 ## Klassediagram over modellen, slik som den er i release 1:
 
 ```plantuml
 @startuml
-BikeRentalManager --> "places: *" Place : contains
-BikeRentalManager --> "users: *, loggedInUser: 1"  User : contains
+BikeRentalManager --> BikeRentalPersistence
+BikeRentalManager --> "loggedInUser: 1"  User : contains
+PlaceContainer --> "places: *" Place : contains
+UserContainer --> "users: *" User : contains
 Place --> "bikes: maximumNumberOfBikes" Bike : contains
 User --> "bike: 1" Bike : contains
 
 Class BikeRentalManager {
-    -List<Place> places
-    -List<User> users
     -User loggedInUser
+    -BikeRentalPersistence bikeRentalPersistence
     +List<Place> getPlaces()
-    +List<Bike> getBikeInPlace(Place place)
     +User getLoggedInUser()
     +void logIn(String username, String password)
     +void signUp(String username, String password)
     +void rentBike(String placeName, String  bikeID)
     +void deliverBike(String placeName)
+}
+
+Class BikeRentalPersistence {
+    -ObjectMapper mapper
+    -ObjectWriter writer
+    +void writePlaceContainer(PlaceContainer placeContainer)
+    +PlaceContainer readPlaceContainer()
+    +void writeUserContainer(UserContainer userContainer)
+    +UserContainer readUserContainer()
+    -File getFile(String fileName)
+    -Path getSaveFileFolderPath()
+    -void ensureSaveFileExists(String fileName)
+}
+
+Class PlaceContainer {
+    -List<Place> places
+    +List<Place> getPlaces()
+    +Iterator<Place> iterator()
+}
+
+Class UserContainer {
+    -List<User> users
+    +List<User> getUsers()
+    +void addUser(User user)
+    +User findUser(String userName)
+    +Iterator<User> iterator()
 }
 
 Class Place {
