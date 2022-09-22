@@ -23,8 +23,6 @@ I denne releasen er følgende utarbeidet og/eller implementert:
 @startuml
 BikeRentalManager --> BikeRentalPersistence
 BikeRentalManager --> "loggedInUser: 1" User : contains
-PlaceContainer --> "places: *" Place : contains
-UserContainer --> "users: *" User : contains
 Place --> "bikes: maximumNumberOfBikes" Bike : contains
 User --> "bike: 1" Bike : contains
 
