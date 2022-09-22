@@ -13,7 +13,7 @@ I denne releasen er følgende utarbeidet og/eller implementert:
 - En fungerende [modell](../2247/src/main/java/bikeRentalApp/core/) for begrenset funksjonalitet basert på brukerhistoriene
 - En [controller-klasse](../2247/src/main/java/bikeRentalApp/core/BikeRentalAppController.java) som knytter brukergrensesnittet til foreløpig funksjonalitet i modell
 - En [test for User-klassen](../2247/src/test/java/bikeRentalApp/core/UserTest.java)
-- [Serialiserere og deserialiserere](../2247/src/main/java/bikeRentalApp/json/) for klassene som skal støttes av persistens
+- [Serialiserere og deserialiserere](../2247/src/main/java/bikeRentalApp/json/) for klassene som etter hvert skal støtte lagring av tilstand i JSON-format
 - 
 
 ## Klassediagram over modellen, slik som den er i release 1:
