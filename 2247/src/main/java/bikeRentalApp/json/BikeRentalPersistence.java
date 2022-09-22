@@ -1,50 +1,74 @@
 package bikeRentalApp.json;
 
+
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
-import bikeRentalApp.core.BikeRentalManager;
+import bikeRentalApp.core.PlaceContainer;
+import bikeRentalApp.core.UserContainer;
 
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.File;
 import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.EnumSet;
-import java.util.Set;
+
 
 public class BikeRentalPersistence {
-    
-    // public enum BikeRentalParts{
-    //     PLACE, USER
-    // }
 
-    // private ObjectMapper mapper;
+    ObjectMapper mapper;
+    ObjectWriter writer;
 
-    // public BikeRentalPersistence() {
-    //     mapper = createObjectMapper();
-    // }
 
-    // public static SimpleModule createJacksonModule(Set<BikeRentalParts> parts) {
-    //     return new BikeRentalModule(parts);
-    //   }
-    
-    // public static ObjectMapper createObjectMapper() {
-    //     return createObjectMapper(EnumSet.allOf(BikeRentalParts.class));
-    // }
-
-    // public static ObjectMapper createObjectMapper(Set<BikeRentalParts> parts) {
-    //     return new ObjectMapper()
-    //       .registerModule(createJacksonModule(parts));
-    //   }
-
-    // public BikeRentalManager readTodoModel(Reader reader) throws IOException {
-    //     return mapper.readValue(reader, BikeRentalManager.class);
-    // }
-
-    // public void writeTodoModel(BikeRentalManager bikeRentalManager, Writer writer) throws IOException {
-    //     mapper.writerWithDefaultPrettyPrinter().writeValue(writer, bikeRentalManager);
+    //Konstruktør
+    public BikeRentalPersistence() {
+        this.mapper = new ObjectMapper();
+        this.mapper.registerModule(new BikeRentalModule());
+        this.writer = mapper.writer(new DefaultPrettyPrinter());
     }
+
+
+    //Persistens av stedene
+
+    public void writePlaceContainer(PlaceContainer placeContainer) throws IOException {
+        this.writer.writeValue(this.getFile("places"), placeContainer);
+    }
+
+    public PlaceContainer readPlaceContainer() throws IOException {
+        this.ensureSaveFileExists("places");
+        return this.mapper.readValue(this.getFile("places"), PlaceContainer.class);
+    }
+
+
+    //Persistens av brukerne
+
+    public void writeUserContainer(UserContainer userContainer) throws IOException {
+        this.writer.writeValue(this.getFile("users"), userContainer);
+    }
+
+    public UserContainer readUserContainer() throws IOException {
+        this.ensureSaveFileExists("users");
+        return this.mapper.readValue(this.getFile("users"), UserContainer.class);
+    }
+    
+
+
+    //Støttemetoder for filbehandling
+
+    private File getFile(String fileName) {
+        return getSaveFileFolderPath().resolve(fileName + ".json").toFile();
+    }
+
+    private Path getSaveFileFolderPath() {
+        return Path.of("src/main/java/bikeRentalApp/json/");
+    }
+
+    private void ensureSaveFileExists(String fileName) throws IOException {
+        File file = new File(getFile(fileName).toString());
+        if ((!file.exists() || file.isDirectory())) {
+            Files.createDirectories(getSaveFileFolderPath());
+            file.createNewFile();
+        }
+    }
+
+}

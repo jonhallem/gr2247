@@ -1,0 +1,39 @@
+{
+  "places" : [ {
+    "name" : "Bymarka",
+    "maximumNumberOfBikes" : "10",
+    "bikes" : [ {
+      "iD" : "BIKEIDN1",
+      "type" : "Tandemsykkel",
+      "colour" : "Gul"
+    }, {
+      "iD" : "BIKEIDN2",
+      "type" : "Tandemsykkel",
+      "colour" : "Gul"
+    }, {
+      "iD" : "BIKEIDN6",
+      "type" : "Tandemsykkel",
+      "colour" : "Gul"
+    } ]
+  }, {
+    "name" : "Munkholmen",
+    "maximumNumberOfBikes" : "10",
+    "bikes" : [ {
+      "iD" : "BIKEIDN3",
+      "type" : "Tandemsykkel",
+      "colour" : "Gul"
+    }, {
+      "iD" : "BIKEIDN4",
+      "type" : "Tandemsykkel",
+      "colour" : "Gul"
+    } ]
+  }, {
+    "name" : "Lerkendal",
+    "maximumNumberOfBikes" : "10",
+    "bikes" : [ {
+      "iD" : "BIKEIDN5",
+      "type" : "Tandemsykkel",
+      "colour" : "Gul"
+    } ]
+  } ]
+}
