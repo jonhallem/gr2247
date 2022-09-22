@@ -17,7 +17,7 @@ Koden til applikasjonen ligger i mappen *2247*.
 - Prosjektmappen består av pom.xml, source-mappe (med videre prosjekt og testfiler) og target.
 - Prosjektmappen inneholder også en mappe med skjermbilder, som er til bruk under beskrivelse av [applikasjonens funksjonalitet](2247/readme.md).
 
-Dokumentasjon ligger i mappen *docs*, med markdownfiler for hver release.
+Dokumentasjon ligger i mappen [*docs*](docs/), med markdownfiler for hver release.
 
 
 ## Bildehenvisning til ikoner brukt i applikasjonen:
