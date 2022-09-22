@@ -1,5 +1,6 @@
 package bikeRentalApp.core;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,8 @@ public class BikeRentalManager {
     private List<User> users;
 
     private User loggedInUser;
+
+    private BikeRentalDataHandler dataHandler;
 
 
     // ----------- Konstruktør -------------
@@ -60,8 +63,39 @@ public class BikeRentalManager {
     }
 
 
+    public void updateUserList() {
+
+        dataHandler = new BikeRentalDataHandler();
+
+        try {
+            this.users = dataHandler.loadUsers("BikeRentalUserData");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updatePlaceList() {
+        dataHandler = new BikeRentalDataHandler();
+        try {
+            this.places = dataHandler.loadPlace("BikeRentalPlaceData");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateBikeList() {
+        dataHandler = new BikeRentalDataHandler();
+        try {
+            dataHandler.loadBike("BikeRentalBikeData");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void logIn(String username, String password) {
+
+        updateUserList();
 
         for (User user : users) {
            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
@@ -75,6 +109,8 @@ public class BikeRentalManager {
 
     public void signUp(String username, String password) {
 
+        updateUserList();
+
         for (User user : users) {
            if (user.getUsername().equals(username)) {
                 throw new IllegalArgumentException("Brukernavnet er tatt!");
@@ -82,6 +118,11 @@ public class BikeRentalManager {
         }
         User user = new User(username, password);
         this.users.add(user);
+        try {
+            dataHandler.saveUser("BikeRentalUserData", user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         this.loggedInUser = user;
 
     }

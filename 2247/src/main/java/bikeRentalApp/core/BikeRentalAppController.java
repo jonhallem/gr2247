@@ -19,6 +19,7 @@ public class BikeRentalAppController {
     private BikeRentalManager bikeRentalManager;
 
     private Place chosenDepartureLocation;
+    
 
 
 
@@ -29,9 +30,6 @@ public class BikeRentalAppController {
 
     @FXML
     private Label yourBikeTitle;
-
-
-
 
 
 
