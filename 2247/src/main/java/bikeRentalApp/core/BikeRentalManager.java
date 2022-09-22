@@ -1,20 +1,17 @@
 package bikeRentalApp.core;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+
+import bikeRentalApp.json.BikeRentalPersistence;
 
 public class BikeRentalManager {
 
     // ------------ Tilstand ---------------
 
-    private List<Place> places;
-
-    private List<User> users;
-
     private User loggedInUser;
 
-    private BikeRentalDataHandler dataHandler;
+    private BikeRentalPersistence bikeRentalPersistence;
 
 
     // ----------- Konstruktør -------------
@@ -23,21 +20,18 @@ public class BikeRentalManager {
     public BikeRentalManager() {
 
         // TODO: kan vurdere å fylle inn tilstander
-       this.places =  new ArrayList<>();
-       this.users =  new ArrayList<>();
+
        this.loggedInUser = null;
+       this.bikeRentalPersistence = new BikeRentalPersistence();
     }
 
 
     // -------------- Gettere og settere ---------------
 
 
-    public List<Place> getPlaces() {
-        return new ArrayList<>(places);
-    }
-
-    public List<Bike> getBikeInPlace(Place place) {
-        return new ArrayList<>(place.getBikes());
+    public List<Place> getPlaces() throws IOException {
+        PlaceContainer placeContainer = this.bikeRentalPersistence.readPlaceContainer();
+        return placeContainer.getPlaces();
     }
 
     public User getLoggedInUser() {
@@ -48,111 +42,78 @@ public class BikeRentalManager {
 
     // ----------- Metoder -------------
 
-    public void testMethod() {
-        Bike bike1 = new Bike("12345678", "Fjellsykkel", "Blå");
-        Bike bike2 = new Bike("87654321", "Tandemsykkel", "Rød");
-
-        Place place1 = new Place("Munkholmen", 2);
-        Place place2 = new Place("Nidaros", 5);
-
-        place1.addBike(bike1);
-        place1.addBike(bike2);
-        this.places.add(place1);
-        this.places.add(place2);
-        
-    }
 
 
-    public void updateUserList() {
+    public void logIn(String username, String password) throws IOException {
 
-        dataHandler = new BikeRentalDataHandler();
+        UserContainer userContainer = bikeRentalPersistence.readUserContainer();
 
-        try {
-            this.users = dataHandler.loadUsers("BikeRentalUserData");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void updatePlaceList() {
-        dataHandler = new BikeRentalDataHandler();
-        try {
-            this.places = dataHandler.loadPlace("BikeRentalPlaceData");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void updateBikeList() {
-        dataHandler = new BikeRentalDataHandler();
-        try {
-            dataHandler.loadBike("BikeRentalBikeData");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public void logIn(String username, String password) {
-
-        updateUserList();
-
-        for (User user : users) {
-           if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+        for (User user : userContainer.getUsers()) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
                 this.loggedInUser = user;
                 return;
            }
         }
         throw new IllegalArgumentException("Brukernavn eller passord er ikke gyldig");
-
     }
 
-    public void signUp(String username, String password) {
 
-        updateUserList();
+    public void signUp(String username, String password) throws IOException {
 
-        for (User user : users) {
+
+        UserContainer userContainer = bikeRentalPersistence.readUserContainer();
+
+        for (User user : userContainer.getUsers()) {
            if (user.getUsername().equals(username)) {
                 throw new IllegalArgumentException("Brukernavnet er tatt!");
            }
         }
         User user = new User(username, password);
-        this.users.add(user);
-        try {
-            dataHandler.saveUser("BikeRentalUserData", user);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        userContainer.addUser(user);
         this.loggedInUser = user;
-
+        
+        bikeRentalPersistence.writeUserContainer(userContainer);
     }
 
-    public void rentBike(String placeName, String bikeID) {
 
-        for (Place place : places) {
+    public void rentBike(String placeName, String bikeID) throws IOException {
+
+        PlaceContainer placeContainer = bikeRentalPersistence.readPlaceContainer();
+        UserContainer userContainer = bikeRentalPersistence.readUserContainer();
+
+        for (Place place : placeContainer.getPlaces()) {
             if (place.getName().equals(placeName)) {
                 for (Bike bike : place) {
                     if (bike.getID().equals(bikeID)) {
-                        this.loggedInUser.setBike(place.removeAndGetBike(bikeID));
-                        return;
+                        Bike bikeToRent = place.removeAndGetBike(bikeID);
+                        this.loggedInUser.setBike(bikeToRent);
+                        userContainer.findUser(loggedInUser.getUsername()).setBike(bikeToRent);     //sykkel må også legges til i userContainer, så tilstanden lagres
+                        break;
                     }
                 }
             }
         }
+
+        bikeRentalPersistence.writePlaceContainer(placeContainer);
+        bikeRentalPersistence.writeUserContainer(userContainer);
     }
 
-    public void deliverBike(String placeName) {
 
-        for (Place place : places) {
+    public void deliverBike(String placeName) throws IOException {
+
+        PlaceContainer placeContainer = bikeRentalPersistence.readPlaceContainer();
+        UserContainer userContainer = bikeRentalPersistence.readUserContainer();
+
+        for (Place place : placeContainer.getPlaces()) {
             if (place.getName().equals(placeName)) {
-                place.addBike(loggedInUser.removeAndReturnBike());
+                Bike bikeToDeliver = loggedInUser.removeAndReturnBike();
+                userContainer.findUser(loggedInUser.getUsername()).removeAndReturnBike();       //Sykkel må også fjernes fra bruker i userContainer
+                place.addBike(bikeToDeliver);
             }
         }
+
+        bikeRentalPersistence.writePlaceContainer(placeContainer);
+        bikeRentalPersistence.writeUserContainer(userContainer);
     }
-
-
-
-
-
 
 }
