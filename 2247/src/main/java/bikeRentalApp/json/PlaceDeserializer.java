@@ -24,8 +24,12 @@ public class PlaceDeserializer extends JsonDeserializer<Place> {
     @Override
     public Place deserialize(JsonParser parser, DeserializationContext context) throws IOException, JacksonException {
         TreeNode treeNode = parser.getCodec().readTree(parser);
-        if (treeNode instanceof ObjectNode) {
-            ObjectNode objectNode = (ObjectNode) treeNode;
+        return this.deserialize((JsonNode) treeNode);
+    }
+
+    public Place deserialize(JsonNode jsonNode) {
+        if (jsonNode instanceof ObjectNode) {
+            ObjectNode objectNode = (ObjectNode) jsonNode;
             JsonNode nameNode = objectNode.get("name");
             JsonNode maximumNumberOfBikesNode = objectNode.get("maximumNumberOfBikes");
             List<Bike> bikes = new ArrayList<>();
@@ -44,4 +48,5 @@ public class PlaceDeserializer extends JsonDeserializer<Place> {
         }
         return null;
     }
+
 }
