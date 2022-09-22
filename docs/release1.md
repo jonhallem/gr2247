@@ -21,7 +21,6 @@ I denne releasen er følgende utarbeidet og/eller implementert:
 
 ```plantuml
 @startuml
-BikeRentalManager --> "bikeRentalPersisence: 1" BikeRentalPersistence
-
+BikeRentalManager --> BikeRentalPersistence
 @enduml
 ```
