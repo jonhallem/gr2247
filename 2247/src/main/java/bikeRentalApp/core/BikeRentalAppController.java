@@ -1,6 +1,7 @@
 package bikeRentalApp.core;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -22,8 +23,6 @@ public class BikeRentalAppController {
 
     private Place chosenDepartureLocation;
     
-
-    private BikeRentalDataHandler dataHandler;
 
 
 
@@ -120,13 +119,11 @@ public class BikeRentalAppController {
 
 
     @FXML
-    void initialize() throws FileNotFoundException {
+    void initialize() {
 
         bikeRentalManager = new BikeRentalManager();
 
-        bikeRentalManager.testMethod();
         rentedBikeIDText.setText("");
-        dataHandler.readUsers();
 
         logInGroup.setVisible(true);
 
@@ -154,9 +151,13 @@ public class BikeRentalAppController {
             alert.setTitle("Feilmelding");
             alert.setContentText(e.toString());
             alert.showAndWait();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
+    
     @FXML
     private void signUp() {
 
@@ -176,6 +177,9 @@ public class BikeRentalAppController {
             alert.setTitle("Feilmelding");
             alert.setContentText(e.toString());
             alert.showAndWait();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
@@ -193,13 +197,19 @@ public class BikeRentalAppController {
 
             for (Bike bike : chosenDepartureLocation.getBikes()) {
                 if (bike.getID().equals(bikeID)) {
-                    bikeRentalManager.rentBike(selectDepartureLocation.getValue(), bike.getID());
+                    try {
+                        bikeRentalManager.rentBike(selectDepartureLocation.getValue(), bike.getID());
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                     rentedBikeIDText.setText(bike.getType() + " - " + bike.getID());
                 }
             }
 
             departureGroup.setVisible(false);
             arrivalGroup.setVisible(true);
+
 
         } else {
             Alert alert = new Alert(AlertType.ERROR);
@@ -218,6 +228,7 @@ public class BikeRentalAppController {
             departureGroup.setVisible(true);
             rentedBikeIDText.setText("");
             loadBikesIntoList();
+
         } catch (Exception e) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Feilmelding");
@@ -244,10 +255,15 @@ public class BikeRentalAppController {
         
         listOfAvailableBikes.getItems().clear();
 
-        for (Place place : bikeRentalManager.getPlaces()) {
-            if (place.getName().equals(selectDepartureLocation.getValue())) {
-                chosenDepartureLocation = place;
+        try {
+            for (Place place : bikeRentalManager.getPlaces()) {
+                if (place.getName().equals(selectDepartureLocation.getValue())) {
+                    chosenDepartureLocation = place;
+                }
             }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
 
         for (Bike bike : chosenDepartureLocation) {
@@ -273,9 +289,14 @@ public class BikeRentalAppController {
     // legger inn lokasjoner i comboboxer
     private void updateLocations() {
 
-        for (Place place : bikeRentalManager.getPlaces()) {
-            selectDepartureLocation.getItems().add(place.getName());
-            selectArrivalLocation.getItems().add(place.getName());
+        try {
+            for (Place place : bikeRentalManager.getPlaces()) {
+                selectDepartureLocation.getItems().add(place.getName());
+                selectArrivalLocation.getItems().add(place.getName());
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
 
     }
