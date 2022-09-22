@@ -16,8 +16,8 @@ import java.nio.file.Path;
 
 public class BikeRentalPersistence {
 
-    ObjectMapper mapper;
-    ObjectWriter writer;
+    private ObjectMapper mapper;
+    private ObjectWriter writer;
 
 
     //Konstruktør
