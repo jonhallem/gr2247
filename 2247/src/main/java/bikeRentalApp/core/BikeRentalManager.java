@@ -16,7 +16,9 @@ public class BikeRentalManager {
 
     // ----------- Konstruktør -------------
 
-    
+    /**
+     * Constructs a BikeRentalManager object with loggedInUser and bikeRentalPersistence
+     */
     public BikeRentalManager() {
 
         // TODO: kan vurdere å fylle inn tilstander
@@ -29,15 +31,28 @@ public class BikeRentalManager {
     // -------------- Gettere og settere ---------------
 
 
+    /**
+     * Returns a list of places
+     * @return List of placeobjects
+     * @throws IOException if an error occurs during filehandling
+     */
     public List<Place> getPlaces() throws IOException {
         PlaceContainer placeContainer = this.bikeRentalPersistence.readPlaceContainer();
         return placeContainer.getPlaces();
     }
 
+        /**
+     * Returns an user
+     * @return user object
+     */
     public User getLoggedInUser() {
         return loggedInUser;
     }
 
+    /**
+     * Returns the users registered bike
+     * @return Bike object. Null if user has no bike
+     */
     public Bike getUserBike() {
         return loggedInUser.getBike();
     }
@@ -47,7 +62,12 @@ public class BikeRentalManager {
     // ----------- Metoder -------------
 
 
-
+    /**
+     * Sets the loggedInUser to the correct user in the database
+     * @param username The string username
+     * @param password The string password
+     * @throws IllegalArgumentException if the username or password is not found in the database
+     */
     public void logIn(String username, String password) throws IOException {
 
         UserContainer userContainer = bikeRentalPersistence.readUserContainer();
@@ -61,7 +81,12 @@ public class BikeRentalManager {
         throw new IllegalArgumentException("Brukernavn eller passord er ikke gyldig");
     }
 
-
+    /**
+     * Creates a user and appends it to the database. The created user is also set to loggedInUser
+     * @param username A unique string username not found in the database
+     * @param password A strong string password
+     * @throws IllegalArgumentException if the username or password is already found in the database
+     */
     public void signUp(String username, String password) throws IOException {
 
 
@@ -79,7 +104,13 @@ public class BikeRentalManager {
         bikeRentalPersistence.writeUserContainer(userContainer);
     }
 
-
+    /**
+     * Selected bike is removed from its place and appended to the user. The database is update with updated information about
+     * the place, bike and user - starting the bikerenting.
+     * @param placeName the string place selected to rent bike from
+     * @param bikeID the string bike selected to rent
+     * @throws IOException if filehandling has an unexpected error
+     */
     public void rentBike(String placeName, String bikeID) throws IOException {
 
         PlaceContainer placeContainer = bikeRentalPersistence.readPlaceContainer();
@@ -102,7 +133,11 @@ public class BikeRentalManager {
         bikeRentalPersistence.writeUserContainer(userContainer);
     }
 
-
+    /**
+     * The bike appended to the user is removed and appended to the selected place - ending the bikerenting.
+     * @param placeName the string place selected to deliver bike to
+     * @throws IOException if filehandling has an unexpected error
+     */
     public void deliverBike(String placeName) throws IOException {
 
         PlaceContainer placeContainer = bikeRentalPersistence.readPlaceContainer();
