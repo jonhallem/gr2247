@@ -12,6 +12,15 @@ public class User {
     private String password;
     private Bike bike;
 
+    /**
+     * Constructs a {@code User} object with {@code username} and {@code password}. 
+     * <p>
+     * Sets the users {@code bike} attribute to {@code null}, as no {@code Bike} object is provided.
+     * 
+     * @param username
+     * @param password
+     * @throws IllegalArgumentException If {@code username} or {@code password} is not valid.
+     */
     public User (String username, String password) {
         validateUsername(username);
         validatePassword(password);
@@ -21,6 +30,14 @@ public class User {
         this.bike = null;
     }
 
+    /**
+     * Constructs a {@code User} object with {@code username}, {@code password} and a {@code Bike} object. 
+     * 
+     * @param username
+     * @param password
+     * @param bike
+     * @throws IllegalArgumentException If {@code username} or {@code password} is not valid.
+     */
     public User(String username, String password, Bike bike) {
         validateUsername(username);
         validatePassword(password);
