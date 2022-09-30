@@ -144,7 +144,14 @@ public class BikeRentalAppController {
             rentedBikeIDText.setText("");
             userInformationGroup.setVisible(true);
             logInGroup.setVisible(false);
-            departureGroup.setVisible(true);
+
+            // sjekker om bruker allerede har lånt en sykkel
+            if (bikeRentalManager.getUserBike() == null) {
+                departureGroup.setVisible(true);
+            } else {
+                arrivalGroup.setVisible(true);
+                rentedBikeIDText.setText(bikeRentalManager.getUserBike().getType() + " - " + bikeRentalManager.getUserBike().getID());
+            }
         } catch (IllegalArgumentException e) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Feilmelding");

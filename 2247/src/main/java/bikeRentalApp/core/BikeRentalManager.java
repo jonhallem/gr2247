@@ -38,6 +38,10 @@ public class BikeRentalManager {
         return loggedInUser;
     }
 
+    public Bike getUserBike() {
+        return loggedInUser.getBike();
+    }
+
 
 
     // ----------- Metoder -------------
