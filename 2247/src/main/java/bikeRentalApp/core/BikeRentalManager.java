@@ -80,7 +80,7 @@ public class BikeRentalManager {
     }
 
 
-    public void rentBike(String placeName, String bikeID) throws IOException {
+    public void rentBike(String placeName, String bikeID) throws IOException, IllegalArgumentException {
 
         PlaceContainer placeContainer = bikeRentalPersistence.readPlaceContainer();
         UserContainer userContainer = bikeRentalPersistence.readUserContainer();
