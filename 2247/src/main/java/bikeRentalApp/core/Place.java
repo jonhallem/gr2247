@@ -12,7 +12,17 @@ public class Place implements Iterable<Bike> {
     private int maximumNumberOfBikes;
     private List<Bike> bikes;
 
+
     //Konstruktører
+    
+    /**
+     * Constucts a {@code Place} object used to store {@code Bike} objects at a specific location.
+     * 
+     * @param name the String name of the {@code Place} object
+     * @param maximumNumberOfBikes the maximum number of bikes allowed in the {@code Place} object
+     * @throws IllegalArguemtException if input name is not valid according to the name validator 
+     * in the {@code Place} class, or if input maximumNumberOfBikes is below 1
+     */
     public Place(String name, int maximumNumberOfBikes){
         this.nameValidator(name);
         if (maximumNumberOfBikes < 1) {
@@ -23,10 +33,25 @@ public class Place implements Iterable<Bike> {
         this.bikes = new ArrayList<>();
     }
 
+    /**
+     * Constucts a {@code Place} object used to store {@code Bike} objects at a specific location.
+     * 
+     * @param name the String name of the {@code Place} object
+     * @param maximumNumberOfBikes the maximum number of bikes allowed in the {@code Place} object
+     * @param bikes a list 
+     * @throws IllegalArguemtException if input name is not valid according to the validator in the
+     * {@code Place} class, or if input maximumNumberOfBikes is below 1
+     * @throws IllegalStateException if the number of {@code Bike} objects in input bikes is above
+     * the limit given in input maximumNumberOfBikes
+     */
     public Place(String name, int maximumNumberOfBikes, List<Bike> bikes){
         this.nameValidator(name);
         if (maximumNumberOfBikes < 1) {
             throw new IllegalArgumentException("Stedet må minst kunne holde på én sykkel.");
+        }
+        if (bikes.size() > maximumNumberOfBikes) {
+            throw new IllegalStateException("Stedet kan ikke inneholde alle syklene angitt, gitt" +
+            " begrensingen på antall sykler som ble angitt.");
         }
         this.name = name;
         this.maximumNumberOfBikes = maximumNumberOfBikes;
@@ -37,14 +62,30 @@ public class Place implements Iterable<Bike> {
 
     //Gettere
 
+    /**
+     * Getter for the name of the {@code Place} object.
+     * 
+     * @return the String name of the {@code Place} object
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Getter for the int maximumNumberOfBikes of the {@code Place} object.
+     * 
+     * @return the int maximumNumberOfBikes of the {@code Place} object
+     */
     public int getMaximumNumberOfBikes() {
         return this.maximumNumberOfBikes;
     }
 
+    /**
+     * Getter for a copy of bike-list of the {@code Place} object, which contains all the {@code Bike}
+     * objects in the {@code Place} object.
+     * 
+     * @return a copy of the list "bikes" in the {@code Place} object
+     */
     public List<Bike> getBikes() {
         return new ArrayList<>(bikes);
     }
@@ -52,6 +93,15 @@ public class Place implements Iterable<Bike> {
 
     //Legge til og fjerne sykler
     
+    /**
+     * Removes the {@code Bike} object with the given bikeID from the {@code Place} object, and 
+     * returns it.
+     * 
+     * @param bikeID the id String of the {@code Bike} object to remove
+     * @throws IllegalArgumentException if the bikeID input is not a valid bikeID according to 
+     * the validateID method in the {@code Place} class
+     * @return the {@code Bike} object that has been removed from the {@code Place} object
+     */
     public Bike removeAndGetBike(String bikeID) {
         validateID(bikeID);
         Bike bikeToRemove = this.bikes.stream().filter(bike -> bike.getID().equals(bikeID)).findFirst().get();
@@ -59,6 +109,14 @@ public class Place implements Iterable<Bike> {
         return bikeToRemove;
     }
 
+    /**
+     * Adds the given {@code Bike} object to the {@code Place} object's list of bikes
+     * 
+     * @param bike the {@code Bike} object to add 
+     * @throws IllegalStateException if the size of the {@code Place} object's list of bikes is equal
+     * to the object's maximumNumberOfBikes before adding the given {@code Bike} object
+     * @throws IllegalArgumentException if the given {@code Bike} object is null
+     */
     public void addBike(Bike bike) {
         if (this.bikes.size() == this.maximumNumberOfBikes) {
             throw new IllegalStateException("Stedet er fullt, sykkelen må plasseres på et annet sted.");
@@ -70,6 +128,12 @@ public class Place implements Iterable<Bike> {
 
     //Valideringsmetoder
 
+    /**
+     * Validates an input String name for a {@code Place} object.
+     * 
+     * @param name a String to validate
+     * @throws IllegalArgumentException if the name is null or a blank String
+     */
     private void nameValidator(String name) {
         this.inputNotNullValidator(name);
         if (name.isBlank()) {
@@ -77,6 +141,13 @@ public class Place implements Iterable<Bike> {
         }
     }
 
+    /**
+     * Validates an input String iD for a {@code Bike} object.
+     * 
+     * @param iD a String to validate
+     * @throws IllegalArgumentException if the iD is null or the iD String doesn't consist 
+     * of only numerals and/or capital letters, and/or has a length not equal to 8
+     */
     private void validateID(String iD) {
         this.inputNotNullValidator(iD);
         if (!Pattern.matches("[A-Z0-9]{8}", iD)) {
@@ -84,6 +155,12 @@ public class Place implements Iterable<Bike> {
         }
     }
 
+    /**
+     * Validates an Object for not being null.
+     * 
+     * @param input an Object to validate
+     * @throws IllegalArgumentException if the input Object is null
+     */
     private void inputNotNullValidator(Object input) {
         if (input == null) {
             throw new IllegalArgumentException("Input kan ikke være null");
@@ -93,6 +170,12 @@ public class Place implements Iterable<Bike> {
 
     //Iteratormetode
 
+    /**
+     * Returns an iterator for the {@code Place} object
+     * 
+     * @return an iterator that iterates over the {@code Bike}
+     * objects contained within the {@code Place} object
+     */
     @Override
     public Iterator<Bike> iterator() {
         return this.bikes.iterator();
