@@ -3,6 +3,9 @@ package bikeRentalApp.core;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The {@code User} class represents a user of the BikeRentalApp application. 
+ */
 public class User {
     
     private String username;
@@ -26,18 +29,36 @@ public class User {
         setBike(bike);
     }
     
+    /**
+     * Returns the user {@code username}. 
+     * @return String
+     */
     public String getUsername() {
         return this.username;
     }
 
+    /**
+     * Returns the user {@code password}. 
+     * @return String
+     */
     public String getPassword() {
         return this.password;
     }
 
+    /**
+     * Returns the {@code Bike} object held by the user. 
+     * @return Bike
+     */
     public Bike getBike() {
         return this.bike;
     }
 
+    /**
+     * Sets the {@code bike} object of a user, as long as there is no {@code bike} registered.  
+     *  
+     * @param bike A new {@code Bike} object.
+     * @throws IllegalStateException If a bike is already registered to the user, hence {@code bike} is not {@code null}.
+     */
     public void setBike(Bike bike) {
         if(this.bike != null) {
             throw new IllegalStateException("Det er allerede registrert en sykkel");
@@ -45,6 +66,11 @@ public class User {
         this.bike = bike;
     }
 
+    /**
+     * Removes the {@code Bike} object held by the user and returns it, as long as there is a {@code bike} registered.
+     * @return Bike
+     * @throws IllegalStateException If there is no bike registered, hence {@code bike} is {@code null}.
+     */
     public Bike removeAndReturnBike() {
         if(this.bike == null) {
             throw new IllegalStateException("Du kan ikke fjerne og returnere en sykkel om du ikke har en");
@@ -54,9 +80,15 @@ public class User {
         return tmpBike;
     }
 
+    /**
+     * Validates the user {@code username} upon initiation of a new {@code User} object. 
+     * <p>
+     * Checks if {@code username} is not {@code null}, contains only characters and integers, and is at least of length three.
+     * 
+     * @param username
+     * @throws IllegalArgumentException If {@code username} is not valid.
+     */
     private void validateUsername(String username) {
-
-        // Forbehold om at BikeRentalManager sjekker om brukernavnet er tilgjengelig
         if(username == null) {
             throw new IllegalArgumentException("Brukernavnet må være noe annet enn null.");
         }
@@ -69,6 +101,14 @@ public class User {
         } 
     }
 
+     /**
+     * Validates the user {@code password} upon initiation of a new {@code User} object. 
+     * <p>
+     * Checks if {@code password} is not {@code null}, contains at least one character and one integer, and is at least of length three. 
+     * 
+     * @param password
+     * @throws IllegalArgumentException If {@code password} is not valid.
+     */
     private void validatePassword(String password) {
         // Strengere passordvalidering?
         if(password == null) {
