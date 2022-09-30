@@ -37,12 +37,14 @@ public class UserContainer implements Iterable<User> {
     }
 
     /**
-     * 
+     * Finds a {@code User} object with the given {@code username} in the list of users, {@code users}, and returns it. 
      * @param username
      * @return User
+     * @throws IllegalArgumentException If there is no {@code User} with the given {@code username}.  
      */
     public User findUser(String username) {
-        return this.users.stream().filter(user -> user.getUsername().equals(username)).findFirst().get();
+        return this.users.stream().filter(user -> user.getUsername().equals(username)).findFirst()
+        .orElseThrow(() -> new IllegalArgumentException("Det finnes ingen bruker med dette brukernavnet."));
     }
 
     @Override
