@@ -38,11 +38,11 @@ public class UserContainer implements Iterable<User> {
 
     /**
      * 
-     * @param userName
+     * @param username
      * @return User
      */
-    public User findUser(String userName) {
-        return this.users.stream().filter(user -> user.getUsername().equals(userName)).findFirst().get();
+    public User findUser(String username) {
+        return this.users.stream().filter(user -> user.getUsername().equals(username)).findFirst().get();
     }
 
     @Override
