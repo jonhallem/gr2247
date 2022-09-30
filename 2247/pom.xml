@@ -125,6 +125,12 @@
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
+
+            <!-- Added config to upstream JDT version for methods to work on old MACS -->
+            <configuration>
+              <release>17</release>
+              <compilerArgs>--enable-preview</compilerArgs>
+            </configuration>
           <version>3.8.0</version>
         </plugin>
 
@@ -227,7 +233,20 @@
             </executions>
         </plugin>
 
-
+        <!-- Run the spotbugs code quality tool -->
+        <plugin>
+          <groupId>com.github.spotbugs</groupId>
+          <artifactId>spotbugs-maven-plugin</artifactId>
+          <version>4.7.1.1</version>
+          <dependencies>
+            <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
+            <dependency>
+              <groupId>com.github.spotbugs</groupId>
+              <artifactId>spotbugs</artifactId>
+              <version>4.7.2</version>
+            </dependency>
+          </dependencies>
+        </plugin>
 
       </plugins>
     </pluginManagement>
