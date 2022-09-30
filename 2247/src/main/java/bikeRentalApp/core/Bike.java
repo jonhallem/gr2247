@@ -23,12 +23,14 @@ public class Bike {
     /**
      * Constructs a {@code Bike} object, used to store the ID, type and colour of a bike.
      * 
-     * @param iD the ID of the bike. Must only consist of numerals and/or capital 
+     * @param iD the String ID of the bike. Must only consist of numerals and/or capital 
      * lettrs, must be of length 8
-     * @param type the type of the bike. Must be one of the types listed in the collection 
+     * @param type the String type of the bike. Must be one of the types listed in the collection 
      * "validTypes" in {@code Bike}
-     * @param colour the colour of the bike. Must be one of the colours listed in the collection 
+     * @param colour the String colour of the bike. Must be one of the colours listed in the collection 
      * "validColours" in {@code Bike}
+     * @throws IllegalArgumentException if the input is not valid according to the validator methods
+     * in the {@code Bike} class
      */
     public Bike(String iD, String type, String colour) {
         this.validateID(iD);
@@ -43,7 +45,7 @@ public class Bike {
     //Valideringsmetoder
 
     /**
-     * Validates an input String ID for a Bike object.
+     * Validates an input String ID for a {@code Bike} object.
      * 
      * @param iD a String to validate
      * @throws IllegalArgumentExepction if the string doesn't consist of only numerals and/or 
@@ -58,7 +60,7 @@ public class Bike {
     }
 
     /**
-     * Validates an input String type for a Bike object.
+     * Validates an input String type for a {@code Bike} object.
      * 
      * @param type a String to validate
      * @throws IllegalArgumentExepction if the collection "validTypes" in {@code Bike} does not
@@ -72,7 +74,7 @@ public class Bike {
     }
 
     /**
-     * Validates an input String colour for a Bike object.
+     * Validates an input String colour for a {@code Bike} object.
      * 
      * @param colour a String to validate
      * @throws IllegalArgumentException if the collection "validColours" in {@code Bike} does not
@@ -103,7 +105,7 @@ public class Bike {
     /**
      * Getter for the ID of the {@code Bike} object.
      * 
-     * @return the ID String of the {@code Bike} object
+     * @return the String ID of the {@code Bike} object
      */
     public String getID() {
         return this.iD;
@@ -112,7 +114,7 @@ public class Bike {
     /**
      * Getter for the type of the {@code Bike} object.
      * 
-     * @return the type String of the {@code Bike} object
+     * @return the String type of the {@code Bike} object
      */
     public String getType() {
         return this.type;
@@ -121,7 +123,7 @@ public class Bike {
     /**
      * Getter for the colour of the {@code Bike} object.
      * 
-     * @return the colour String of the {@code Bike} object
+     * @return the String colour of the {@code Bike} object
      */
     public String getColour() {
         return this.colour;

@@ -104,6 +104,8 @@ public class BikeRentalManager {
         bikeRentalPersistence.writeUserContainer(userContainer);
     }
 
+
+ 
     /**
      * Selected bike is removed from its place and appended to the user. The database is update with updated information about
      * the place, bike and user - starting the bikerenting.
@@ -111,7 +113,7 @@ public class BikeRentalManager {
      * @param bikeID the string bike selected to rent
      * @throws IOException if filehandling has an unexpected error
      */
-    public void rentBike(String placeName, String bikeID) throws IOException {
+    public void rentBike(String placeName, String bikeID) throws IOException, IllegalArgumentException {
 
         PlaceContainer placeContainer = bikeRentalPersistence.readPlaceContainer();
         UserContainer userContainer = bikeRentalPersistence.readUserContainer();
