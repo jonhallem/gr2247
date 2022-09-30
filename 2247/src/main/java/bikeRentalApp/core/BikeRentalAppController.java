@@ -221,6 +221,8 @@ public class BikeRentalAppController {
                         
                         errorMessage(e.toString());
 
+                    } catch(IllegalArgumentException e) {
+                        errorMessage(e.toString());
                     }
                     rentedBikeIDText.setText(bike.getType() + " - " + bike.getID());
                 }
