@@ -117,6 +117,9 @@ public class BikeRentalAppController {
     // -------------- Metoder for riktig innlasting av GUI innhold -----------------
 
 
+    /**
+     * Initializes at the start of javafx instance
+     */
     @FXML
     void initialize() {
 
@@ -131,10 +134,14 @@ public class BikeRentalAppController {
 
 
     // -------- Brukerinnlogging og opprettelse ---------------
+
+    /**
+     * Logs into the application if the user exists in the database.
+     * Catches IllegalArgumentException if a user does not exist in database.
+     * Catches IOException when filehandling has an unexpected error
+     */
     @FXML
     private void logIn() {
-
-        //TODO: connection login to db
 
     String username = usernameInput.getText();
     String password = passwordInput.getText();
@@ -144,23 +151,31 @@ public class BikeRentalAppController {
             rentedBikeIDText.setText("");
             userInformationGroup.setVisible(true);
             logInGroup.setVisible(false);
-            departureGroup.setVisible(true);
+
+            // sjekker om bruker allerede har lånt en sykkel
+            if (bikeRentalManager.getUserBike() == null) {
+                departureGroup.setVisible(true);
+            } else {
+                arrivalGroup.setVisible(true);
+                rentedBikeIDText.setText(bikeRentalManager.getUserBike().getType() + " - " + bikeRentalManager.getUserBike().getID());
+            }
         } catch (IllegalArgumentException e) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Feilmelding");
-            alert.setContentText(e.toString());
-            alert.showAndWait();
+
+            errorMessage(e.toString());
+
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+
+            errorMessage(e.toString());
         }
     }
 
-    
+    /**
+     * Create user in the application and add it to the database.
+     * Catches IllegalArgumentException if a user exists in the database, or the entered name/password is invalid.
+     * Catches IOException when filehandling has an unexpected error
+     */
     @FXML
     private void signUp() {
-
-        //TODO: connection login to db
 
     String username = usernameInput.getText();
     String password = passwordInput.getText();
@@ -172,19 +187,23 @@ public class BikeRentalAppController {
             logInGroup.setVisible(false);
             departureGroup.setVisible(true);
         } catch (IllegalArgumentException e) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Feilmelding");
-            alert.setContentText(e.toString());
-            alert.showAndWait();
+
+            errorMessage(e.toString());
+
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+
+            errorMessage(e.toString());
         }
     }
 
     // ------------ Metoder for utlån og innlevering av sykler -----------
 
-    // utlån av sykkel
+
+    /**
+     * Rents a bike from the database and add it the the user.
+     * If the user has not selected a bike, show error message.
+     * Catches IOException when filehandling has an unexpected error
+     */
     @FXML
     private void rentBike() {
         
@@ -199,8 +218,9 @@ public class BikeRentalAppController {
                     try {
                         bikeRentalManager.rentBike(selectDepartureLocation.getValue(), bike.getID());
                     } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+                        
+                        errorMessage(e.toString());
+
                     }
                     rentedBikeIDText.setText(bike.getType() + " - " + bike.getID());
                 }
@@ -211,14 +231,15 @@ public class BikeRentalAppController {
 
 
         } else {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Feilmelding");
-            alert.setContentText("Velg en sykkel du ønsker å låne!");
-            alert.showAndWait();
+
+            errorMessage("Velg en sykkel du ønsker å låne!");
         }
     }
 
-    // innlevering av sykkel
+     /**
+     * Delivers bike object by removing it from the user in the database.
+     * Catches Exception when filehandling has an unexpected error
+     */
     @FXML
     private void deliverBike() {
         try {
@@ -228,15 +249,16 @@ public class BikeRentalAppController {
             rentedBikeIDText.setText("");
             loadBikesIntoList();
 
+            //TODO: change exception?
         } catch (Exception e) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Feilmelding");
-            alert.setContentText(e.toString());
-            alert.showAndWait();
+
+            errorMessage(e.toString());
         }
     }
 
-    // Visning av bekreftelses-vindu for innlevering
+     /**
+     * Shows returnGroup GUI-elements when user wants to deliver bike.
+     */
     @FXML
     private void showReturnGroup() {
         arrivalGroup.setVisible(false);
@@ -248,7 +270,11 @@ public class BikeRentalAppController {
 
     // ---------- Hjelpemetoder -------------
 
-    
+
+     /**
+     * Refreshes the list of bikes available to rent.
+     * Catches IOException when filehandling has an unexpected error
+     */
     @FXML
     private void loadBikesIntoList() {
         
@@ -261,8 +287,8 @@ public class BikeRentalAppController {
                 }
             }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+
+            errorMessage(e.toString());
         }
 
         for (Bike bike : chosenDepartureLocation) {
@@ -279,13 +305,25 @@ public class BikeRentalAppController {
             
             listOfAvailableBikes.getItems().add(sb.toString());
         }
+    }
 
-        // TODO: bruke denne i stedet?
-        // bikeRentalManager.getBikeInPlace(chosenDepartureLocation);
+     /**
+     * Shows error popup message in GUI.
+     * @param e errormessage in the error popup
+     */
+    private void errorMessage(String e) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Feilmelding");
+        alert.setContentText(e);
+        alert.showAndWait();
     }
 
 
-    // legger inn lokasjoner i comboboxer
+
+    /**
+     * Updates places in GUI comboboxes.
+     * Catches IOException when filehandling has an unexpected error
+     */
     private void updateLocations() {
 
         try {
@@ -294,8 +332,8 @@ public class BikeRentalAppController {
                 selectArrivalLocation.getItems().add(place.getName());
             }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            
+            errorMessage(e.toString());
         }
 
     }
