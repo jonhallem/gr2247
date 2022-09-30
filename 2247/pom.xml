@@ -125,6 +125,12 @@
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
+
+            <!-- Added config to upstream JDT version for methods to work on old MACS -->
+            <configuration>
+              <release>17</release>
+              <compilerArgs>--enable-preview</compilerArgs>
+            </configuration>
           <version>3.8.0</version>
         </plugin>
 
