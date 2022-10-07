@@ -102,7 +102,7 @@ public class BikeRentalPersistence {
      * @return a {@code Path} object
      */
     private Path getSaveFileFolderPath() {
-        return Path.of("src/main/java/bikeRentalApp/json/");
+        return Path.of("gr2247/2247/core/src/main/java/bikeRentalApp/json");
     }
 
 
