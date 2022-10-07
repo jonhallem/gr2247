@@ -14,8 +14,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -125,12 +125,6 @@
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-
-            <!-- Added config to upstream JDT version for methods to work on old MACS -->
-            <configuration>
-              <release>17</release>
-              <compilerArgs>--enable-preview</compilerArgs>
-            </configuration>
           <version>3.8.0</version>
         </plugin>
 
