@@ -37,6 +37,23 @@ public class UserContainer implements Iterable<User> {
     }
 
     /**
+     * Revmoes a {@code User} object to the list of users, {@code users}. 
+     * This method is only used for testing purposes for now.
+     * @param username
+     */
+    public void removeUser(String username) {
+
+        for (User user : getUsers()) {
+            if (user.getUsername().equals(username)) {
+                 this.users.remove(user);
+                 System.out.println("deleted user");
+            }
+        }
+    }
+
+
+
+    /**
      * Finds a {@code User} object with the given {@code username} in the list of users, {@code users}, and returns it. 
      * @param username
      * @return User
