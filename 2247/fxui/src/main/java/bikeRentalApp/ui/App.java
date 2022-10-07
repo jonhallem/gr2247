@@ -1,4 +1,4 @@
-package bikeRentalApp.core;
+package bikeRentalApp.ui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

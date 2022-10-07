@@ -1,4 +1,4 @@
-package bikeRentalApp.json;
+package bikeRentalApp.json.internal;
 
 import java.io.IOException;
 import java.util.ArrayList;

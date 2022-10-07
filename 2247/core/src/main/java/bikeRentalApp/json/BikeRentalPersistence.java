@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import bikeRentalApp.core.PlaceContainer;
 import bikeRentalApp.core.UserContainer;
 
+import bikeRentalApp.json.internal.BikeRentalModule;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -102,7 +104,7 @@ public class BikeRentalPersistence {
      * @return a {@code Path} object
      */
     private Path getSaveFileFolderPath() {
-        return Path.of("gr2247/2247/core/src/main/java/bikeRentalApp/json");
+        return Path.of("");
     }
 
 
