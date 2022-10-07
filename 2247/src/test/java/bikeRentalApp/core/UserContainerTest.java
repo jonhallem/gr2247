@@ -97,10 +97,8 @@ public class UserContainerTest {
     
     @Test
     @DisplayName("Tester det å iterere over brukere")
-    void testUserFunctions_iterator() {
+    void testIterator() {
 
-        
-        
         assertFalse(userContainer.iterator().hasNext(),
         "Iterator av users i userContainer skal ikke ha noe neste når det ikke er noen brukere lagt til.");
         
