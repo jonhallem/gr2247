@@ -20,14 +20,12 @@ public class Place implements Iterable<Bike> {
      * 
      * @param name the String name of the {@code Place} object
      * @param maximumNumberOfBikes the maximum number of bikes allowed in the {@code Place} object
-     * @throws IllegalArguemtException if input name is not valid according to the name validator 
-     * in the {@code Place} class, or if input maximumNumberOfBikes is below 1
+     * @throws IllegalArguemtException if name or maximumNumberOfBikes are not valid according to 
+     * the correspinding validators in the {@code Place} class
      */
     public Place(String name, int maximumNumberOfBikes){
         this.nameValidator(name);
-        if (maximumNumberOfBikes < 1) {
-            throw new IllegalArgumentException("Stedet må minst kunne holde på én sykkel.");
-        }
+        this.maximumNumberOfBikesValidator(maximumNumberOfBikes);
         this.name = name;
         this.maximumNumberOfBikes = maximumNumberOfBikes;
         this.bikes = new ArrayList<>();
@@ -39,23 +37,22 @@ public class Place implements Iterable<Bike> {
      * @param name the String name of the {@code Place} object
      * @param maximumNumberOfBikes the maximum number of bikes allowed in the {@code Place} object
      * @param bikes a list 
-     * @throws IllegalArguemtException if input name is not valid according to the validator in the
-     * {@code Place} class, or if input maximumNumberOfBikes is below 1
+     * @throws IllegalArguemtException if name or maximumNumberOfBikes are not valid according to 
+     * the correspinding validators in the {@code Place} class, or if bikes is null
      * @throws IllegalStateException if the number of {@code Bike} objects in input bikes is above
      * the limit given in input maximumNumberOfBikes
      */
     public Place(String name, int maximumNumberOfBikes, List<Bike> bikes){
         this.nameValidator(name);
-        if (maximumNumberOfBikes < 1) {
-            throw new IllegalArgumentException("Stedet må minst kunne holde på én sykkel.");
-        }
+        this.maximumNumberOfBikesValidator(maximumNumberOfBikes);
+        this.inputNotNullValidator(bikes);
         if (bikes.size() > maximumNumberOfBikes) {
             throw new IllegalStateException("Stedet kan ikke inneholde alle syklene angitt, gitt" +
             " begrensingen på antall sykler som ble angitt.");
         }
         this.name = name;
         this.maximumNumberOfBikes = maximumNumberOfBikes;
-        this.bikes = bikes;
+        this.bikes = new ArrayList<>(bikes);
     }
 
 
@@ -104,7 +101,8 @@ public class Place implements Iterable<Bike> {
      */
     public Bike removeAndGetBike(String bikeID) {
         validateID(bikeID);
-        Bike bikeToRemove = this.bikes.stream().filter(bike -> bike.getID().equals(bikeID)).findFirst().get();
+        Bike bikeToRemove = this.bikes.stream().filter(bike -> bike.getID().equals(bikeID)).findFirst()
+        .orElseThrow(() -> new IllegalArgumentException("Det finnes ingen sykkel her med denne ID-en."));
         this.bikes.remove(bikeToRemove);
         return bikeToRemove;
     }
@@ -138,6 +136,18 @@ public class Place implements Iterable<Bike> {
         this.inputNotNullValidator(name);
         if (name.isBlank()) {
             throw new IllegalArgumentException("Navnet må inneholde minst ett tegn.");
+        }
+    }
+
+    /**
+     * Validates an input int maximumNumberOfBikes for a {@code Place} object.
+     * 
+     * @param number an int to validate
+     * @throws IllegalArgumentException if the number is smaller than one
+     */
+    private void maximumNumberOfBikesValidator(int number) {
+        if (number < 1) {
+            throw new IllegalArgumentException("Stedet må minst kunne holde på én sykkel.");
         }
     }
 
