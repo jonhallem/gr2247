@@ -1,9 +1,6 @@
 package bikeRentalApp.json;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -11,9 +8,7 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -107,17 +102,22 @@ public class BikeRentalManagerTest {
     @Test
     public void testRentBikeSystem() throws IOException {
 
-     BRM.signUp("testName3", "testPassword123");
+        BRM.signUp("testName3", "testPassword123");
 
+        
         userContainer.addUser(BRM.getLoggedInUser());
         userContainer.findUser(BRM.getLoggedInUser().getUsername()).setBike(null);
         bikeRentalPersistence.writeUserContainer(userContainer);
-
+        
         assertEquals(null, BRM.getUserBike());
-
+        
         placeContainer.addPlace("testPlace2", 2);
         placeContainer.findPlace("testPlace2").addBike(new Bike("BIKE1234", "Fjellsykkel", "Rød"));
         bikeRentalPersistence.writePlaceContainer(placeContainer);
+
+        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, 
+        () -> BRM.rentBike("wrongPlaceName","BIKE1234"));
+        assertTrue(exception.getMessage().startsWith("Stedet"));
 
         BRM.rentBike("testPlace2", "BIKE1234");
 

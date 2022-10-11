@@ -113,7 +113,7 @@ public class BikeRentalManager {
      * @param bikeID the string bike selected to rent
      * @throws IOException if filehandling has an unexpected error
      */
-    public void rentBike(String placeName, String bikeID) throws IOException, IllegalArgumentException {
+    public void rentBike(String placeName, String bikeID) throws IOException{
 
         PlaceContainer placeContainer = bikeRentalPersistence.readPlaceContainer();
         UserContainer userContainer = bikeRentalPersistence.readUserContainer();
@@ -125,14 +125,14 @@ public class BikeRentalManager {
                         Bike bikeToRent = place.removeAndGetBike(bikeID);
                         this.loggedInUser.setBike(bikeToRent);
                         userContainer.findUser(loggedInUser.getUsername()).setBike(bikeToRent);     //sykkel må også legges til i userContainer, så tilstanden lagres
-                        break;
+                        bikeRentalPersistence.writePlaceContainer(placeContainer);
+                        bikeRentalPersistence.writeUserContainer(userContainer);
+                        return;
                     }
                 }
             }
         }
-
-        bikeRentalPersistence.writePlaceContainer(placeContainer);
-        bikeRentalPersistence.writeUserContainer(userContainer);
+        throw new IllegalArgumentException("Stedet eksisterer ikke");
     }
 
     /**
