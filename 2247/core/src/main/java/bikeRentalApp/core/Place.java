@@ -101,7 +101,8 @@ public class Place implements Iterable<Bike> {
      */
     public Bike removeAndGetBike(String bikeID) {
         validateID(bikeID);
-        Bike bikeToRemove = this.bikes.stream().filter(bike -> bike.getID().equals(bikeID)).findFirst().get();
+        Bike bikeToRemove = this.bikes.stream().filter(bike -> bike.getID().equals(bikeID)).findFirst()
+        .orElseThrow(() -> new IllegalArgumentException("Det finnes ingen sykkel her med denne ID-en."));
         this.bikes.remove(bikeToRemove);
         return bikeToRemove;
     }
