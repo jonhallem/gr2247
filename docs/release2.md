@@ -17,5 +17,14 @@ I denne releasen er følgende utarbeidet og/eller implementert:
 ## Oppdatert klassediagram over modellen, slik som den er i release 2:
 
 ```plantuml
-BikeRentalManager --> BikeRentalPersistence
+Class BikeRentalManager {
+    -User loggedInUser
+    -BikeRentalPersistence bikeRentalPersistence
+    +List<Place> getPlaces()
+    +User getLoggedInUser()
+    +void logIn(String username, String password)
+    +void signUp(String username, String password)
+    +void rentBike(String placeName, String  bikeID)
+    +void deliverBike(String placeName)
+}
 ```
