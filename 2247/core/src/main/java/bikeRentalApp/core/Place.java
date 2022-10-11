@@ -52,7 +52,7 @@ public class Place implements Iterable<Bike> {
         }
         this.name = name;
         this.maximumNumberOfBikes = maximumNumberOfBikes;
-        this.bikes = bikes;
+        this.bikes = new ArrayList<>(bikes);
     }
 
 
