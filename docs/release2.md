@@ -17,7 +17,5 @@ I denne releasen er følgende utarbeidet og/eller implementert:
 ## Oppdatert klassediagram over modellen, slik som den er i release 2:
 
 ```plantuml
-@startuml
 BikeRentalManager --> BikeRentalPersistence
-@enduml
 ```
