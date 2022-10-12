@@ -46,7 +46,6 @@ public class UserContainer implements Iterable<User> {
         for (User user : getUsers()) {
             if (user.getUsername().equals(username)) {
                  this.users.remove(user);
-                 System.out.println("deleted user");
             }
         }
     }

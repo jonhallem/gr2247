@@ -45,7 +45,6 @@ public class PlaceContainer implements Iterable<Place> {
         for (Place place : getPlaces()) {
             if (place.getName().equals(placeName)) {
                 places.remove(place);
-                 System.out.println("removed place");
             }
         }
     }
@@ -58,7 +57,7 @@ public class PlaceContainer implements Iterable<Place> {
      */
     public Place findPlace(String placeName) {
         return this.places.stream().filter(place -> place.getName().equals(placeName)).findFirst()
-        .orElseThrow(() -> new IllegalArgumentException("Det finnes ingen bruker med dette brukernavnet."));
+        .orElseThrow(() -> new IllegalArgumentException("Et sted med dette navnet finnes ikke"));
     }
 
     @Override
