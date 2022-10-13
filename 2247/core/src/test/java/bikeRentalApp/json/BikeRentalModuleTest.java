@@ -23,6 +23,61 @@ public class BikeRentalModuleTest {
     private static ObjectMapper mapper = new ObjectMapper();
 
 
+    final static String placeContainerAsJSON = """
+        {
+            "places" : [ {
+              "name" : "Bymarka",
+              "maximumNumberOfBikes" : "5",
+              "bikes" : [ {
+                "iD" : "BIKEIDN1",
+                "type" : "Tandemsykkel",
+                "colour" : "Gul"
+              }, {
+                "iD" : "BIKEIDN2",
+                "type" : "Terrengsykkel",
+                "colour" : "Blå"
+              } ]
+            }, {
+              "name" : "Munkholmen",
+              "maximumNumberOfBikes" : "10",
+              "bikes" : [ {
+                "iD" : "BIKEIDN3",
+                "type" : "Tandemsykkel",
+                "colour" : "Grønn"
+              } ]
+            }, {
+              "name" : "Lerkendal",
+              "maximumNumberOfBikes" : "10",
+              "bikes" : [ ]
+            } ]
+          }
+    """;
+
+
+    final static String userContainerAsJSON = """
+        {
+            "users" : [ {
+              "username" : "Jarl",
+              "password" : "jarl123",
+              "bike" : null
+            }, {
+              "username" : "jon",
+              "password" : "jon123",
+              "bike" : null
+            }, {
+              "username" : "Mikkel",
+              "password" : "mikkel123",
+              "bike" : {
+                "iD" : "BIKEIDN2",
+                "type" : "Tandemsykkel",
+                "colour" : "Gul"
+              }
+            } ]
+          }
+    """;
+
+
+
     @Test
     public void testSerializers_PlaceContainer() {
         mapper.registerModule(new BikeRentalModule());
@@ -85,6 +140,47 @@ public class BikeRentalModuleTest {
                 mapper.writeValueAsString(userContainer));
         } catch (JsonProcessingException e) {
             fail();
+        }
+    }
+
+
+    @Test
+    public void testDeserializers_PlaceContainer() {
+        try {
+            PlaceContainer placeContainer = mapper.readValue(placeContainerAsJSON, PlaceContainer.class);
+            Place place1 = placeContainer.getPlaces().get(0);
+            Bike bike1AtPlace1 = place1.getBikes().get(0);
+            Bike bike2AtPlace1 = place1.getBikes().get(1);
+
+            Place place2 = placeContainer.getPlaces().get(1);
+            Bike bike1AtPlace2 = place2.getBikes().get(0);
+
+            Place place3 = placeContainer.getPlaces().get(2);
+
+            assertEquals("Bymarka", place1.getName());
+            assertEquals(5, place1.getMaximumNumberOfBikes());
+            assertEquals(2, place1.getBikes().size());
+            assertEquals("BIKEIDN1", bike1AtPlace1.getID());
+            assertEquals("Tandemsykkel", bike1AtPlace1.getType());
+            assertEquals("Gul", bike1AtPlace1.getColour());
+            assertEquals("BIKEIDN2", bike2AtPlace1.getID());
+            assertEquals("Terrengsykkel", bike2AtPlace1.getType());
+            assertEquals("Blå", bike2AtPlace1.getColour());
+
+            assertEquals("Munkholmen", place2.getName());
+            assertEquals(10, place2.getMaximumNumberOfBikes());
+            assertEquals(1, place2.getBikes().size());
+            assertEquals("BIKEIDN3", bike1AtPlace1.getID());
+            assertEquals("Tandemsykkel", bike1AtPlace1.getType());
+            assertEquals("Grønn", bike1AtPlace1.getColour());
+
+            assertEquals("Lerkendal", place3.getName());
+            assertEquals(10, place3.getMaximumNumberOfBikes());
+            assertEquals(0, place3.getBikes().size());
+            
+
+        } catch (Exception e) {
+            // TODO: handle exception
         }
     }
 
