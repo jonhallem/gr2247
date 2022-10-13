@@ -39,8 +39,6 @@ For å være tilgjengelig for Bike Rental App's kunder, er vi tilgejngelige der 
 ![alt text](skjermbilder/BikeRentalAppSkjermbilde2.jpg "GUI for applikasjonen etter utlån")
 ![alt text](skjermbilder/BikeRentalAppSkjermbilde3.jpg "GUI for applikasjonen ved innlevering")
 
-
-
 ---
 
 ## Brukerhistorie-1
@@ -61,3 +59,44 @@ Ettersom Petter er ganske ukjent med sykkel som fremkomstmiddel, men regner med 
 
 ### Viktig å kunne gjøre 
 - Leie og levere en sykkel ved ulike utleieområder.
+
+---
+
+## Bruk av applikasjonen
+
+Applikasjonen kan kjøres ved bruk av **mvn javafx:run** fra mappen *GR2247/2247/fxui*. 
+
+Om det oppstår dependency-problemer når 'mvn javafx:run' kjøres i /fxui, naviger tilbake til rotnivå /2247 og kjør kommandoen *'mvn clean -U install'*. Dette burde fikse problemet.
+
+## Kodekvalitet
+
+### Tester
+
+Tester er blitt skrevet for majoriteten av all funksjonalitet i alle modulene. 
+Testdekningsgraden er undersøkt ved bruk av JaCoCo (se neste avsnitt). Det er oppnådd et dekningsgrad på 96% hele prosjektet. 
+
+### Verktøy
+
+For å teste kodekvalitet og testdekningsgrad er JaCoCo, Checkstyle og Spotbugs brukt. Verktøy kjøres fra mappen *GR2247/2247*, etter installert prosjekt. 
+JaCoCo er brukt for å undersøke testdekningsgraden. Dette gjøres ved å kalle: **mvn clean jacoco:prepare-agent install jacoco:report**
+Checkstyle er brukt for å undersøke kodestilen, i henhold til google_checks.xml. Checkstyle kalles ved: **mvn checkstyle:check**
+Checkstyle rapporterer ikke om noen klare brudd, men gir et sett med advarsler. Dette er advarsler som stort sett omhandler indentering. 
+Spotbugs er brukt for å finne utrygg og ukonvensjonell bruk av kode. Spotbugs kalles ved: **mvn spotbugs:check**
+
+## Arbeidesvaner
+
+### Bruk av verktøy
+
+JaCoCo er blitt aktivt brukt for å undersøke testdekningsgraden slik at eventuelle hull i testing har blitt avdekket underveis. 
+Videre er det tenkt å i større grad benytte oss av tilbakemeldingene fra verktøyene Checkstyle og Spotbugs for å forbedre kodekvaliteten vår. 
+
+### Parprogrammering
+
+Parprogrammering er brukt ved flere anledninger. 
+Særlig ved koding av nye klasser, og ved feilsøking, har parprogrammering vist seg å være et svært nyttig verktøy. 
+
+### Forgrening 
+
+Større arbeidsoppgaver har blitt utført i en ny grein. Dette for å minimere sannsynligheten for at allerede utført arbeid blir tilsudlet. 
+Når en grein skal sammensveises med master gjøres det ved en *"merge-request"* gjennom GitLab. Dette for at flere personer skal kontrollere hva som utføres ved større arbeidsoppgaver før alt settes sammen. 
+Nye greiner skal navngis med NTNU brukernavn, type arbeidsoppgave og kort beskrivelse, samt hvilken klasse greinen omfatter adskilt med understreker. F.eks *brukernavn-create_test_nyKlasse*
