@@ -140,8 +140,4 @@ public class User {
         } 
     }
 
-    @Override
-    public String toString() {
-        return "username: " + getUsername() + ", password: " + getPassword() + ", bike: " + getBike().getID();
-    }
 }
