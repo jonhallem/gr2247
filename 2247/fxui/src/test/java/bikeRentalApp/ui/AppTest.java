@@ -81,8 +81,6 @@ public class AppTest extends ApplicationTest {
         userContainer.addUser(controller.getLoggedInUser());
 
         assertNotNull(controller.getLoggedInUser(), "Ved innlogging i applikasjonen skal brukerobjektet være satt til innlogget bruker");
-
-        clickOn("#selectDepartureLocation");
     }
 
     @DisplayName("Tester oppretting av bruker med feil krav")
@@ -111,8 +109,6 @@ public class AppTest extends ApplicationTest {
         clickOn("#logInButton1");
 
         assertNotNull(controller.getLoggedInUser(), "Ved innlogging i applikasjonen skal brukerobjektet være satt til innlogget bruker");
-
-        clickOn("#selectDepartureLocation");
     }
 
     @DisplayName("Tester innlogging av bruker med feil innloggingsinformasjon")
