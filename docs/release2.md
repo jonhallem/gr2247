@@ -17,7 +17,8 @@ I denne releasen er følgende utarbeidet og/eller implementert:
   - [UserContainerTest](../2247/core/src/test/java/bikeRentalApp/core/UserContainerTest.java)
   - [UserTest](../2247/core/src/test/java/bikeRentalApp/core/UserTest.java)
   - [AppTest](../2247/fxui/src/test/java/bikeRentalApp/ui/AppTest.java)
-- Prosjektet er modularisert og bygget på 3-lags arkitektur med egne pom filer
+  - [BikeRentalModuleTest](../2247/core/src/test/java/bikeRentalApp/json/BikeRentalModuleTest.java)
+- Prosjektet er modularisert og bygget på 3-lags arkitektur med egne pom-filer
 - Implementasjon av Spotbugs og Checkstyle
 - Persistens ved hjelp av JSON filer (Filene, places.json og users.json, er per nå lagret flere stedet i prosjektet. Dette skal fikses til neste release)
 - Rimelig god testdekning i JACOCO
@@ -39,7 +40,7 @@ Funksjonalitet i applikasjonen:
 
 (For enkelthetens skyld  har vi unlatt å vise de mange serialisererne og deserialisererne som benyttes)
 
-![alt text](release2ClassDiagram.png "Klassediagram") 
+![Klassediagram](release2ClassDiagram.png "Klassediagram") 
 
 ```plantuml
 @startuml
