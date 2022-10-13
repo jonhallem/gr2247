@@ -12,7 +12,18 @@ I denne releasen er følgende utarbeidet og/eller implementert:
   - UserContainer
   - Serializer
   - Deserializer
-  - 
+- Testing av klasser i prosjektet:
+  - [BikeRentalManagerTest](../2247/core/src/test/java/bikeRentalApp/core/BikeRentalManagerTest.java)
+  - [BikeTest](../2247/core/src/test/java/bikeRentalApp/core/BikeTest.java)
+  - [PlaceTest](../2247/core/src/test/java/bikeRentalApp/core/PlaceTest.java)
+  - [UserContainerTest](../2247/core/src/test/java/bikeRentalApp/core/UserContainerTest.java)
+  - [UserTest](../2247/core/src/test/java/bikeRentalApp/core/UserTest.java)
+  - [AppTest](../2247/fxui/src/test/java/bikeRentalApp/ui/AppTest.java)
+- Prosjektet er modularisert og bygget på 3-lags arkitektur med egne pom filer
+- Implementasjon av Spotbugs og Checkstyle
+- Persistens ved hjelp av JSON filer
+- Rimelig god testdekning i JACOCO
+- Dokumentasjon knyttet til arbeidsvaner
 
 ## Oppdatert klassediagram over modellen (core), slik som den er i release 2:
 

@@ -1,10 +1,8 @@
 package bikeRentalApp.ui;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
@@ -21,12 +19,12 @@ import bikeRentalApp.json.BikeRentalPersistence;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -64,81 +62,104 @@ public class AppTest extends ApplicationTest {
         this.bikeRentalPersistence = new BikeRentalPersistence();
         userContainer = bikeRentalPersistence.readUserContainer();
         placeContainer = bikeRentalPersistence.readPlaceContainer();
-
-        // placeContainer.addPlace("testPlaceGUI", 2);
-        // placeContainer.findPlace("testPlaceGUI").addBike(new Bike("BIKE1234", "Fjellsykkel", "Rød"));
-
-        // bikeRentalPersistence.writePlaceContainer(placeContainer);
     }
 
-    // @Test
-    // @Order(1)
-    // public void testSignUp() {
-    //     String username = "testUsername";
-    //     String password = "testPassword1234";
-    //     clickOn("#usernameInput").write(username);
-    //     clickOn("#passwordInput").write(password);
-    //     clickOn("#signUpButton");
-
-    //     userContainer.addUser(controller.getLoggedInUser());
-
-    //     assertNotNull(controller.getLoggedInUser(), "Ved innlogging i applikasjonen skal brukerobjektet være satt til innlogget bruker");
-
-    //     clickOn("#selectDepartureLocation");
-    // }
-
-    // @Test
-    // @Order(1)
-    // public void testWrongSignUp() {
-    //     String username = "testWrongUsername";
-    //     String password = "testPassword";
-    //     clickOn("#usernameInput").write(username);
-    //     clickOn("#passwordInput").write(password);
-    //     clickOn("#signUpButton");
-
-    //     assertNull(controller.getLoggedInUser(), "Ved innlogging i applikasjonen må passordkravene stemme");
-    //     FxAssert.verifyThat("OK", NodeMatchers.isVisible());
-
-    // }
-    
-    // @Test
-    // @Order(2)
-    // public void testLogIn() {
-    //     String username = "testUsername";
-    //     String password = "testPassword1234";
-    //     clickOn("#usernameInput").write(username);
-    //     clickOn("#passwordInput").write(password);
-    //     clickOn("#logInButton1");
-
-    //     assertNotNull(controller.getLoggedInUser(), "Ved innlogging i applikasjonen skal brukerobjektet være satt til innlogget bruker");
-
-    //     clickOn("#selectDepartureLocation");
-    // }
-
-    // @Test
-    // @Order(2)
-    // public void testWrongLogIn() {
-    //     String username = "testWrongUsername";
-    //     String password = "testPassword";
-    //     clickOn("#usernameInput").write(username);
-    //     clickOn("#passwordInput").write(password);
-    //     clickOn("#logInButton1");
-
-
-    //     assertNull(controller.getLoggedInUser(), "Ved innlogging i applikasjonen må passordkravene stemme");
-    //     FxAssert.verifyThat("OK", NodeMatchers.isVisible());
-
-    // }
-
+    @DisplayName("Tester oppretting av bruker og opprettet sted for videre testing")
     @Test
-    @Order(3)
-    public void testRentBike() {
-        String username = "testUsername";
+    @Order(1)
+    public void testSignUp() throws IOException {
+        String username = "testUsernameGUI";
+        String password = "testPassword1234";
+        clickOn("#usernameInput").write(username);
+        clickOn("#passwordInput").write(password);
+        clickOn("#signUpButton");
+
+        placeContainer.addPlace("testPlaceGUI", 2);
+        placeContainer.findPlace("testPlaceGUI").addBike(new Bike("BIKE1234", "Fjellsykkel", "Rød"));
+        bikeRentalPersistence.writePlaceContainer(placeContainer);
+
+        userContainer.addUser(controller.getLoggedInUser());
+
+        assertNotNull(controller.getLoggedInUser(), "Ved innlogging i applikasjonen skal brukerobjektet være satt til innlogget bruker");
+    }
+
+    @DisplayName("Tester oppretting av bruker med feil krav")
+    @Test
+    @Order(1)
+    public void testWrongSignUp() {
+        String username = "testWrongUsernameGUI";
+        String password = "testPassword";
+        clickOn("#usernameInput").write(username);
+        clickOn("#passwordInput").write(password);
+        clickOn("#signUpButton");
+
+        assertNull(controller.getLoggedInUser(), "Ved innlogging i applikasjonen må passordkravene stemme");
+        FxAssert.verifyThat("OK", NodeMatchers.isVisible());
+
+    }
+    
+    @DisplayName("Tester innlogging av allerede etablert bruker")
+    @Test
+    @Order(2)
+    public void testLogIn() {
+        String username = "testUsernameGUI";
         String password = "testPassword1234";
         clickOn("#usernameInput").write(username);
         clickOn("#passwordInput").write(password);
         clickOn("#logInButton1");
 
+        assertNotNull(controller.getLoggedInUser(), "Ved innlogging i applikasjonen skal brukerobjektet være satt til innlogget bruker");
+    }
+
+    @DisplayName("Tester innlogging av bruker med feil innloggingsinformasjon")
+    @Test
+    @Order(2)
+    public void testWrongLogIn() {
+        String username = "testWrongUsernameGUI";
+        String password = "testPassword";
+        clickOn("#usernameInput").write(username);
+        clickOn("#passwordInput").write(password);
+        clickOn("#logInButton1");
+
+
+        assertNull(controller.getLoggedInUser(), "Ved innlogging i applikasjonen må passordkravene stemme");
+        FxAssert.verifyThat("OK", NodeMatchers.isVisible());
+
+    }
+
+    @DisplayName("Tester utlån av sykkel fra teststed")
+    @Test
+    @Order(3)
+    public void testThrowsDuringRentBike() {
+        String username = "testUsernameGUI";
+        String password = "testPassword1234";
+        clickOn("#usernameInput").write(username);
+        clickOn("#passwordInput").write(password);
+        clickOn("#logInButton1");
+
+        // riktig sted vil alltid ligge nederst under testing, men kan endre kode til å plasseringen dynamisk
+        clickOn("#selectDepartureLocation");
+        type(KeyCode.DOWN);
+        type(KeyCode.DOWN);
+        type(KeyCode.DOWN);
+        type(KeyCode.DOWN);
+        type(KeyCode.ENTER);
+        //Unngår å velge et sted
+        clickOn("#rentBikeButton");
+        FxAssert.verifyThat("OK", NodeMatchers.isVisible());
+    }
+
+    @DisplayName("Tester utlån av sykkel fra teststed")
+    @Test
+    @Order(4)
+    public void testRentBike() {
+        String username = "testUsernameGUI";
+        String password = "testPassword1234";
+        clickOn("#usernameInput").write(username);
+        clickOn("#passwordInput").write(password);
+        clickOn("#logInButton1");
+
+        // riktig sted vil alltid ligge nederst under testing, men kan endre kode til å plasseringen dynamisk
         clickOn("#selectDepartureLocation");
         type(KeyCode.DOWN);
         type(KeyCode.DOWN);
@@ -150,21 +171,40 @@ public class AppTest extends ApplicationTest {
         type(KeyCode.ENTER);
         clickOn("#rentBikeButton");
 
-        assertNotNull(controller.getLoggedInUser());
-        assertEquals("BIKE1234", controller.getUserBike().getID());
+        assertNotNull(controller.getLoggedInUser(), "Innlogget bruker skal være registrert");
+        assertEquals("BIKE1234", controller.getUserBike().getID(), "Bruker skal ha registrert utlånt sykkel som ID: 'BIKE1234'");
     }
 
+    @DisplayName("Tester innlevering av sykkel til teststed")
     @Test
-    @Order(4)
-    public void testDeliverBike() {
-        String username = "testUsername";
+    @Order(5)
+    public void testThrowsDuringDeliverBike() {
+        String username = "testUsernameGUI";
         String password = "testPassword1234";
         clickOn("#usernameInput").write(username);
         clickOn("#passwordInput").write(password);
         clickOn("#logInButton1");
 
-        assertEquals("BIKE1234", controller.getUserBike().getID(), "Bruker skal allerede ha lånt en sykkel");
+        // riktig sted vil alltid ligge nederst under testing, men kan endre kode til å plasseringen dynamisk
+        clickOn("#returnBikeButton");
+        //Unngår å velge innleverings-sted
+        clickOn("#confirmReturnBikeButton");
+        FxAssert.verifyThat("OK", NodeMatchers.isVisible());
+    }
 
+    @DisplayName("Tester innlevering av sykkel til teststed")
+    @Test
+    @Order(6)
+    public void testDeliverBike() {
+        String username = "testUsernameGUI";
+        String password = "testPassword1234";
+        clickOn("#usernameInput").write(username);
+        clickOn("#passwordInput").write(password);
+        clickOn("#logInButton1");
+
+        assertEquals("BIKE1234", controller.getUserBike().getID(), "Bruker skal allerede ha lånt en sykkel med ID 'BIKE1234'");
+
+        // riktig sted vil alltid ligge nederst under testing, men kan endre kode til å plasseringen dynamisk
         clickOn("#returnBikeButton");
         clickOn("#selectArrivalLocation");
         type(KeyCode.DOWN);
@@ -174,20 +214,17 @@ public class AppTest extends ApplicationTest {
         type(KeyCode.ENTER);
         clickOn("#confirmReturnBikeButton");
 
-        assertNull(controller.getUserBike());
+        assertNull(controller.getUserBike(), "Sykkel skal være innlevert og ikke registrert på bruker");
     }
-
-    
-
-
 
 
     @AfterAll
     public void cleanDataBase() throws IOException {
         System.out.println("Deleting testfiles...");
-        userContainer.removeUser("testUsername");
+        userContainer.removeUser("testUsernameGUI");
         placeContainer.removePlace("testPlaceGUI");
 
         bikeRentalPersistence.writeUserContainer(userContainer);
+        bikeRentalPersistence.writePlaceContainer(placeContainer);
     }
 }
