@@ -12,12 +12,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 
-import bikeRentalApp.core.Bike;
 import bikeRentalApp.core.BikeRentalManager;
 import bikeRentalApp.core.Place;
-import bikeRentalApp.core.PlaceContainer;
 import bikeRentalApp.core.User;
-import bikeRentalApp.core.UserContainer;
+import bikeRentalApp.core.Bike;
+
 
 public class BikeRentalAppController {
     
@@ -346,5 +345,22 @@ public class BikeRentalAppController {
         }
 
     }
+
+    // ---------- Metoder for testing -------------
+
+    /**
+     * Returns logged in user
+     */
+    public User getLoggedInUser() {
+        return bikeRentalManager.getLoggedInUser();
+    }
+
+        /**
+     * Returns rented bike
+     */
+    public Bike getUserBike() {
+        return bikeRentalManager.getUserBike();
+    }
+
 
 }
