@@ -61,7 +61,7 @@ public class BikeRentalModuleTest {
               "password" : "jarl123",
               "bike" : null
             }, {
-              "username" : "jon",
+              "username" : "Jon",
               "password" : "jon123",
               "bike" : null
             }, {
@@ -106,7 +106,7 @@ public class BikeRentalModuleTest {
                 "type\":\"Fjellsykkel\",\"colour\":\"Lilla\"}]}]}", 
             mapper.writeValueAsString(placeContainer));
         } catch (JsonProcessingException e) {
-            fail();
+            fail(e.getMessage());
         }
 
         
@@ -139,13 +139,14 @@ public class BikeRentalModuleTest {
                 "{\"username\":\"Mikkel\",\"password\":\"mikkel123\",\"bike\":null}]}", 
                 mapper.writeValueAsString(userContainer));
         } catch (JsonProcessingException e) {
-            fail();
+            fail(e.getMessage());
         }
     }
 
 
     @Test
     public void testDeserializers_PlaceContainer() {
+      mapper.registerModule(new BikeRentalModule());
         try {
             PlaceContainer placeContainer = mapper.readValue(placeContainerAsJSON, PlaceContainer.class);
             Place place1 = placeContainer.getPlaces().get(0);
@@ -170,9 +171,9 @@ public class BikeRentalModuleTest {
             assertEquals("Munkholmen", place2.getName());
             assertEquals(10, place2.getMaximumNumberOfBikes());
             assertEquals(1, place2.getBikes().size());
-            assertEquals("BIKEIDN3", bike1AtPlace1.getID());
-            assertEquals("Tandemsykkel", bike1AtPlace1.getType());
-            assertEquals("Grønn", bike1AtPlace1.getColour());
+            assertEquals("BIKEIDN3", bike1AtPlace2.getID());
+            assertEquals("Tandemsykkel", bike1AtPlace2.getType());
+            assertEquals("Grønn", bike1AtPlace2.getColour());
 
             assertEquals("Lerkendal", place3.getName());
             assertEquals(10, place3.getMaximumNumberOfBikes());
@@ -180,8 +181,38 @@ public class BikeRentalModuleTest {
             
 
         } catch (Exception e) {
-            // TODO: handle exception
+            fail(e.getMessage());
         }
     }
 
+    @Test
+    public void testDeserializers_UserContainer() {
+      mapper.registerModule(new BikeRentalModule());
+
+      try {
+        UserContainer userContainer = mapper.readValue(userContainerAsJSON, UserContainer.class);
+        User user1 = userContainer.getUsers().get(0);
+        User user2 = userContainer.getUsers().get(1);
+        User user3 = userContainer.getUsers().get(2);
+        Bike bikeOfUser3 = user3.getBike();
+
+        assertEquals("Jarl", user1.getUsername());
+        assertEquals("jarl123", user1.getPassword());
+        assertEquals(null, user1.getBike());
+
+        assertEquals("Jon", user2.getUsername());
+        assertEquals("jon123", user2.getPassword());
+        assertEquals(null, user2.getBike());
+
+        assertEquals("Mikkel", user3.getUsername());
+        assertEquals("mikkel123", user3.getPassword());
+        assertEquals(bikeOfUser3, user3.getBike());
+        assertEquals("BIKEIDN2", user3.getBike().getID());
+        assertEquals("Tandemsykkel", user3.getBike().getType());
+        assertEquals("Gul", user3.getBike().getColour());
+
+      } catch (Exception e) {
+        fail(e.getMessage());
+      }
+    }
 }
