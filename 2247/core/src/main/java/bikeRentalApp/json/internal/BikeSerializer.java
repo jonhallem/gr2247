@@ -16,6 +16,7 @@ public class BikeSerializer extends JsonSerializer<Bike> {
             "iD": "...",
             "type": "...",
             "colour": "..."
+            "startTime": "..."
         }
      */
 
@@ -25,6 +26,7 @@ public class BikeSerializer extends JsonSerializer<Bike> {
         jGen.writeStringField("iD", bike.getID());
         jGen.writeStringField("type", bike.getType());
         jGen.writeStringField("colour", bike.getColour());
+        jGen.writeStringField("startTime", bike.getStartTime().toString());
         jGen.writeEndObject();
     }
 }
