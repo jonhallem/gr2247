@@ -1,5 +1,6 @@
 package bikeRentalApp.core;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -107,26 +108,22 @@ public class User {
             throw new IllegalStateException("Du kan ikke fjerne og returnere en sykkel om du ikke har en");
         }
         Bike tmpBike = this.bike;
+        addToRentalHistory(tmpBike);
         this.bike = null;
         return tmpBike;
     }
 
-    private List<List<String>> addToRentalHistory(Bike bike) {
+    private void addToRentalHistory(Bike bike) {
         List<String> tmpList = new ArrayList<>();
         LocalDateTime endTime = LocalDateTime.now();
         tmpList.add(bike.getID());
-        tmpList.add(bike.getStartTime());
+        tmpList.add(bike.getStartTime().toString());
         tmpList.add(endTime.toString());
-        tmpList.add()
-
-
-        if (startTime == null) {
-
-        } else {
-            endTime = endTime;
-        }
+        tmpList.add(Duration.between(endTime, bike.getStartTime()).toString());
 
         rentalHistory = getRentalHistory();
+        rentalHistory.add(tmpList);
+        this.rentalHistory = new ArrayList<>(rentalHistory);
     }
 
     /**
