@@ -33,13 +33,20 @@ For å være tilgjengelig for Bike Rental App's kunder, er vi tilgejngelige der 
 
 ---
 
-## Prototype som skjermbilder
+## Prototype som skjermbilder, brukerhistorie 1
 
 ![alt text](skjermbilder/BikeRentalAppSkjermbilde1.jpg "GUI for applikasjonen før utlån")
 ![alt text](skjermbilder/BikeRentalAppSkjermbilde2.jpg "GUI for applikasjonen etter utlån")
 ![alt text](skjermbilder/BikeRentalAppSkjermbilde3.jpg "GUI for applikasjonen ved innlevering")
 
 ---
+
+## Prototype som skjermbilder, brukerhistorie 2 og 3
+
+![alt text](skjermbilder/BikeRentalAppSkjermbilde4.jpg "GUI for applikasjonens profilvindu")
+
+---
+
 
 ## Brukerhistorie-1
 
@@ -71,12 +78,14 @@ Kari (43) jobber i midtbyen som statistisk analytiker, og bor på Lerkendal. Hun
 
 
 ### Viktig å kunne se
-- En oversikt over tilgjengelige sykler på de ulike utleieområdene. 
-- En oversikt over ulike tilgjengelige sykkeltyper.
-- Hvilken sykkel du leier. 
+- En oversikt over tilgjengelige sykler på de ulike utleieområdene (Brukerhistorie 1)
+- En oversikt over ulike tilgjengelige sykkeltyper (Brukerhistorie 1)
+- Hvilken sykkel du leier (Brukerhistorie 1)
+- En historikk over syklene du har leid (Brukerhistorie 3)
 
 ### Viktig å kunne gjøre 
-- Leie og levere en sykkel ved ulike utleieområder.
+- Leie og levere en sykkel ved ulike utleieområder (Brukerhistorie 1)
+- Endre passord (Brukerhistorie 2)
 
 ---
 
