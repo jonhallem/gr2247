@@ -5,11 +5,13 @@
     "bikes" : [ {
       "iD" : "BIKEIDN2",
       "type" : "Tandemsykkel",
-      "colour" : "Gul"
+      "colour" : "Gul", 
+      "startTime" : null
     }, {
       "iD" : "BIKEIDN6",
       "type" : "Tandemsykkel",
-      "colour" : "Gul"
+      "colour" : "Gul", 
+      "startTime" : null
     } ]
   }, {
     "name" : "Munkholmen",
@@ -17,19 +19,23 @@
     "bikes" : [ {
       "iD" : "BIKEIDN3",
       "type" : "Tandemsykkel",
-      "colour" : "Gul"
+      "colour" : "Gul", 
+      "startTime" : null
     }, {
       "iD" : "BIKEIDN4",
       "type" : "Tandemsykkel",
-      "colour" : "Gul"
+      "colour" : "Gul", 
+      "startTime" : null
     }, {
       "iD" : "BIKEIDN1",
       "type" : "Tandemsykkel",
-      "colour" : "Gul"
+      "colour" : "Gul", 
+      "startTiem" : null
     }, {
       "iD" : "BIKEIDN5",
       "type" : "Tandemsykkel",
-      "colour" : "Gul"
+      "colour" : "Gul", 
+      "startTiem" : null
     } ]
   }, {
     "name" : "Lerkendal",
