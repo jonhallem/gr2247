@@ -123,6 +123,7 @@ public class BikeRentalManager {
                 for (Bike bike : place) {
                     if (bike.getID().equals(bikeID)) {
                         Bike bikeToRent = place.removeAndGetBike(bikeID);
+                        bikeToRent.setStartTime();
                         this.loggedInUser.setBike(bikeToRent);
                         userContainer.findUser(loggedInUser.getUsername()).setBike(bikeToRent);     //sykkel må også legges til i userContainer, så tilstanden lagres
                         bikeRentalPersistence.writePlaceContainer(placeContainer);
