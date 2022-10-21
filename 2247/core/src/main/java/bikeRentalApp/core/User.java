@@ -1,5 +1,8 @@
 package bikeRentalApp.core;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,6 +14,8 @@ public class User {
     private String username;
     private String password;
     private Bike bike;
+    private List<List<String>> rentalHistory;
+    // "bikeID, timeStart, timeEnd, totalRentalTime"
 
     /**
      * Constructs a {@code User} object with {@code username} and {@code password}. 
@@ -28,6 +33,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.bike = null;
+        this.rentalHistory = new ArrayList<>();
     }
 
     /**
@@ -69,6 +75,14 @@ public class User {
     public Bike getBike() {
         return this.bike;
     }
+    
+    /**
+     * Returns the rental history of the user. 
+     * @return List
+     */
+    public List<List<String>> getRentalHistory() {
+        return new ArrayList<>(this.rentalHistory);
+    }
 
     /**
      * Sets the {@code bike} object of a user, as long as there is no {@code bike} registered.  
@@ -95,6 +109,24 @@ public class User {
         Bike tmpBike = this.bike;
         this.bike = null;
         return tmpBike;
+    }
+
+    private List<List<String>> addToRentalHistory(Bike bike) {
+        List<String> tmpList = new ArrayList<>();
+        LocalDateTime endTime = LocalDateTime.now();
+        tmpList.add(bike.getID());
+        tmpList.add(bike.getStartTime());
+        tmpList.add(endTime.toString());
+        tmpList.add()
+
+
+        if (startTime == null) {
+
+        } else {
+            endTime = endTime;
+        }
+
+        rentalHistory = getRentalHistory();
     }
 
     /**
