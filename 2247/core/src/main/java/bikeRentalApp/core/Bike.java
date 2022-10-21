@@ -122,7 +122,7 @@ public class Bike {
     }
 
 
-    //Gettere
+    //Gettere og settere
     
     /**
      * Getter for the ID of the {@code Bike} object.
@@ -151,9 +151,21 @@ public class Bike {
         return this.colour;
     }
 
-
+    /**
+     * Getter for the startTime of the {@code Bike} object. 
+     * 
+     * @return the LocalDateTime startTime og the {@code Bike} object. 
+     */
     public LocalDateTime getStartTime() {
         return this.startTime;
+    }
+
+    /**
+     * Sets the {@code startTime} of the {@code Bike} object upon the time of rental. 
+     * 
+     */
+    public void setStartTime() {
+        this.startTime = LocalDateTime.now();
     }
     
 }
