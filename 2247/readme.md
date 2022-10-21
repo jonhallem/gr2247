@@ -24,12 +24,14 @@ Applikasjonen vil tilby et bredt utvalg av sykkeltyper for utleie:
 - Hybridsykkel
 
 ## Utleiesteder:
-For å være tilgjengelig for Bike Rental App's kunder, er vi tilgejngelige der du er!
+For å være tilgjengelig for Bike Rental App's kunder, er vi tilgjengelige der du er!
 - Tiller
 - Nidarosdomen
 - Gløshaugen
-- Lade
+- Lilleby
 - Munkholmen 
+- Lerkendal
+- Bymarka
 
 ---
 

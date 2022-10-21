@@ -35,5 +35,21 @@
     "name" : "Lerkendal",
     "maximumNumberOfBikes" : "10",
     "bikes" : [ ]
+  }, {
+    "name" : "Tiller",
+    "maximumNumberOfBikes" : "10",
+    "bikes" : [ ]
+  }, {
+    "name" : "Nidarosdomen",
+    "maximumNumberOfBikes" : "10",
+    "bikes" : [ ]
+  }, {
+    "name" : "Gløshaugen",
+    "maximumNumberOfBikes" : "10",
+    "bikes" : [ ]
+  }, {
+    "name" : "Lilleby",
+    "maximumNumberOfBikes" : "10",
+    "bikes" : [ ]
   } ]
 }
