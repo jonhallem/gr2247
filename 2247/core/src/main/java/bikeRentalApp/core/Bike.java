@@ -1,5 +1,6 @@
 package bikeRentalApp.core;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -12,6 +13,7 @@ public class Bike {
     private String iD;
     private String type;
     private String colour;
+    private LocalDateTime startTime;
     private final Collection<String> validTypes = new ArrayList<>(Arrays.asList(
         "Landeveissykkel", "Terrengsykkel", "Elekstrisk terrengsykkel", "Fjellsykkel", 
         "Fatbike", "Elektrisk fatbike", "Tandemsykkel", "Elektrisk tandemsykkel", 
@@ -29,16 +31,18 @@ public class Bike {
      * "validTypes" in {@code Bike}
      * @param colour the String colour of the bike. Must be one of the colours listed in the collection 
      * "validColours" in {@code Bike}
+     * @param startTime the rental start time.
      * @throws IllegalArgumentException if the input is not valid according to the validator methods
      * in the {@code Bike} class
      */
-    public Bike(String iD, String type, String colour) {
+    public Bike(String iD, String type, String colour, LocalDateTime startTime) {
         this.validateID(iD);
         this.validateType(type);
         this.validateColour(colour);
         this.iD = iD;
         this.type = type;
         this.colour = colour;
+        this.startTime = startTime;
     }
 
 
@@ -127,6 +131,11 @@ public class Bike {
      */
     public String getColour() {
         return this.colour;
+    }
+
+
+    public LocalDateTime getStartTime() {
+        return this.startTime;
     }
     
 }
