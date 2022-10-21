@@ -17,7 +17,7 @@ public class PlaceContainer implements Iterable<Place> {
      * @param placeList
      */
     public PlaceContainer(List<Place> placeList) {
-        this.places = placeList;
+        this.places = new ArrayList<>(placeList);
     }
 
     /**
