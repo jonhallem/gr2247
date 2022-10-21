@@ -11,7 +11,6 @@ import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
 
 import bikeRentalApp.core.Bike;
-import bikeRentalApp.core.BikeRentalManager;
 import bikeRentalApp.core.PlaceContainer;
 import bikeRentalApp.core.UserContainer;
 import bikeRentalApp.json.BikeRentalPersistence;
@@ -37,8 +36,6 @@ public class AppTest extends ApplicationTest {
 
     private BikeRentalPersistence bikeRentalPersistence;
 
-    private BikeRentalManager BRM;
-
     private UserContainer userContainer;
 
     private PlaceContainer placeContainer;
@@ -58,7 +55,6 @@ public class AppTest extends ApplicationTest {
     @BeforeEach
     public void setUp() throws IOException {
         System.out.println("Initialiserer BRMController...");
-        BRM = new BikeRentalManager();
         this.bikeRentalPersistence = new BikeRentalPersistence();
         userContainer = bikeRentalPersistence.readUserContainer();
         placeContainer = bikeRentalPersistence.readPlaceContainer();
@@ -137,12 +133,11 @@ public class AppTest extends ApplicationTest {
         clickOn("#passwordInput").write(password);
         clickOn("#logInButton1");
 
-        // riktig sted vil alltid ligge nederst under testing, men kan endre kode til å plasseringen dynamisk
+        // riktig sted vil alltid ligge nederst under testing
         clickOn("#selectDepartureLocation");
-        type(KeyCode.DOWN);
-        type(KeyCode.DOWN);
-        type(KeyCode.DOWN);
-        type(KeyCode.DOWN);
+        for (int i = 0; i < this.placeContainer.getPlaces().size()+1; i++) {
+            type(KeyCode.DOWN);
+        }
         type(KeyCode.ENTER);
         //Unngår å velge et sted
         clickOn("#rentBikeButton");
@@ -159,12 +154,11 @@ public class AppTest extends ApplicationTest {
         clickOn("#passwordInput").write(password);
         clickOn("#logInButton1");
 
-        // riktig sted vil alltid ligge nederst under testing, men kan endre kode til å plasseringen dynamisk
+        // riktig sted vil alltid ligge nederst under testing
         clickOn("#selectDepartureLocation");
-        type(KeyCode.DOWN);
-        type(KeyCode.DOWN);
-        type(KeyCode.DOWN);
-        type(KeyCode.DOWN);
+        for (int i = 0; i < this.placeContainer.getPlaces().size()+1; i++) {
+            type(KeyCode.DOWN);
+        }
         type(KeyCode.ENTER);
         clickOn("#listOfAvailableBikes");
         type(KeyCode.DOWN);
@@ -185,7 +179,7 @@ public class AppTest extends ApplicationTest {
         clickOn("#passwordInput").write(password);
         clickOn("#logInButton1");
 
-        // riktig sted vil alltid ligge nederst under testing, men kan endre kode til å plasseringen dynamisk
+        // riktig sted vil alltid ligge nederst under testing
         clickOn("#returnBikeButton");
         //Unngår å velge innleverings-sted
         clickOn("#confirmReturnBikeButton");
@@ -204,13 +198,12 @@ public class AppTest extends ApplicationTest {
 
         assertEquals("BIKE1234", controller.getUserBike().getID(), "Bruker skal allerede ha lånt en sykkel med ID 'BIKE1234'");
 
-        // riktig sted vil alltid ligge nederst under testing, men kan endre kode til å plasseringen dynamisk
+        // riktig sted vil alltid ligge nederst under testing
         clickOn("#returnBikeButton");
         clickOn("#selectArrivalLocation");
-        type(KeyCode.DOWN);
-        type(KeyCode.DOWN);
-        type(KeyCode.DOWN);
-        type(KeyCode.DOWN);
+        for (int i = 0; i < this.placeContainer.getPlaces().size()+1; i++) {
+            type(KeyCode.DOWN);
+        }
         type(KeyCode.ENTER);
         clickOn("#confirmReturnBikeButton");
 
