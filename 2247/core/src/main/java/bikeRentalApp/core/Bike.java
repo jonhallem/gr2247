@@ -1,6 +1,7 @@
 package bikeRentalApp.core;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -35,16 +36,33 @@ public class Bike {
      * @throws IllegalArgumentException if the input is not valid according to the validator methods
      * in the {@code Bike} class
      */
-    public Bike(String iD, String type, String colour, LocalDateTime startTime) {
+    public Bike(String iD, String type, String colour, String startTime) {
         this.validateID(iD);
         this.validateType(type);
         this.validateColour(colour);
         this.iD = iD;
         this.type = type;
         this.colour = colour;
-        this.startTime = startTime;
+        this.startTime = convertStartTime(startTime);
     }
 
+    /**
+     * Converts a string into a LocalDateTime object. 
+     * @param startTime - as string
+     * @throws IllegalArgumentException if the string is not of a pattern that matches a LocalTimeDate object. 
+     * @return startTime - as LocalDateTime
+     */
+    private LocalDateTime convertStartTime(String startTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        if(!startTime.matches("^\\d?\\d/\\d{2}/\\d{4}$")) {
+            
+            throw new IllegalArgumentException("Not a valid string to convert to a LocalTimeDate object.");
+        }
+        LocalDateTime dateTime = LocalDateTime.parse(startTime, formatter);
+
+            return dateTime;
+    }
 
     //Valideringsmetoder
 
