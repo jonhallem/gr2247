@@ -27,8 +27,9 @@ public class BikeDeserializer extends JsonDeserializer<Bike> {
             JsonNode iDNode = objectNode.get("iD");
             JsonNode typeNode = objectNode.get("type");
             JsonNode colourNode = objectNode.get("colour");
-            if (iDNode instanceof TextNode && typeNode instanceof TextNode && colourNode instanceof TextNode) {
-                return new Bike(((TextNode) iDNode).asText(), ((TextNode) typeNode).asText(), ((TextNode) colourNode).asText());
+            JsonNode rentalTimeNode = objectNode.get("rentalTime");
+            if (iDNode instanceof TextNode && typeNode instanceof TextNode && colourNode instanceof TextNode && rentalTimeNode instanceof TextNode) {
+                return new Bike(((TextNode) iDNode).asText(), ((TextNode) typeNode).asText(), ((TextNode) colourNode).asText(), ((TextNode) rentalTimeNode).asText());
             }
         }
         return null;
