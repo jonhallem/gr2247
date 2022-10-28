@@ -22,7 +22,7 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Button fx:id="logoutButton" layoutX="458.0" layoutY="21.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: red;" text="Logg ut" />
+      <Button fx:id="logOutButton" layoutX="458.0" layoutY="21.0" mnemonicParsing="false" onAction="#logOut" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: red;" text="Logg ut" />
       <Pane layoutX="-7.0" layoutY="397.0" prefHeight="501.0" prefWidth="545.0">
          <children>
             <Label layoutX="226.0" layoutY="49.0" text="Leiehistorikk">
@@ -40,16 +40,16 @@
       </Pane>
       <Pane layoutX="116.0" layoutY="187.0" prefHeight="164.0" prefWidth="312.0">
          <children>
-            <Label fx:id="userIdTitle" alignment="CENTER" layoutX="116.0" layoutY="30.0" prefHeight="17.0" prefWidth="81.0" text="Bruker:">
+            <Label fx:id="usernameTitle" alignment="CENTER" layoutX="116.0" layoutY="30.0" prefHeight="17.0" prefWidth="81.0" text="Bruker:">
                <font>
                   <Font size="21.0" />
                </font>
             </Label>
-            <Button layoutX="98.0" layoutY="69.0" mnemonicParsing="false" onAction="#changePasswordButton" prefHeight="26.0" prefWidth="115.0" text="Endre passord" />
+            <Button fx:id="changePasswordButton" layoutX="98.0" layoutY="69.0" mnemonicParsing="false" onAction="#showChangePasswordPane" prefHeight="26.0" prefWidth="115.0" text="Endre passord" />
          </children>
       </Pane>
-      <Button fx:id="backToMainMenuButton" layoutX="20.0" layoutY="21.0" mnemonicParsing="false" text="&lt;- Tilbake" />
-      <Pane fx:id="changePasswordPane" layoutX="91.0" layoutY="96.0" prefHeight="336.0" prefWidth="290.0">
+      <Button fx:id="backToMainMenuButton" layoutX="20.0" layoutY="21.0" mnemonicParsing="false" onAction="#backToMainMenu" text="&lt;- Tilbake" />
+      <Pane fx:id="changePasswordPane" layoutX="91.0" layoutY="96.0" prefHeight="336.0" prefWidth="290.0" visible="false">
          <children>
             <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#1fffa9" height="230.0" layoutX="2.0" layoutY="107.0" stroke="TRANSPARENT" strokeType="INSIDE" width="348.0">
                <effect>
@@ -65,7 +65,8 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Button fx:id="confirmNewPasswordButton" layoutX="95.0" layoutY="285.0" mnemonicParsing="false" onAction="#signUp" prefHeight="26.0" prefWidth="157.0" text="Bekreft nytt passord" />
+            <Button fx:id="abortChangePasswordButton" layoutX="31.0" layoutY="283.0" mnemonicParsing="false" onAction="#hideChangePasswordPane" text="Avbryt" />
+            <Button fx:id="confirmNewPasswordButton" layoutX="167.0" layoutY="283.0" mnemonicParsing="false" onAction="#confirmNewPassword" prefHeight="26.0" prefWidth="157.0" text="Bekreft nytt passord" />
             <TextField fx:id="currentPasswordInput" layoutX="168.0" layoutY="165.0" prefHeight="26.0" prefWidth="155.0" />
             <Label layoutX="30.0" layoutY="169.0" prefHeight="17.0" prefWidth="127.0" text="Nåværende passord:" />
          </children>
