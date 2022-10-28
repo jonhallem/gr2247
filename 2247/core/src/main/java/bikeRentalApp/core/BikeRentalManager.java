@@ -63,6 +63,24 @@ public class BikeRentalManager {
 
 
     /**
+     * Changes the password of the logged in user and saves the change to persistence
+     * @param newPassword
+     * @throws IOException if an error occurs during filehandling
+     * @throws IllegalArgumentException if User.java's password validation does not approve the password
+     */
+    public void changePasswordOfLoggedInUser(String newPassword) throws IllegalArgumentException, IOException {
+        UserContainer userContainer = this.bikeRentalPersistence.readUserContainer();
+        User loggedInUserFromContainter = userContainer.findUser(this.loggedInUser.getUsername());
+
+        loggedInUserFromContainter.changePassword(newPassword);
+
+        this.loggedInUser = loggedInUserFromContainter;
+
+        this.bikeRentalPersistence.writeUserContainer(userContainer);
+    }
+
+
+    /**
      * Sets the loggedInUser to the correct user in the database
      * @param username The string username
      * @param password The string password
