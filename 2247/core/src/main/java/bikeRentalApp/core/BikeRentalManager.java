@@ -104,6 +104,13 @@ public class BikeRentalManager {
         bikeRentalPersistence.writeUserContainer(userContainer);
     }
 
+     /**
+     * Logs the user out from the application.
+     */
+    public void logOut() {
+        this.loggedInUser = null;
+    }
+
 
  
     /**
