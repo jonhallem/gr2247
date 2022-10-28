@@ -24,7 +24,7 @@ public class Bike {
 
     // Konstruktør
     /**
-     * Constructs a {@code Bike} object, used to store the ID, type and colour of a bike.
+     * Constructs a {@code Bike} object, used to store the ID, type, colour and starttime of a bike.
      * 
      * @param iD the String ID of the bike. Must only consist of numerals and/or capital 
      * lettrs, must be of length 8
@@ -44,6 +44,27 @@ public class Bike {
         this.type = type;
         this.colour = colour;
         this.startTime = convertStartTime(startTime);
+    }
+
+        /**
+     * Constructs a {@code Bike} object, used to store the ID, type and colour of a bike.
+     * 
+     * @param iD the String ID of the bike. Must only consist of numerals and/or capital 
+     * lettrs, must be of length 8
+     * @param type the String type of the bike. Must be one of the types listed in the collection 
+     * "validTypes" in {@code Bike}
+     * @param colour the String colour of the bike. Must be one of the colours listed in the collection 
+     * "validColours" in {@code Bike}
+     * @throws IllegalArgumentException if the input is not valid according to the validator methods
+     * in the {@code Bike} class
+     */
+    public Bike(String iD, String type, String colour) {
+        this.validateID(iD);
+        this.validateType(type);
+        this.validateColour(colour);
+        this.iD = iD;
+        this.type = type;
+        this.colour = colour;
     }
 
     /**
