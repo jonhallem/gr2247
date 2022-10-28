@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="839.0" prefWidth="541.0" style="-fx-background-color: f2f2f7;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bikeRentalApp.ui.BikeRentalAppController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="839.0" prefWidth="541.0" style="-fx-background-color: f2f2f7;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bikeRentalApp.ui.ProfilePageController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1fffa9" height="139.0" layoutX="-55.0" layoutY="-15.0" stroke="TRANSPARENT" strokeType="INSIDE" width="597.0">
          <effect>
@@ -40,7 +40,7 @@
       </Pane>
       <Pane layoutX="116.0" layoutY="187.0" prefHeight="164.0" prefWidth="312.0">
          <children>
-            <Label fx:id="usernameTitle" alignment="CENTER" layoutX="116.0" layoutY="30.0" prefHeight="17.0" prefWidth="81.0" text="Bruker:">
+            <Label fx:id="usernameTitle" alignment="CENTER" layoutX="-39.0" layoutY="24.0" prefHeight="27.0" prefWidth="390.0" text="Bruker:">
                <font>
                   <Font size="21.0" />
                </font>
