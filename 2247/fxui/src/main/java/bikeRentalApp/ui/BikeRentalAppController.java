@@ -3,6 +3,9 @@ package bikeRentalApp.ui;
 import java.io.IOException;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -11,6 +14,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import bikeRentalApp.core.BikeRentalManager;
 import bikeRentalApp.core.Place;
@@ -27,6 +31,8 @@ public class BikeRentalAppController {
     private BikeRentalManager bikeRentalManager;
 
     private Place chosenDepartureLocation;
+
+    private Scene profilePageScene = null;
     
 
 
@@ -38,6 +44,9 @@ public class BikeRentalAppController {
 
     @FXML
     private Label yourBikeTitle;
+
+    @FXML
+    private Button profileButton;
 
 
 
@@ -135,7 +144,31 @@ public class BikeRentalAppController {
 
         logInGroup.setVisible(true);
 
+        profileButton.setVisible(false);
+
         updateLocations();
+    }
+
+    /**
+     * Sets the bikeRentalManager when the view is changed
+     */
+    public void setBikeRentalManager(BikeRentalManager BRM) {
+        this.bikeRentalManager = BRM;
+
+        logInGroup.setVisible(false);
+        rentedBikeIDText.setText("");
+        userInformationGroup.setVisible(true);
+        logInGroup.setVisible(false);
+        profileButton.setVisible(true);
+
+        // sjekker om bruker allerede har lånt en sykkel
+        if (bikeRentalManager.getUserBike() == null) {
+            departureGroup.setVisible(true);
+        } else {
+            arrivalGroup.setVisible(true);
+            rentedBikeIDText.setText(bikeRentalManager.getUserBike().getType() + " - " + bikeRentalManager.getUserBike().getID());
+        }
+
     }
 
 
@@ -157,6 +190,7 @@ public class BikeRentalAppController {
             rentedBikeIDText.setText("");
             userInformationGroup.setVisible(true);
             logInGroup.setVisible(false);
+            profileButton.setVisible(true);
 
             // sjekker om bruker allerede har lånt en sykkel
             if (bikeRentalManager.getUserBike() == null) {
@@ -192,6 +226,7 @@ public class BikeRentalAppController {
             userInformationGroup.setVisible(true);
             logInGroup.setVisible(false);
             departureGroup.setVisible(true);
+            profileButton.setVisible(true);
         } catch (IllegalArgumentException e) {
 
             errorMessage(e.toString());
@@ -201,6 +236,8 @@ public class BikeRentalAppController {
             errorMessage(e.toString());
         }
     }
+
+
 
     // ------------ Metoder for utlån og innlevering av sykler -----------
 
@@ -275,6 +312,23 @@ public class BikeRentalAppController {
 
 
 
+    // ----------- Metode for å forandre viewet til profile page ----------------
+      
+
+      /**
+     * Sets the view to profile page.
+     */
+    @FXML
+    void showProfilePage() {
+      try {
+        ((Stage) this.appTitle.getScene().getWindow()).setScene(getProfilePageScene());
+      } catch (Exception e) {
+        System.err.println("Couldn't load settings scene");
+        e.getCause().printStackTrace();
+      }
+    }
+
+
 
     // ---------- Hjelpemetoder -------------
 
@@ -345,6 +399,38 @@ public class BikeRentalAppController {
         }
 
     }
+
+
+    /**
+     * Creates and returns the profile page scene, used to set the view. Transfers the bikeRentalManager
+     * object to the controller of the profile page (ensures that the user is still logged in).
+     * 
+     * @return Scene the {@code Scene} object to set the view to.
+     * @throws RuntimeException
+     */
+    private Scene getProfilePageScene() throws RuntimeException {
+        if (this.profilePageScene == null) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BikeRentalProfilePage.fxml"));
+        try {
+            Object root = fxmlLoader.load();
+            ProfilePageController profilePageController = fxmlLoader.getController();
+            profilePageController.setBikeRentalManager(this.bikeRentalManager);
+            if (root instanceof Parent) {
+            this.profilePageScene = new Scene((Parent) root);
+            } else if (root instanceof Scene) {
+            this.profilePageScene = (Scene) root;
+            }
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe);
+        }
+        }
+        return this.profilePageScene;
+    }
+
+
+
+
+
 
     // ---------- Metoder for testing -------------
 
