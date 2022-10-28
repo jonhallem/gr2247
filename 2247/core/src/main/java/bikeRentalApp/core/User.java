@@ -69,7 +69,7 @@ public class User {
      * @throws IllegalArgumentException If {@code newPassword} does not have a valid format in
      * accordance with the {@code validatePassword} method.
      */
-    public void changePassword(String newPassword) {
+    public void changePassword(String newPassword) throws IllegalArgumentException {
         this.validatePassword(newPassword);
         this.password = newPassword;
     }
