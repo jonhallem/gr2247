@@ -122,17 +122,10 @@ public class BikeRentalManager {
         bikeRentalPersistence.writeUserContainer(userContainer);
     }
 
-     /**
-     * Logs the user out from the application.
-     */
-    public void logOut() {
-        this.loggedInUser = null;
-    }
-
 
  
     /**
-     * Selected bike is removed from its place and appended to the user. The database is update with updated information about
+     * Selected bike is removed from its place and appended to the user. The database is updated with updated information about
      * the place, bike and user - starting the bikerenting.
      * @param placeName the string place selected to rent bike from
      * @param bikeID the string bike selected to rent
