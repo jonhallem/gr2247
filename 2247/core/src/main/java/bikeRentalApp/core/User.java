@@ -63,6 +63,18 @@ public class User {
     }
 
     /**
+     * Changes the password of the {@code user}.
+     * 
+     * @param newPassword
+     * @throws IllegalArgumentException If {@code newPassword} does not have a valid format in
+     * accordance with the {@code validatePassword} method.
+     */
+    public void changePassword(String newPassword) {
+        this.validatePassword(newPassword);
+        this.password = newPassword;
+    }
+
+    /**
      * Returns the {@code Bike} object held by the user. 
      * @return Bike
      */
@@ -124,7 +136,8 @@ public class User {
      * Checks if {@code password} is not {@code null}, contains at least one character and one integer, and is at least of length three. 
      * 
      * @param password
-     * @throws IllegalArgumentException If {@code password} is not valid.
+     * @throws IllegalArgumentException If {@code password} does not have a valid format (must contain at least one letter
+     * and one integer, and must at least be of length 3).
      */
     private void validatePassword(String password) {
         // Strengere passordvalidering?
