@@ -24,7 +24,7 @@ public class ProfilePageController {
 
     // -------------- Felt -----------------
 
-    private BikeRentalManager bikeRentalManager;
+    private BikeRentalManager bikeRentalManager = null;
 
     private Scene mainMenuScene = null;
 
@@ -126,20 +126,25 @@ public class ProfilePageController {
         String newPassword = this.newPasswordInput.getText();
         String newPasswordRepeated = this.repeatNewPasswordInput.getText();
 
-        if (!currentPassword.equals(this.bikeRentalManager.getLoggedInUser().getPassword())) {
-            this.errorMessage("Nåværende passord er ikke riktig.");
-        } else if (!newPassword.equals(newPasswordRepeated)) {
-            this.errorMessage(
-                    "Passordene i feltet \"Nytt passord\" og feltet \"Gjenta nytt passord\" "
-                            + "stemmer ikke overens.");
-        } else {
-            try {
-                this.bikeRentalManager.changePasswordOfLoggedInUser(newPassword);
-                this.hideChangePasswordPane();
-            } catch (IllegalArgumentException | IOException e) {
-                this.errorMessage(e.getMessage());
+        if (this.bikeRentalManager != null) {
+            if (!currentPassword.equals(this.bikeRentalManager.getLoggedInUser().getPassword())) {
+                this.errorMessage("Nåværende passord er ikke riktig.");
+            } else if (!newPassword.equals(newPasswordRepeated)) {
+                this.errorMessage(
+                        "Passordene i feltet \"Nytt passord\" og feltet \"Gjenta nytt passord\" "
+                                + "stemmer ikke overens.");
+            } else {
+                try {
+                    this.bikeRentalManager.changePasswordOfLoggedInUser(newPassword);
+                    this.hideChangePasswordPane();
+                } catch (IllegalArgumentException | IOException e) {
+                    this.errorMessage(e.getMessage());
+                }
             }
+        } else {
+            this.errorMessage("Feil: BikeRentalManager er \"null\".");
         }
+
     }
 
     // ----------- Metode for å logge ut ----------------
@@ -180,8 +185,10 @@ public class ProfilePageController {
      * Sets the username on the profile page in accordence with the logged in user.
      */
     private void updateUserName() {
-        this.usernameTitle.setText("Bruker: " + this.bikeRentalManager.getLoggedInUser()
-                .getUsername());
+        if (this.bikeRentalManager != null) {
+            this.usernameTitle.setText("Bruker: " + this.bikeRentalManager.getLoggedInUser()
+                    .getUsername());
+        }
     }
 
     /**
@@ -195,7 +202,8 @@ public class ProfilePageController {
      */
     private Scene getMainMenuScene(BikeRentalManager bikeRentalManager) throws RuntimeException {
         if (this.mainMenuScene == null) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BikeRentalApp.fxml"));
+            ProfilePageController controller = (ProfilePageController) this;
+            FXMLLoader fxmlLoader = new FXMLLoader(controller.getClass().getResource("BikeRentalApp.fxml"));
             try {
                 Object root = fxmlLoader.load();
                 BikeRentalAppController bikeRentalAppController = fxmlLoader.getController();
