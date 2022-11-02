@@ -203,7 +203,8 @@ public class ProfilePageController {
     private Scene getMainMenuScene(BikeRentalManager bikeRentalManager) throws RuntimeException {
         if (this.mainMenuScene == null) {
             ProfilePageController controller = (ProfilePageController) this;
-            FXMLLoader fxmlLoader = new FXMLLoader(controller.getClass().getResource("BikeRentalApp.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(controller.getClass()
+                    .getResource("BikeRentalApp.fxml"));
             try {
                 Object root = fxmlLoader.load();
                 BikeRentalAppController bikeRentalAppController = fxmlLoader.getController();
