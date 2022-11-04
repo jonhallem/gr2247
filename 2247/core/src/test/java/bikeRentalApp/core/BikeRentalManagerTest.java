@@ -1,4 +1,4 @@
-package bikeRentalApp.core;
+package bikerentalapp.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,8 +13,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
-
-import bikeRentalApp.json.BikeRentalPersistence;
+import bikerentalapp.core.Bike;
+import bikerentalapp.core.BikeRentalManager;
+import bikerentalapp.core.Place;
+import bikerentalapp.core.PlaceContainer;
+import bikerentalapp.core.UserContainer;
+import bikerentalapp.json.BikeRentalPersistence;
 
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

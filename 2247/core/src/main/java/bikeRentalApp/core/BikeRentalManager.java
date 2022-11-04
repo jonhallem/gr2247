@@ -1,9 +1,9 @@
-package bikeRentalApp.core;
+package bikerentalapp.core;
 
 import java.io.IOException;
 import java.util.List;
 
-import bikeRentalApp.json.BikeRentalPersistence;
+import bikerentalapp.json.BikeRentalPersistence;
 
 public class BikeRentalManager {
 

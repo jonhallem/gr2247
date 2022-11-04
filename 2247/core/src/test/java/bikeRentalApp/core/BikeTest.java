@@ -1,14 +1,14 @@
-package bikeRentalApp.core;
+package bikerentalapp.core;
 
 import org.junit.jupiter.api.Test;
+
+import bikerentalapp.core.Bike;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-
-import bikeRentalApp.core.Bike;
 
 
 public class BikeTest {

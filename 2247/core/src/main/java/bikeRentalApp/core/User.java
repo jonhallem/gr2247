@@ -1,4 +1,4 @@
-package bikeRentalApp.core;
+package bikerentalapp.core;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

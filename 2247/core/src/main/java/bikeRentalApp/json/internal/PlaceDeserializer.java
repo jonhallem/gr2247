@@ -1,4 +1,4 @@
-package bikeRentalApp.json.internal;
+package bikerentalapp.json.internal;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,8 +14,8 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 
-import bikeRentalApp.core.Bike;
-import bikeRentalApp.core.Place;
+import bikerentalapp.core.Bike;
+import bikerentalapp.core.Place;
 
 public class PlaceDeserializer extends JsonDeserializer<Place> {
 

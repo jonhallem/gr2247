@@ -1,14 +1,13 @@
-package bikeRentalApp.json;
+package bikerentalapp.json;
 
 
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
-import bikeRentalApp.core.PlaceContainer;
-import bikeRentalApp.core.UserContainer;
-
-import bikeRentalApp.json.internal.BikeRentalModule;
+import bikerentalapp.core.PlaceContainer;
+import bikerentalapp.core.UserContainer;
+import bikerentalapp.json.internal.BikeRentalModule;
 
 import java.io.File;
 import java.io.IOException;

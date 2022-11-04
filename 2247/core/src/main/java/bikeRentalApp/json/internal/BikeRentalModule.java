@@ -1,14 +1,14 @@
-package bikeRentalApp.json.internal;
+package bikerentalapp.json.internal;
 
 import com.fasterxml.jackson.core.util.VersionUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
-import bikeRentalApp.core.Bike;
-import bikeRentalApp.core.Place;
-import bikeRentalApp.core.PlaceContainer;
-import bikeRentalApp.core.User;
-import bikeRentalApp.core.UserContainer;
+import bikerentalapp.core.Bike;
+import bikerentalapp.core.Place;
+import bikerentalapp.core.PlaceContainer;
+import bikerentalapp.core.User;
+import bikerentalapp.core.UserContainer;
 
 @SuppressWarnings("serial")
 public class BikeRentalModule extends SimpleModule {

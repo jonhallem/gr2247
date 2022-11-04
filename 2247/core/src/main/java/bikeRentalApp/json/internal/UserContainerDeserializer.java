@@ -1,4 +1,4 @@
-package bikeRentalApp.json.internal;
+package bikerentalapp.json.internal;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,8 +13,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import bikeRentalApp.core.User;
-import bikeRentalApp.core.UserContainer;
+import bikerentalapp.core.User;
+import bikerentalapp.core.UserContainer;
 
 public class UserContainerDeserializer extends JsonDeserializer<UserContainer> {
 

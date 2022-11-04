@@ -1,7 +1,11 @@
-package bikeRentalApp.ui;
+package bikerentalapp.ui;
 
 import java.io.IOException;
 
+import bikerentalapp.core.Bike;
+import bikerentalapp.core.BikeRentalManager;
+import bikerentalapp.core.Place;
+import bikerentalapp.core.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,12 +19,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import bikeRentalApp.core.BikeRentalManager;
-import bikeRentalApp.core.Place;
-import bikeRentalApp.core.User;
-import bikeRentalApp.core.Bike;
-
 
 public class BikeRentalAppController {
     

@@ -1,4 +1,4 @@
-package bikeRentalApp.json;
+package bikerentalapp.json;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -11,12 +11,12 @@ import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import bikeRentalApp.core.Bike;
-import bikeRentalApp.core.Place;
-import bikeRentalApp.core.PlaceContainer;
-import bikeRentalApp.core.User;
-import bikeRentalApp.core.UserContainer;
-import bikeRentalApp.json.internal.BikeRentalModule;
+import bikerentalapp.core.Bike;
+import bikerentalapp.core.Place;
+import bikerentalapp.core.PlaceContainer;
+import bikerentalapp.core.User;
+import bikerentalapp.core.UserContainer;
+import bikerentalapp.json.internal.BikeRentalModule;
 
 public class BikeRentalModuleTest {
     

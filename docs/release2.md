@@ -11,13 +11,13 @@ I denne releasen er følgende utarbeidet og/eller implementert:
   - User
   - UserContainer
 - Testing av klasser i prosjektet:
-  - [BikeRentalManagerTest](../2247/core/src/test/java/bikeRentalApp/core/BikeRentalManagerTest.java)
-  - [BikeTest](../2247/core/src/test/java/bikeRentalApp/core/BikeTest.java)
-  - [PlaceTest](../2247/core/src/test/java/bikeRentalApp/core/PlaceTest.java)
-  - [UserContainerTest](../2247/core/src/test/java/bikeRentalApp/core/UserContainerTest.java)
-  - [UserTest](../2247/core/src/test/java/bikeRentalApp/core/UserTest.java)
-  - [AppTest](../2247/fxui/src/test/java/bikeRentalApp/ui/AppTest.java)
-  - [BikeRentalModuleTest](../2247/core/src/test/java/bikeRentalApp/json/BikeRentalModuleTest.java)
+  - [BikeRentalManagerTest](../2247/core/src/test/java/bikerentalapp/core/BikeRentalManagerTest.java)
+  - [BikeTest](../2247/core/src/test/java/bikerentalapp/core/BikeTest.java)
+  - [PlaceTest](../2247/core/src/test/java/bikerentalapp/core/PlaceTest.java)
+  - [UserContainerTest](../2247/core/src/test/java/bikerentalapp/core/UserContainerTest.java)
+  - [UserTest](../2247/core/src/test/java/bikerentalapp/core/UserTest.java)
+  - [AppTest](../2247/fxui/src/test/java/bikerentalapp/ui/AppTest.java)
+  - [BikeRentalModuleTest](../2247/core/src/test/java/bikerentalapp/json/BikeRentalModuleTest.java)
 - Prosjektet er modularisert og bygget på 3-lags arkitektur med egne pom-filer
 - Implementasjon av Spotbugs og Checkstyle
 - Persistens ved hjelp av JSON filer (Filene, places.json og users.json, er per nå lagret flere stedet i prosjektet. Dette skal fikses til neste release)

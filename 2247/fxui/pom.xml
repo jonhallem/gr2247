@@ -113,7 +113,7 @@
         <!-- Default configuration for running -->
         <!-- Usage: mvn javafx:run -->
         <configuration>
-            <mainClass>bikeRentalApp.ui.App</mainClass>
+            <mainClass>bikerentalapp.ui.App</mainClass>
         </configuration>
       </plugin>
 

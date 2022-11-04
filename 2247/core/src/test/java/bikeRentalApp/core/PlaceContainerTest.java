@@ -1,6 +1,10 @@
-package bikeRentalApp.core;
+package bikerentalapp.core;
 
 import org.junit.jupiter.api.Test;
+
+import bikerentalapp.core.BikeRentalManager;
+import bikerentalapp.core.Place;
+import bikerentalapp.core.PlaceContainer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

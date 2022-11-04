@@ -1,4 +1,4 @@
-package bikeRentalApp.json.internal;
+package bikerentalapp.json.internal;
 
 import java.io.IOException;
 
@@ -6,8 +6,8 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
-import bikeRentalApp.core.Place;
-import bikeRentalApp.core.PlaceContainer;
+import bikerentalapp.core.Place;
+import bikerentalapp.core.PlaceContainer;
 
 public class PlaceContainerSerializer extends JsonSerializer<PlaceContainer> {
 

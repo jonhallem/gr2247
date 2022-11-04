@@ -1,4 +1,4 @@
-package bikeRentalApp.ui;
+package bikerentalapp.ui;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,10 +10,11 @@ import org.testfx.api.FxAssert;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
 
-import bikeRentalApp.core.Bike;
-import bikeRentalApp.core.PlaceContainer;
-import bikeRentalApp.core.UserContainer;
-import bikeRentalApp.json.BikeRentalPersistence;
+import bikerentalapp.core.Bike;
+import bikerentalapp.core.PlaceContainer;
+import bikerentalapp.core.UserContainer;
+import bikerentalapp.json.BikeRentalPersistence;
+import bikerentalapp.ui.BikeRentalAppController;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

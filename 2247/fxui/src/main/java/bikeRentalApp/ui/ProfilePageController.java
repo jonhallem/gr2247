@@ -1,7 +1,9 @@
-package bikeRentalApp.ui;
+package bikerentalapp.ui;
 
-import bikeRentalApp.core.BikeRentalManager;
 import java.io.IOException;
+
+import bikerentalapp.core.BikeRentalManager;
+import bikerentalapp.core.BikeRentalManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
