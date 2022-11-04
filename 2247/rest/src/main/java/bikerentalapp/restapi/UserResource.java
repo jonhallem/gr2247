@@ -1,5 +1,5 @@
 package bikerentalapp.restapi;
 
-public class BikeRentalService {
+public class UserResource {
 
 }
