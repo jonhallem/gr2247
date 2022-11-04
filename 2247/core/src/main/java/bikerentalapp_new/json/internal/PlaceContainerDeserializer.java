@@ -1,4 +1,4 @@
-package bikeRentalApp.json.internal;
+package bikerentalapp.json.internal;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,35 +13,35 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import bikeRentalApp.core.User;
-import bikeRentalApp.core.UserContainer;
+import bikeRentalApp.core.Place;
+import bikeRentalApp.core.PlaceContainer;
 
-public class UserContainerDeserializer extends JsonDeserializer<UserContainer> {
+public class PlaceContainerDeserializer extends JsonDeserializer<PlaceContainer> {
 
-    private UserDeserializer userDeserializer = new UserDeserializer();
+    private PlaceDeserializer placeDeserializer = new PlaceDeserializer();
 
     @Override
-    public UserContainer deserialize(JsonParser parser, DeserializationContext context)
+    public PlaceContainer deserialize(JsonParser parser, DeserializationContext context)
             throws IOException, JacksonException {
         TreeNode treeNode = parser.getCodec().readTree(parser);
         return this.deserialize((JsonNode) treeNode);
     }
 
-    public UserContainer deserialize(JsonNode jsonNode) {
-        List<User> userList = new ArrayList<>();
+    public PlaceContainer deserialize(JsonNode jsonNode) {
+        List<Place> placeList = new ArrayList<>();
         if (jsonNode instanceof ObjectNode) {
             ObjectNode objectNode = (ObjectNode) jsonNode;
-            JsonNode usersNode = objectNode.get("users");
-            if (usersNode instanceof ArrayNode) {
-                for (JsonNode userNode : ((ArrayNode) usersNode)) {
-                    User user = userDeserializer.deserialize(userNode);
-                    if (user != null) {
-                        userList.add(user);
+            JsonNode placesNode = objectNode.get("places");
+            if (placesNode instanceof ArrayNode) {
+                for (JsonNode placeNode : ((ArrayNode) placesNode)) {
+                    Place place = placeDeserializer.deserialize(placeNode);
+                    if (place != null) {
+                        placeList.add(place);
                     }
                 }
             }
         }
-        return new UserContainer(userList);
+        return new PlaceContainer(placeList);
     }
 
 }

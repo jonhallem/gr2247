@@ -1,4 +1,4 @@
-package bikerentalapp.ui;
+package bikerentalapp_new.ui;
 
 import java.io.IOException;
 

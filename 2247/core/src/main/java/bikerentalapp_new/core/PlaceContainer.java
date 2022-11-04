@@ -1,22 +1,19 @@
-package bikeRentalApp.core;
+package bikerentalapp.core;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 /**
- * The {@code PlaceContainer} is a iterable class, holding a series of
- * {@code Place} objects.
+ * The {@code PlaceContainer} is a iterable class, holding a series of {@code Place} objects. 
  */
 
 public class PlaceContainer implements Iterable<Place> {
-
+    
     private List<Place> places = new ArrayList<>();
 
     /**
-     * Constructs a {@code PlaceContainer} object with a list of {@code Place}
-     * objects.
-     * 
+     * Constructs a {@code PlaceContainer} object with a list of {@code Place} objects. 
      * @param placeList
      */
     public PlaceContainer(List<Place> placeList) {
@@ -25,7 +22,6 @@ public class PlaceContainer implements Iterable<Place> {
 
     /**
      * Returns a new list of the registered {@code Place} objects.
-     * 
      * @return List
      */
     public List<Place> getPlaces() {
@@ -53,18 +49,15 @@ public class PlaceContainer implements Iterable<Place> {
         }
     }
 
-    /**
-     * Finds a {@code Place} object with the given {@code placeName} in the list of
-     * places, {@code Places}, and returns it.
-     * 
+        /**
+     * Finds a {@code Place} object with the given {@code placeName} in the list of places, {@code Places}, and returns it. 
      * @param placeName
      * @return Place
-     * @throws IllegalArgumentException If there is no {@code Place} with the given
-     *                                  {@code placeName}.
+     * @throws IllegalArgumentException If there is no {@code Place} with the given {@code placeName}.  
      */
     public Place findPlace(String placeName) {
         return this.places.stream().filter(place -> place.getName().equals(placeName)).findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Et sted med dette navnet finnes ikke"));
+        .orElseThrow(() -> new IllegalArgumentException("Et sted med dette navnet finnes ikke"));
     }
 
     @Override

@@ -1,4 +1,4 @@
-package bikeRentalApp.core;
+package bikerentalapp.core;
 
 import java.io.IOException;
 import java.util.List;

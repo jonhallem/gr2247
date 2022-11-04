@@ -1,4 +1,4 @@
-package bikeRentalApp.json.internal;
+package bikerentalapp.json.internal;
 
 import com.fasterxml.jackson.core.util.VersionUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;

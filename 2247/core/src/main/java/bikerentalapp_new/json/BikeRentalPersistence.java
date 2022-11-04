@@ -1,4 +1,4 @@
-package bikeRentalApp.json;
+package bikerentalapp.json;
 
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;

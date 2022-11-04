@@ -1,4 +1,4 @@
-package bikeRentalApp.json.internal;
+package bikerentalapp.json.internal;
 
 import java.io.IOException;
 

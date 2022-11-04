@@ -1,4 +1,4 @@
-package bikerentalapp.json.internal;
+package bikeRentalApp.json.internal;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,15 +13,16 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import bikerentalapp.core.Place;
-import bikerentalapp.core.PlaceContainer;
+import bikeRentalApp.core.Place;
+import bikeRentalApp.core.PlaceContainer;
 
 public class PlaceContainerDeserializer extends JsonDeserializer<PlaceContainer> {
 
     private PlaceDeserializer placeDeserializer = new PlaceDeserializer();
 
     @Override
-    public PlaceContainer deserialize(JsonParser parser, DeserializationContext context) throws IOException, JacksonException {
+    public PlaceContainer deserialize(JsonParser parser, DeserializationContext context)
+            throws IOException, JacksonException {
         TreeNode treeNode = parser.getCodec().readTree(parser);
         return this.deserialize((JsonNode) treeNode);
     }

@@ -1,4 +1,4 @@
-package bikeRentalApp.core;
+package bikerentalapp.core;
 
 import org.junit.jupiter.api.Test;
 
