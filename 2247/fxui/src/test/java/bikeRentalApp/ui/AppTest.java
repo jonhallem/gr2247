@@ -42,7 +42,6 @@ public class AppTest extends ApplicationTest {
     private PlaceContainer placeContainer;
 
     private BikeRentalAppController controller;
-    
 
     @Override
     public void start(final Stage stage) throws Exception {
@@ -77,7 +76,8 @@ public class AppTest extends ApplicationTest {
 
         userContainer.addUser(controller.getLoggedInUser());
 
-        assertNotNull(controller.getLoggedInUser(), "Ved innlogging i applikasjonen skal brukerobjektet være satt til innlogget bruker");
+        assertNotNull(controller.getLoggedInUser(),
+                "Ved innlogging i applikasjonen skal brukerobjektet være satt til innlogget bruker");
     }
 
     @DisplayName("Tester oppretting av bruker med feil krav")
@@ -94,7 +94,7 @@ public class AppTest extends ApplicationTest {
         FxAssert.verifyThat("OK", NodeMatchers.isVisible());
 
     }
-    
+
     @DisplayName("Tester innlogging av allerede etablert bruker")
     @Test
     @Order(2)
@@ -105,7 +105,8 @@ public class AppTest extends ApplicationTest {
         clickOn("#passwordInput").write(password);
         clickOn("#logInButton1");
 
-        assertNotNull(controller.getLoggedInUser(), "Ved innlogging i applikasjonen skal brukerobjektet være satt til innlogget bruker");
+        assertNotNull(controller.getLoggedInUser(),
+                "Ved innlogging i applikasjonen skal brukerobjektet være satt til innlogget bruker");
     }
 
     @DisplayName("Tester innlogging av bruker med feil innloggingsinformasjon")
@@ -117,7 +118,6 @@ public class AppTest extends ApplicationTest {
         clickOn("#usernameInput").write(username);
         clickOn("#passwordInput").write(password);
         clickOn("#logInButton1");
-
 
         assertNull(controller.getLoggedInUser(), "Ved innlogging i applikasjonen må passordkravene stemme");
         FxAssert.verifyThat("OK", NodeMatchers.isVisible());
@@ -136,11 +136,11 @@ public class AppTest extends ApplicationTest {
 
         // riktig sted vil alltid ligge nederst under testing
         clickOn("#selectDepartureLocation");
-        for (int i = 0; i < this.placeContainer.getPlaces().size()+1; i++) {
+        for (int i = 0; i < this.placeContainer.getPlaces().size() + 1; i++) {
             type(KeyCode.DOWN);
         }
         type(KeyCode.ENTER);
-        //Unngår å velge et sted
+        // Unngår å velge et sted
         clickOn("#rentBikeButton");
         FxAssert.verifyThat("OK", NodeMatchers.isVisible());
     }
@@ -157,7 +157,7 @@ public class AppTest extends ApplicationTest {
 
         // riktig sted vil alltid ligge nederst under testing
         clickOn("#selectDepartureLocation");
-        for (int i = 0; i < this.placeContainer.getPlaces().size()+1; i++) {
+        for (int i = 0; i < this.placeContainer.getPlaces().size() + 1; i++) {
             type(KeyCode.DOWN);
         }
         type(KeyCode.ENTER);
@@ -167,7 +167,8 @@ public class AppTest extends ApplicationTest {
         clickOn("#rentBikeButton");
 
         assertNotNull(controller.getLoggedInUser(), "Innlogget bruker skal være registrert");
-        assertEquals("BIKE1234", controller.getUserBike().getID(), "Bruker skal ha registrert utlånt sykkel som ID: 'BIKE1234'");
+        assertEquals("BIKE1234", controller.getUserBike().getID(),
+                "Bruker skal ha registrert utlånt sykkel som ID: 'BIKE1234'");
     }
 
     @DisplayName("Tester innlevering av sykkel til teststed")
@@ -182,7 +183,7 @@ public class AppTest extends ApplicationTest {
 
         // riktig sted vil alltid ligge nederst under testing
         clickOn("#returnBikeButton");
-        //Unngår å velge innleverings-sted
+        // Unngår å velge innleverings-sted
         clickOn("#confirmReturnBikeButton");
         FxAssert.verifyThat("OK", NodeMatchers.isVisible());
     }
@@ -197,12 +198,13 @@ public class AppTest extends ApplicationTest {
         clickOn("#passwordInput").write(password);
         clickOn("#logInButton1");
 
-        assertEquals("BIKE1234", controller.getUserBike().getID(), "Bruker skal allerede ha lånt en sykkel med ID 'BIKE1234'");
+        assertEquals("BIKE1234", controller.getUserBike().getID(),
+                "Bruker skal allerede ha lånt en sykkel med ID 'BIKE1234'");
 
         // riktig sted vil alltid ligge nederst under testing
         clickOn("#returnBikeButton");
         clickOn("#selectArrivalLocation");
-        for (int i = 0; i < this.placeContainer.getPlaces().size()+1; i++) {
+        for (int i = 0; i < this.placeContainer.getPlaces().size() + 1; i++) {
             type(KeyCode.DOWN);
         }
         type(KeyCode.ENTER);
@@ -210,7 +212,6 @@ public class AppTest extends ApplicationTest {
 
         assertNull(controller.getUserBike(), "Sykkel skal være innlevert og ikke registrert på bruker");
     }
-
 
     @AfterAll
     public void cleanDataBase() throws IOException {
