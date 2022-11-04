@@ -184,4 +184,14 @@ public class BikeRentalManager {
         bikeRentalPersistence.writeUserContainer(userContainer);
     }
 
+    /**
+     * 
+     * Returns the BikeRentalPersistence held by the BikeRentalManager.
+     * 
+     * @return BikeRentalPersistence
+     */
+    public BikeRentalPersistence getBikeRentalPersistence() {
+        return this.bikeRentalPersistence;
+    }
+
 }
