@@ -182,6 +182,8 @@
   <modules>
     <module>core</module>
     <module>fxui</module>
+    <module>rest</module>
+    <module>integrationtests</module>
   </modules>
 
 </project>
