@@ -1,8 +1,7 @@
 package bikerentalapp.ui;
 
+import bikerentalapp.core.User;
 import java.io.IOException;
-
-import bikerentalapp.core.BikeRentalManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,13 +18,15 @@ import javafx.stage.Stage;
 /**
  * A class for the controller of the profile page in Bike Rental App.
  * Defines functions that are called when interacting with the GUI
- * on the apps profile page, thus bining the GUI and the model.
+ * on the apps profile page, thus binding the GUI and the model.
  */
 public class ProfilePageController {
 
     // -------------- Felt -----------------
 
-    private BikeRentalManager bikeRentalManager = null;
+    private User loggedInUser = null;
+
+    private BikeRentalManagerAccess bikeRentalManagerAccess;
 
     private Scene mainMenuScene = null;
 
@@ -75,21 +76,20 @@ public class ProfilePageController {
     @FXML
     void initialize() {
 
-        // TODO:
-
+        // TODO: Hvis utleiehistorikk skal implementeres:
         // updateRentalHistory();
-        // this.updateUserName();
+
+        this.bikeRentalManagerAccess = new DirectBikeRentalManagerAccess();
     }
 
     /**
-     * Sets the bikeRentalManager when the view is changed from main menu to profile
+     * Sets the logged in user when the view is changed from main menu to profile
      * page.
      *
-     * @param bikeRentalManager the bikeRentalManager object currently in use.
-     * 
+     * @param loggedInUser the {@code User} object currently logged in.
      */
-    public void setBikeRentalManager(BikeRentalManager bikeRentalManager) {
-        this.bikeRentalManager = bikeRentalManager;
+    public void setLoggedInUser(User loggedInUser) {
+        this.loggedInUser = loggedInUser;
         this.updateUserName();
     }
 
@@ -116,10 +116,8 @@ public class ProfilePageController {
 
     /**
      * Takes the input strings from the fields in the change-user-password-pane,
-     * validates them,
-     * and sets the new, given password if the validation succeeds. If the
-     * validation does not
-     * succeed, shows an error message.
+     * validates them, and sets the new, given password if the validation succeeds.
+     * If the validation does not succeed, shows an error message.
      */
     @FXML
     private void confirmNewPassword() {
@@ -127,8 +125,8 @@ public class ProfilePageController {
         String newPassword = this.newPasswordInput.getText();
         String newPasswordRepeated = this.repeatNewPasswordInput.getText();
 
-        if (this.bikeRentalManager != null) {
-            if (!currentPassword.equals(this.bikeRentalManager.getLoggedInUser().getPassword())) {
+        if (this.loggedInUser != null) {
+            if (!currentPassword.equals(this.loggedInUser.getPassword())) {
                 this.errorMessage("Nåværende passord er ikke riktig.");
             } else if (!newPassword.equals(newPasswordRepeated)) {
                 this.errorMessage(
@@ -136,7 +134,8 @@ public class ProfilePageController {
                                 + "stemmer ikke overens.");
             } else {
                 try {
-                    this.bikeRentalManager.changePasswordOfLoggedInUser(newPassword);
+                    this.loggedInUser = this.bikeRentalManagerAccess
+                            .setUserPassword(this.loggedInUser, newPassword);
                     this.hideChangePasswordPane();
                 } catch (IllegalArgumentException | IOException e) {
                     this.errorMessage(e.getMessage());
@@ -173,7 +172,7 @@ public class ProfilePageController {
     void backToMainMenu() {
         try {
             ((Stage) usernameTitle.getScene().getWindow()).setScene(
-                    getMainMenuScene(this.bikeRentalManager));
+                    getMainMenuScene(this.loggedInUser));
         } catch (Exception e) {
             System.err.println("Couldn't load main menu scene");
             e.getCause().printStackTrace();
@@ -186,22 +185,21 @@ public class ProfilePageController {
      * Sets the username on the profile page in accordence with the logged in user.
      */
     private void updateUserName() {
-        if (this.bikeRentalManager != null) {
-            this.usernameTitle.setText("Bruker: " + this.bikeRentalManager.getLoggedInUser()
-                    .getUsername());
+        if (this.loggedInUser != null) {
+            this.usernameTitle.setText("Bruker: " + this.loggedInUser.getUsername());
         }
     }
 
     /**
      * Creates and returns the main menu scene, used to set the view.
      *
-     * @param bikeRentalManager the bikeRentalManager currently in use. Should be
-     *                          {@code null} if user should be logged out.
+     * @param loggedInUser the {@code User} object currently in use. Should be
+     *                     {@code null} if user should be logged out.
      * @return Scene the {@code Scene} object to set the view to.
      * @throws RuntimeException if an IOExceprion happens when the fxmlLoader is
      *                          loaded.
      */
-    private Scene getMainMenuScene(BikeRentalManager bikeRentalManager) throws RuntimeException {
+    private Scene getMainMenuScene(User loggedInUser) throws RuntimeException {
         if (this.mainMenuScene == null) {
             ProfilePageController controller = (ProfilePageController) this;
             FXMLLoader fxmlLoader = new FXMLLoader(controller.getClass()
@@ -209,8 +207,8 @@ public class ProfilePageController {
             try {
                 Object root = fxmlLoader.load();
                 BikeRentalAppController bikeRentalAppController = fxmlLoader.getController();
-                if (bikeRentalManager != null) {
-                    bikeRentalAppController.setBikeRentalManager(bikeRentalManager);
+                if (loggedInUser != null) {
+                    bikeRentalAppController.setLoggedInUser(loggedInUser);
                 }
                 if (root instanceof Parent) {
                     this.mainMenuScene = new Scene((Parent) root);

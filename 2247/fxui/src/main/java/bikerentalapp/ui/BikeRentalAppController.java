@@ -1,30 +1,35 @@
 package bikerentalapp.ui;
 
-import java.io.IOException;
-
 import bikerentalapp.core.Bike;
-import bikerentalapp.core.BikeRentalManager;
 import bikerentalapp.core.Place;
 import bikerentalapp.core.User;
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ * A class for the controller for the main functionality in Bike Rental App.
+ * Defines functions that are called when interacting with the GUI
+ * on the apps main pages, thus binding the GUI and the model.
+ */
 public class BikeRentalAppController {
 
     // -------------- Kobling til applikasjon -----------------
 
-    private BikeRentalManager bikeRentalManager;
+    private BikeRentalManagerAccess bikeRentalManagerAccess;
+
+    private User loggedInUser = null;
 
     private Place chosenDepartureLocation;
 
@@ -99,19 +104,20 @@ public class BikeRentalAppController {
     private Pane userInformationGroup;
 
     @FXML
-    private Label rentedBikeIDText;
+    private Label rentedBikeIdText;
 
     // -------------- Metoder for riktig innlasting av GUI innhold -----------------
 
     /**
-     * Initializes at the start of javafx instance
+     * Initializes at the start of javafx instance, setting the initial values in
+     * the app.
      */
     @FXML
     void initialize() {
 
-        bikeRentalManager = new BikeRentalManager();
+        this.bikeRentalManagerAccess = new DirectBikeRentalManagerAccess();
 
-        rentedBikeIDText.setText("");
+        rentedBikeIdText.setText("");
 
         logInGroup.setVisible(true);
 
@@ -121,24 +127,28 @@ public class BikeRentalAppController {
     }
 
     /**
-     * Sets the bikeRentalManager when the view is changed
+     * Sets the logged in user when the view is changed.
+     *
+     * @param loggedInUser the {@code User} object that is logged in during the
+     *                     session.
      */
-    public void setBikeRentalManager(BikeRentalManager BRM) {
-        this.bikeRentalManager = BRM;
+    public void setLoggedInUser(User loggedInUser) {
+        this.loggedInUser = loggedInUser;
 
         logInGroup.setVisible(false);
-        rentedBikeIDText.setText("");
+        rentedBikeIdText.setText("");
         userInformationGroup.setVisible(true);
         logInGroup.setVisible(false);
         profileButton.setVisible(true);
 
         // sjekker om bruker allerede har lånt en sykkel
-        if (bikeRentalManager.getUserBike() == null) {
+        if (this.loggedInUser.getBike() == null) {
             departureGroup.setVisible(true);
         } else {
             arrivalGroup.setVisible(true);
-            rentedBikeIDText.setText(
-                    bikeRentalManager.getUserBike().getType() + " - " + bikeRentalManager.getUserBike().getID());
+            rentedBikeIdText.setText(
+                    this.loggedInUser.getBike().getType() + " - "
+                            + this.loggedInUser.getBike().getID());
         }
 
     }
@@ -148,7 +158,8 @@ public class BikeRentalAppController {
     /**
      * Logs into the application if the user exists in the database.
      * Catches IllegalArgumentException if a user does not exist in database.
-     * Catches IOException when filehandling has an unexpected error
+     * Catches IOException when read/write to file has an unexpected error.
+     * If an exception is catched, shows an appropriate error message.
      */
     @FXML
     private void logIn() {
@@ -157,19 +168,20 @@ public class BikeRentalAppController {
         String password = passwordInput.getText();
 
         try {
-            bikeRentalManager.logIn(username, password);
-            rentedBikeIDText.setText("");
+            this.loggedInUser = bikeRentalManagerAccess.logIn(username, password);
+            rentedBikeIdText.setText("");
             userInformationGroup.setVisible(true);
             logInGroup.setVisible(false);
             profileButton.setVisible(true);
 
             // sjekker om bruker allerede har lånt en sykkel
-            if (bikeRentalManager.getUserBike() == null) {
+            if (this.loggedInUser.getBike() == null) {
                 departureGroup.setVisible(true);
             } else {
                 arrivalGroup.setVisible(true);
-                rentedBikeIDText.setText(
-                        bikeRentalManager.getUserBike().getType() + " - " + bikeRentalManager.getUserBike().getID());
+                rentedBikeIdText.setText(
+                        this.loggedInUser.getBike().getType() + " - "
+                                + this.loggedInUser.getBike().getID());
             }
         } catch (IllegalArgumentException e) {
 
@@ -182,10 +194,11 @@ public class BikeRentalAppController {
     }
 
     /**
-     * Create user in the application and add it to the database.
+     * Creates a new user in the application and adds it to the database.
      * Catches IllegalArgumentException if a user exists in the database, or the
      * entered name/password is invalid.
-     * Catches IOException when filehandling has an unexpected error
+     * Catches IOException when read/write to file has an unexpected error.
+     * If an exception is catched, shows an appropriate error message.
      */
     @FXML
     private void signUp() {
@@ -194,8 +207,8 @@ public class BikeRentalAppController {
         String password = passwordInput.getText();
 
         try {
-            bikeRentalManager.signUp(username, password);
-            rentedBikeIDText.setText("");
+            this.loggedInUser = bikeRentalManagerAccess.signUp(username, password);
+            rentedBikeIdText.setText("");
             userInformationGroup.setVisible(true);
             logInGroup.setVisible(false);
             departureGroup.setVisible(true);
@@ -213,9 +226,10 @@ public class BikeRentalAppController {
     // ------------ Metoder for utlån og innlevering av sykler -----------
 
     /**
-     * Rents a bike from the database and add it the the user.
+     * Rents a bike from the a place in the database and adds it the the user.
      * If the user has not selected a bike, show error message.
-     * Catches IOException when filehandling has an unexpected error
+     * Catches IOException when read/write to file has an unexpected error.
+     * If an exception is catched, shows an appropriate error message.
      */
     @FXML
     private void rentBike() {
@@ -224,12 +238,14 @@ public class BikeRentalAppController {
 
         if (selectedBike != null) {
 
-            String bikeID = selectedBike.split(" --- ")[0].split(": ")[1];
+            String bikeId = selectedBike.split(" --- ")[0].split(": ")[1];
 
             for (Bike bike : chosenDepartureLocation.getBikes()) {
-                if (bike.getID().equals(bikeID)) {
+                if (bike.getID().equals(bikeId)) {
                     try {
-                        bikeRentalManager.rentBike(selectDepartureLocation.getValue(), bike.getID());
+                        this.loggedInUser = this.bikeRentalManagerAccess
+                                .rentBike(chosenDepartureLocation, bike,
+                                        this.loggedInUser);
                     } catch (IOException e) {
 
                         errorMessage(e.toString());
@@ -237,7 +253,8 @@ public class BikeRentalAppController {
                     } catch (IllegalArgumentException e) {
                         errorMessage(e.toString());
                     }
-                    rentedBikeIDText.setText(bike.getType() + " - " + bike.getID());
+                    rentedBikeIdText.setText(bike.getType() + " - " + bike.getID());
+                    break;
                 }
             }
 
@@ -252,15 +269,17 @@ public class BikeRentalAppController {
 
     /**
      * Delivers bike object by removing it from the user in the database.
-     * Catches Exception when filehandling has an unexpected error
+     * Catches Exception when read/write to file has an unexpected error, and shows
+     * an appropriate error message.
      */
     @FXML
     private void deliverBike() {
         try {
-            bikeRentalManager.deliverBike(selectArrivalLocation.getValue());
+            this.loggedInUser = this.bikeRentalManagerAccess.deliverBike(loggedInUser,
+                    selectArrivalLocation.getValue());
             arrivalConfirmationGroup.setVisible(false);
             departureGroup.setVisible(true);
-            rentedBikeIDText.setText("");
+            rentedBikeIdText.setText("");
             loadBikesIntoList();
 
             // TODO: change exception?
@@ -271,7 +290,7 @@ public class BikeRentalAppController {
     }
 
     /**
-     * Shows returnGroup GUI-elements when user wants to deliver bike.
+     * Shows returnGroup GUI-elements when user wants to deliver its bike.
      */
     @FXML
     private void showReturnGroup() {
@@ -282,7 +301,7 @@ public class BikeRentalAppController {
     // ----------- Metode for å forandre viewet til profile page ----------------
 
     /**
-     * Sets the view to profile page.
+     * Sets the view to the profile page.
      */
     @FXML
     void showProfilePage() {
@@ -298,7 +317,8 @@ public class BikeRentalAppController {
 
     /**
      * Refreshes the list of bikes available to rent.
-     * Catches IOException when filehandling has an unexpected error
+     * Catches IOException when filehandling has an unexpected error, and shows the
+     * error message.
      */
     @FXML
     private void loadBikesIntoList() {
@@ -306,7 +326,7 @@ public class BikeRentalAppController {
         listOfAvailableBikes.getItems().clear();
 
         try {
-            for (Place place : bikeRentalManager.getPlaces()) {
+            for (Place place : bikeRentalManagerAccess.getPlaces()) {
                 if (place.getName().equals(selectDepartureLocation.getValue())) {
                     chosenDepartureLocation = place;
                 }
@@ -334,7 +354,7 @@ public class BikeRentalAppController {
 
     /**
      * Shows error popup message in GUI.
-     * 
+     *
      * @param e errormessage in the error popup
      */
     private void errorMessage(String e) {
@@ -346,12 +366,13 @@ public class BikeRentalAppController {
 
     /**
      * Updates places in GUI comboboxes.
-     * Catches IOException when filehandling has an unexpected error
+     * Catches IOException when read/write to file has an unexpected error, and
+     * shows an error message.
      */
     private void updateLocations() {
 
         try {
-            for (Place place : bikeRentalManager.getPlaces()) {
+            for (Place place : bikeRentalManagerAccess.getPlaces()) {
                 selectDepartureLocation.getItems().add(place.getName());
                 selectArrivalLocation.getItems().add(place.getName());
             }
@@ -364,20 +385,22 @@ public class BikeRentalAppController {
 
     /**
      * Creates and returns the profile page scene, used to set the view. Transfers
-     * the bikeRentalManager
-     * object to the controller of the profile page (ensures that the user is still
-     * logged in).
-     * 
+     * the user object to the controller of the profile page (ensures that the user
+     * is still logged in).
+     *
      * @return Scene the {@code Scene} object to set the view to.
-     * @throws RuntimeException
+     * @throws RuntimeException if an IOExceprion happens when the fxmlLoader is
+     *                          loaded.
      */
     private Scene getProfilePageScene() throws RuntimeException {
         if (this.profilePageScene == null) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BikeRentalProfilePage.fxml"));
+            BikeRentalAppController controller = (BikeRentalAppController) this;
+            FXMLLoader fxmlLoader = new FXMLLoader(controller.getClass()
+                    .getResource("BikeRentalProfilePage.fxml"));
             try {
                 Object root = fxmlLoader.load();
                 ProfilePageController profilePageController = fxmlLoader.getController();
-                profilePageController.setBikeRentalManager(this.bikeRentalManager);
+                profilePageController.setLoggedInUser(this.loggedInUser);
                 if (root instanceof Parent) {
                     this.profilePageScene = new Scene((Parent) root);
                 } else if (root instanceof Scene) {
@@ -393,17 +416,21 @@ public class BikeRentalAppController {
     // ---------- Metoder for testing -------------
 
     /**
-     * Returns logged in user
+     * Returns the logged in user.
+     *
+     * @return the {@code User} object logged in.
      */
     public User getLoggedInUser() {
-        return bikeRentalManager.getLoggedInUser();
+        return this.loggedInUser;
     }
 
     /**
-     * Returns rented bike
+     * Returns the {@code Bike} object that the logged in user has rented.
+     *
+     * @return {@code null} if no bike is rented, otherwise the {@code Bike} object.
      */
     public Bike getUserBike() {
-        return bikeRentalManager.getUserBike();
+        return this.loggedInUser.getBike();
     }
 
 }
