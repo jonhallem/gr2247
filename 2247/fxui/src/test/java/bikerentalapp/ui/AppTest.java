@@ -1,27 +1,21 @@
 package bikerentalapp.ui;
 
+import bikerentalapp.core.Bike;
+import bikerentalapp.core.PlaceContainer;
+import bikerentalapp.core.UserContainer;
+import bikerentalapp.json.BikeRentalPersistence;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-
 import org.testfx.api.FxAssert;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
-
-import bikerentalapp.core.Bike;
-import bikerentalapp.core.PlaceContainer;
-import bikerentalapp.core.UserContainer;
-import bikerentalapp.json.BikeRentalPersistence;
-import bikerentalapp.ui.BikeRentalAppController;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-
 import java.io.IOException;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -54,7 +48,6 @@ public class AppTest extends ApplicationTest {
 
     @BeforeEach
     public void setUp() throws IOException {
-        System.out.println("Initialiserer BRMController...");
         this.bikeRentalPersistence = new BikeRentalPersistence();
         userContainer = bikeRentalPersistence.readUserContainer();
         placeContainer = bikeRentalPersistence.readPlaceContainer();
