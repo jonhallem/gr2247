@@ -2,7 +2,7 @@ package bikerentalapp.ui;
 
 import java.io.IOException;
 
-import bikerentalapp.core.BikeRentalManager;
+import bikerentalapp.core.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,7 +25,9 @@ public class ProfilePageController {
 
     // -------------- Felt -----------------
 
-    private BikeRentalManager bikeRentalManager = null;
+    private User loggedInUser = null;
+
+    private BikeRentalManagerAccess bikeRentalManagerAccess;
 
     private Scene mainMenuScene = null;
 
@@ -75,10 +77,11 @@ public class ProfilePageController {
     @FXML
     void initialize() {
 
-        // TODO:
+        // TODO: Hvis utleiehistorikk skal implementeres:
 
         // updateRentalHistory();
-        // this.updateUserName();
+
+        this.bikeRentalManagerAccess = new DirectBikeRentalManagerAccess();
     }
 
     /**
@@ -88,8 +91,8 @@ public class ProfilePageController {
      * @param bikeRentalManager the bikeRentalManager object currently in use.
      * 
      */
-    public void setBikeRentalManager(BikeRentalManager bikeRentalManager) {
-        this.bikeRentalManager = bikeRentalManager;
+    public void setLoggedInUser(User loggedInUser) {
+        this.loggedInUser = loggedInUser;
         this.updateUserName();
     }
 
@@ -127,8 +130,8 @@ public class ProfilePageController {
         String newPassword = this.newPasswordInput.getText();
         String newPasswordRepeated = this.repeatNewPasswordInput.getText();
 
-        if (this.bikeRentalManager != null) {
-            if (!currentPassword.equals(this.bikeRentalManager.getLoggedInUser().getPassword())) {
+        if (this.loggedInUser != null) {
+            if (!currentPassword.equals(this.loggedInUser.getPassword())) {
                 this.errorMessage("Nåværende passord er ikke riktig.");
             } else if (!newPassword.equals(newPasswordRepeated)) {
                 this.errorMessage(
@@ -136,7 +139,7 @@ public class ProfilePageController {
                                 + "stemmer ikke overens.");
             } else {
                 try {
-                    this.bikeRentalManager.changePasswordOfLoggedInUser(newPassword);
+                    this.loggedInUser = this.bikeRentalManagerAccess.setUserPassword(this.loggedInUser, newPassword);
                     this.hideChangePasswordPane();
                 } catch (IllegalArgumentException | IOException e) {
                     this.errorMessage(e.getMessage());
@@ -173,7 +176,7 @@ public class ProfilePageController {
     void backToMainMenu() {
         try {
             ((Stage) usernameTitle.getScene().getWindow()).setScene(
-                    getMainMenuScene(this.bikeRentalManager));
+                    getMainMenuScene(this.loggedInUser));
         } catch (Exception e) {
             System.err.println("Couldn't load main menu scene");
             e.getCause().printStackTrace();
@@ -186,9 +189,8 @@ public class ProfilePageController {
      * Sets the username on the profile page in accordence with the logged in user.
      */
     private void updateUserName() {
-        if (this.bikeRentalManager != null) {
-            this.usernameTitle.setText("Bruker: " + this.bikeRentalManager.getLoggedInUser()
-                    .getUsername());
+        if (this.loggedInUser != null) {
+            this.usernameTitle.setText("Bruker: " + this.loggedInUser.getUsername());
         }
     }
 
@@ -201,7 +203,7 @@ public class ProfilePageController {
      * @throws RuntimeException if an IOExceprion happens when the fxmlLoader is
      *                          loaded.
      */
-    private Scene getMainMenuScene(BikeRentalManager bikeRentalManager) throws RuntimeException {
+    private Scene getMainMenuScene(User loggedInUser) throws RuntimeException {
         if (this.mainMenuScene == null) {
             ProfilePageController controller = (ProfilePageController) this;
             FXMLLoader fxmlLoader = new FXMLLoader(controller.getClass()
@@ -209,8 +211,8 @@ public class ProfilePageController {
             try {
                 Object root = fxmlLoader.load();
                 BikeRentalAppController bikeRentalAppController = fxmlLoader.getController();
-                if (bikeRentalManager != null) {
-                    bikeRentalAppController.setBikeRentalManager(bikeRentalManager);
+                if (loggedInUser != null) {
+                    bikeRentalAppController.setLoggedInUser(loggedInUser);
                 }
                 if (root instanceof Parent) {
                     this.mainMenuScene = new Scene((Parent) root);
