@@ -73,7 +73,7 @@
                   <DropShadow />
                </effect>
             </Rectangle>
-            <Label fx:id="rentedBikeIDText" layoutX="234.0" prefHeight="131.0" prefWidth="237.0" text="Fjellsykkel 12345678" wrapText="true">
+            <Label fx:id="rentedBikeIdText" layoutX="234.0" prefHeight="131.0" prefWidth="237.0" text="Fjellsykkel 12345678" wrapText="true">
                <font>
                   <Font size="24.0" />
                </font>
