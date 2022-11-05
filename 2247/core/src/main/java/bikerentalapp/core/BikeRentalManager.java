@@ -1,15 +1,12 @@
 package bikerentalapp.core;
 
+import bikerentalapp.json.BikeRentalPersistence;
 import java.io.IOException;
 import java.util.List;
-
-import bikerentalapp.json.BikeRentalPersistence;
 
 public class BikeRentalManager {
 
     // ------------ Tilstand ---------------
-
-    private User loggedInUser;
 
     private BikeRentalPersistence bikeRentalPersistence;
 
@@ -21,13 +18,20 @@ public class BikeRentalManager {
      */
     public BikeRentalManager() {
 
-        // TODO: kan vurdere å fylle inn tilstander
-
-        this.loggedInUser = null;
         this.bikeRentalPersistence = new BikeRentalPersistence();
     }
 
     // -------------- Gettere og settere ---------------
+
+    /**
+     * 
+     * Returns the BikeRentalPersistence held by the BikeRentalManager.
+     * 
+     * @return BikeRentalPersistence
+     */
+    public BikeRentalPersistence getBikeRentalPersistence() {
+        return this.bikeRentalPersistence;
+    }
 
     /**
      * Returns a list of places
@@ -40,24 +44,6 @@ public class BikeRentalManager {
         return placeContainer.getPlaces();
     }
 
-    /**
-     * Returns an user
-     * 
-     * @return user object
-     */
-    public User getLoggedInUser() {
-        return loggedInUser;
-    }
-
-    /**
-     * Returns the users registered bike
-     * 
-     * @return Bike object. Null if user has no bike
-     */
-    public Bike getUserBike() {
-        return loggedInUser.getBike();
-    }
-
     // ----------- Metoder -------------
 
     /**
@@ -65,19 +51,21 @@ public class BikeRentalManager {
      * persistence
      * 
      * @param newPassword
+     * @return the {@code User} object with a chenged password
      * @throws IOException              if an error occurs during filehandling
      * @throws IllegalArgumentException if User.java's password validation does not
      *                                  approve the password
      */
-    public void changePasswordOfLoggedInUser(String newPassword) throws IllegalArgumentException, IOException {
+    public User setUserPassword(User user, String newPassword)
+            throws IllegalArgumentException, IOException {
         UserContainer userContainer = this.bikeRentalPersistence.readUserContainer();
-        User loggedInUserFromContainter = userContainer.findUser(this.loggedInUser.getUsername());
+        User loggedInUserFromContainter = userContainer.findUser(user.getUsername());
 
         loggedInUserFromContainter.changePassword(newPassword);
 
-        this.loggedInUser = loggedInUserFromContainter;
-
         this.bikeRentalPersistence.writeUserContainer(userContainer);
+
+        return loggedInUserFromContainter;
     }
 
     /**
@@ -85,17 +73,17 @@ public class BikeRentalManager {
      * 
      * @param username The string username
      * @param password The string password
+     * @return the logged in {@code User} object
      * @throws IllegalArgumentException if the username or password is not found in
      *                                  the database
      */
-    public void logIn(String username, String password) throws IOException {
+    public User logIn(String username, String password) throws IOException, IllegalArgumentException {
 
         UserContainer userContainer = bikeRentalPersistence.readUserContainer();
 
         for (User user : userContainer.getUsers()) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                this.loggedInUser = user;
-                return;
+                return user;
             }
         }
         throw new IllegalArgumentException("Brukernavn eller passord er ikke gyldig");
@@ -107,10 +95,11 @@ public class BikeRentalManager {
      * 
      * @param username A unique string username not found in the database
      * @param password A strong string password
+     * @return the signed up {@code User} object
      * @throws IllegalArgumentException if the username or password is already found
      *                                  in the database
      */
-    public void signUp(String username, String password) throws IOException {
+    public User signUp(String username, String password) throws IOException {
 
         UserContainer userContainer = bikeRentalPersistence.readUserContainer();
 
@@ -121,77 +110,71 @@ public class BikeRentalManager {
         }
         User user = new User(username, password);
         userContainer.addUser(user);
-        this.loggedInUser = user;
 
         bikeRentalPersistence.writeUserContainer(userContainer);
+
+        return user;
     }
 
     /**
-     * Selected bike is removed from its place and appended to the user. The
-     * database is updated with updated information about
-     * the place, bike and user - starting the bikerenting.
+     * Updates the persistence and user: removes the {@code Bike} object from the
+     * given
+     * {@code Place} object, and assigns it to the given {@code User} object.
      * 
-     * @param placeName the string place selected to rent bike from
-     * @param bikeID    the string bike selected to rent
-     * @throws IOException if filehandling has an unexpected error
+     * @param placeToRentFrom the {@code Place} object selected to rent bike from
+     * @param bikeToRent      the {@code Bike} object selected to rent
+     * @param user            the {@code User} object that rents the bike
+     * @throws IOException              if read/write to file has an unexpected
+     *                                  error
+     * @throws IllegalArgumentException if the given place is not found in
+     *                                  persistence or, the given bike is not found
+     *                                  in the place
      */
-    public void rentBike(String placeName, String bikeID) throws IOException {
+    public User rentBike(Place placeToRentFrom, Bike bikeToRent, User user)
+            throws IOException, IllegalArgumentException {
 
         PlaceContainer placeContainer = bikeRentalPersistence.readPlaceContainer();
         UserContainer userContainer = bikeRentalPersistence.readUserContainer();
 
-        for (Place place : placeContainer.getPlaces()) {
-            if (place.getName().equals(placeName)) {
-                for (Bike bike : place) {
-                    if (bike.getID().equals(bikeID)) {
-                        Bike bikeToRent = place.removeAndGetBike(bikeID);
-                        this.loggedInUser.setBike(bikeToRent);
-                        userContainer.findUser(loggedInUser.getUsername()).setBike(bikeToRent); // sykkel må også legges
-                                                                                                // til i userContainer,
-                                                                                                // så tilstanden lagres
-                        bikeRentalPersistence.writePlaceContainer(placeContainer);
-                        bikeRentalPersistence.writeUserContainer(userContainer);
-                        return;
-                    }
-                }
-            }
+        Place placeToRentFromInPlaceContainer = placeContainer.findPlace(placeToRentFrom.getName());
+        if (placeToRentFromInPlaceContainer.getBikes().stream().filter(bike -> bike.getID().equals(bikeToRent.getID()))
+                .count() == 0) {
+            throw new IllegalArgumentException("Det gitte stedet inneholder ikke den gitte sykkelen.");
         }
-        throw new IllegalArgumentException("Stedet eksisterer ikke");
+        User userToRentBike = userContainer.findUser(user.getUsername());
+
+        userToRentBike.setBike(placeToRentFromInPlaceContainer.removeAndGetBike(bikeToRent.getID()));
+
+        bikeRentalPersistence.writePlaceContainer(placeContainer);
+        bikeRentalPersistence.writeUserContainer(userContainer);
+
+        return userToRentBike;
     }
 
     /**
      * The bike appended to the user is removed and appended to the selected place -
      * ending the bikerenting.
      * 
-     * @param placeName the string place selected to deliver bike to
+     * @param user                   the user to find in persistence to remove the
+     *                               bike from
+     * @param nameOfPlaceToDeliverTo the string place selected to deliver bike to
+     * @return the new user object after the bike is delivered
      * @throws IOException if filehandling has an unexpected error
      */
-    public void deliverBike(String placeName) throws IOException {
+    public User deliverBike(User user, String nameOfPlaceToDeliverTo) throws IOException {
 
         PlaceContainer placeContainer = bikeRentalPersistence.readPlaceContainer();
         UserContainer userContainer = bikeRentalPersistence.readUserContainer();
 
-        for (Place place : placeContainer.getPlaces()) {
-            if (place.getName().equals(placeName)) {
-                Bike bikeToDeliver = loggedInUser.removeAndReturnBike();
-                userContainer.findUser(loggedInUser.getUsername()).removeAndReturnBike(); // Sykkel må også fjernes fra
-                                                                                          // bruker i userContainer
-                place.addBike(bikeToDeliver);
-            }
-        }
+        User userToDeliverBike = userContainer.findUser(user.getUsername());
+
+        Bike bikeToDeliver = userToDeliverBike.removeAndReturnBike();
+        placeContainer.findPlace(nameOfPlaceToDeliverTo).addBike(bikeToDeliver);
 
         bikeRentalPersistence.writePlaceContainer(placeContainer);
         bikeRentalPersistence.writeUserContainer(userContainer);
-    }
 
-    /**
-     * 
-     * Returns the BikeRentalPersistence held by the BikeRentalManager.
-     * 
-     * @return BikeRentalPersistence
-     */
-    public BikeRentalPersistence getBikeRentalPersistence() {
-        return this.bikeRentalPersistence;
+        return userToDeliverBike;
     }
 
 }
