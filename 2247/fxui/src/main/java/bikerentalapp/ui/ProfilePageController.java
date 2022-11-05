@@ -1,8 +1,7 @@
 package bikerentalapp.ui;
 
-import java.io.IOException;
-
 import bikerentalapp.core.User;
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,7 +18,7 @@ import javafx.stage.Stage;
 /**
  * A class for the controller of the profile page in Bike Rental App.
  * Defines functions that are called when interacting with the GUI
- * on the apps profile page, thus bining the GUI and the model.
+ * on the apps profile page, thus binding the GUI and the model.
  */
 public class ProfilePageController {
 
@@ -78,18 +77,16 @@ public class ProfilePageController {
     void initialize() {
 
         // TODO: Hvis utleiehistorikk skal implementeres:
-
         // updateRentalHistory();
 
         this.bikeRentalManagerAccess = new DirectBikeRentalManagerAccess();
     }
 
     /**
-     * Sets the bikeRentalManager when the view is changed from main menu to profile
+     * Sets the logged in user when the view is changed from main menu to profile
      * page.
      *
-     * @param bikeRentalManager the bikeRentalManager object currently in use.
-     * 
+     * @param loggedInUser the {@code User} object currently logged in.
      */
     public void setLoggedInUser(User loggedInUser) {
         this.loggedInUser = loggedInUser;
@@ -119,10 +116,8 @@ public class ProfilePageController {
 
     /**
      * Takes the input strings from the fields in the change-user-password-pane,
-     * validates them,
-     * and sets the new, given password if the validation succeeds. If the
-     * validation does not
-     * succeed, shows an error message.
+     * validates them, and sets the new, given password if the validation succeeds.
+     * If the validation does not succeed, shows an error message.
      */
     @FXML
     private void confirmNewPassword() {
@@ -139,7 +134,8 @@ public class ProfilePageController {
                                 + "stemmer ikke overens.");
             } else {
                 try {
-                    this.loggedInUser = this.bikeRentalManagerAccess.setUserPassword(this.loggedInUser, newPassword);
+                    this.loggedInUser = this.bikeRentalManagerAccess
+                            .setUserPassword(this.loggedInUser, newPassword);
                     this.hideChangePasswordPane();
                 } catch (IllegalArgumentException | IOException e) {
                     this.errorMessage(e.getMessage());
@@ -197,8 +193,8 @@ public class ProfilePageController {
     /**
      * Creates and returns the main menu scene, used to set the view.
      *
-     * @param bikeRentalManager the bikeRentalManager currently in use. Should be
-     *                          {@code null} if user should be logged out.
+     * @param loggedInUser the {@code User} object currently in use. Should be
+     *                     {@code null} if user should be logged out.
      * @return Scene the {@code Scene} object to set the view to.
      * @throws RuntimeException if an IOExceprion happens when the fxmlLoader is
      *                          loaded.
