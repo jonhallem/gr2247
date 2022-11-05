@@ -57,7 +57,7 @@ public interface BikeRentalManagerAccess {
 
     /**
      * Updates the model in that the given bike is removed from the given user, and
-     * added to the given bike.
+     * added to the given place.
      *
      * @param user      the user to remove the bike from.
      * @param placeName the name of the place to add the bike to.
