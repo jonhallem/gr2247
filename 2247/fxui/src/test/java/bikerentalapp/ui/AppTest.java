@@ -242,8 +242,110 @@ public class AppTest extends ApplicationTest {
         clickOn("#profileButton");
         clickOn("#backToMainMenuButton");
         // sjekker at den kommer seg tilbake til hovedskjermen
-        clickOn("#selectDepartureLocation");
+        clickOn("#selectDepartureLocation"); 
+    }
+
+    @DisplayName("Tester profilsiden")
+    @Test
+    @Order(8)
+    public void testProfilePageOldPassword() throws IOException {
+
+        String username = "testUsernameGUI";
+        String password = "testPassword1234";
         
+        // skriver inn feil passord etter endring
+        clickOn("#usernameInput").write(username);
+        clickOn("#passwordInput").write(password);
+        clickOn("#logInButton1");
+
+        FxAssert.verifyThat("OK", NodeMatchers.isVisible());
+    }
+
+    // TODO: dette skal implementeres?
+    // @DisplayName("Tester profilsiden")
+    // @Test
+    // @Order(8)
+    // public void testProfilePageSamePassword() throws IOException {
+
+    //     String username = "testUsernameGUI";
+    //     String newPassword = "newTestPassword1234";
+        
+    //     // skriver inn feil passord etter endring
+    //     clickOn("#usernameInput").write(username);
+    //     clickOn("#passwordInput").write(newPassword);
+    //     clickOn("#logInButton1");
+
+    //     // endrer view til bikeRentalProfilePage.fxml
+    //     clickOn("#profileButton");
+
+    //     clickOn("#changePasswordButton");
+    //     clickOn("#abortChangePasswordButton");
+    //     clickOn("#changePasswordButton");
+    //     // prøver å sette nytt passord til samme passord som tidligere
+    //     clickOn("#currentPasswordInput").write(newPassword);
+    //     clickOn("#newPasswordInput").write(newPassword);
+    //     clickOn("#repeatNewPasswordInput").write(newPassword);
+    //     clickOn("#confirmNewPasswordButton");
+
+    //     FxAssert.verifyThat("OK", NodeMatchers.isVisible());        
+    // }
+
+    @DisplayName("Tester profilsiden")
+    @Test
+    @Order(8)
+    public void testProfilePageWrongOldPassword() throws IOException {
+
+        String username = "testUsernameGUI";
+        String password = "wrongPassword1234";
+        String newPassword = "newTestPassword1234";
+        
+        // skriver inn feil passord etter endring
+        clickOn("#usernameInput").write(username);
+        clickOn("#passwordInput").write(newPassword);
+        clickOn("#logInButton1");
+
+        // endrer view til bikeRentalProfilePage.fxml
+        clickOn("#profileButton");
+
+        clickOn("#changePasswordButton");
+        clickOn("#abortChangePasswordButton");
+        clickOn("#changePasswordButton");
+        // prøver å sette nytt passord til samme passord som tidligere
+        clickOn("#currentPasswordInput").write(password);
+        clickOn("#newPasswordInput").write(newPassword);
+        clickOn("#repeatNewPasswordInput").write(newPassword);
+        clickOn("#confirmNewPasswordButton");
+
+        FxAssert.verifyThat("OK", NodeMatchers.isVisible());        
+    }
+
+    @DisplayName("Tester profilsiden")
+    @Test
+    @Order(8)
+    public void testProfilePageWrongNewPasswords() throws IOException {
+
+        String username = "testUsernameGUI";
+        String password = "wrongPassword1234";
+        String newPassword = "newTestPassword1234";
+        
+        // skriver inn feil passord etter endring
+        clickOn("#usernameInput").write(username);
+        clickOn("#passwordInput").write(newPassword);
+        clickOn("#logInButton1");
+
+        // endrer view til bikeRentalProfilePage.fxml
+        clickOn("#profileButton");
+
+        clickOn("#changePasswordButton");
+        clickOn("#abortChangePasswordButton");
+        clickOn("#changePasswordButton");
+        // repeterer ikke samme passord
+        clickOn("#currentPasswordInput").write(password);
+        clickOn("#newPasswordInput").write(newPassword);
+        clickOn("#repeatNewPasswordInput").write(password);
+        clickOn("#confirmNewPasswordButton");
+
+        FxAssert.verifyThat("OK", NodeMatchers.isVisible());        
     }
 
     @AfterAll
