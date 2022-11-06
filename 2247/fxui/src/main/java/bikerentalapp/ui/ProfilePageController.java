@@ -41,8 +41,7 @@ public class ProfilePageController {
     @FXML
     private Label usernameTitle;
 
-    // -------------- FXML-elementer relatert til endring av passord
-    // -----------------
+    // -------------- FXML-elementer relatert til endring av passord -----------------
 
     @FXML
     private Button changePasswordButton;
@@ -65,8 +64,7 @@ public class ProfilePageController {
     @FXML
     private PasswordField repeatNewPasswordInput;
 
-    // -------------- FXML-elementer relatert til leiehistorikk av passord
-    // -----------------
+    // -------------- FXML-elementer relatert til leiehistorikk av passord -----------------
 
     @FXML
     private ListView<String> listOfRentalHistory;
