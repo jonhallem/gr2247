@@ -126,7 +126,9 @@ public class ProfilePageController {
         if (this.loggedInUser != null) {
             if (!currentPassword.equals(this.loggedInUser.getPassword())) {
                 this.errorMessage("Nåværende passord er ikke riktig.");
-            } else if (!newPassword.equals(newPasswordRepeated)) {
+            } else if (this.loggedInUser.getPassword().equals(newPassword)) {
+                this.errorMessage("Det nye passordet kan ikke være likt det gamle passordet");
+            }else if (!newPassword.equals(newPasswordRepeated)) {
                 this.errorMessage(
                         "Passordene i feltet \"Nytt passord\" og feltet \"Gjenta nytt passord\" "
                                 + "stemmer ikke overens.");

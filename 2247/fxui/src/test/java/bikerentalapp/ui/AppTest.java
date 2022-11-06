@@ -261,34 +261,33 @@ public class AppTest extends ApplicationTest {
         FxAssert.verifyThat("OK", NodeMatchers.isVisible());
     }
 
-    // TODO: dette skal implementeres?
-    // @DisplayName("Tester profilsiden")
-    // @Test
-    // @Order(8)
-    // public void testProfilePageSamePassword() throws IOException {
+    @DisplayName("Tester profilsiden")
+    @Test
+    @Order(8)
+    public void testProfilePageSamePassword() throws IOException {
 
-    //     String username = "testUsernameGUI";
-    //     String newPassword = "newTestPassword1234";
+        String username = "testUsernameGUI";
+        String newPassword = "newTestPassword1234";
         
-    //     // skriver inn feil passord etter endring
-    //     clickOn("#usernameInput").write(username);
-    //     clickOn("#passwordInput").write(newPassword);
-    //     clickOn("#logInButton1");
+        // skriver inn feil passord etter endring
+        clickOn("#usernameInput").write(username);
+        clickOn("#passwordInput").write(newPassword);
+        clickOn("#logInButton1");
 
-    //     // endrer view til bikeRentalProfilePage.fxml
-    //     clickOn("#profileButton");
+        // endrer view til bikeRentalProfilePage.fxml
+        clickOn("#profileButton");
 
-    //     clickOn("#changePasswordButton");
-    //     clickOn("#abortChangePasswordButton");
-    //     clickOn("#changePasswordButton");
-    //     // prøver å sette nytt passord til samme passord som tidligere
-    //     clickOn("#currentPasswordInput").write(newPassword);
-    //     clickOn("#newPasswordInput").write(newPassword);
-    //     clickOn("#repeatNewPasswordInput").write(newPassword);
-    //     clickOn("#confirmNewPasswordButton");
+        clickOn("#changePasswordButton");
+        clickOn("#abortChangePasswordButton");
+        clickOn("#changePasswordButton");
+        // prøver å sette nytt passord til samme passord som tidligere
+        clickOn("#currentPasswordInput").write(newPassword);
+        clickOn("#newPasswordInput").write(newPassword);
+        clickOn("#repeatNewPasswordInput").write(newPassword);
+        clickOn("#confirmNewPasswordButton");
 
-    //     FxAssert.verifyThat("OK", NodeMatchers.isVisible());        
-    // }
+        FxAssert.verifyThat("OK", NodeMatchers.isVisible());        
+    }
 
     @DisplayName("Tester profilsiden")
     @Test
