@@ -35,8 +35,7 @@ public class BikeRentalAppController {
 
     private Scene profilePageScene = null;
 
-    // -------------- Statisk innhold alltid synlig i applikasjonen
-    // -----------------
+    // -------------- Statisk innhold alltid synlig i applikasjonen -----------------
 
     @FXML
     private Label appTitle;
