@@ -1,6 +1,5 @@
 package bikerentalapp.ui;
 
-import bikerentalapp.core.Bike;
 import bikerentalapp.core.BikeRentalManager;
 import bikerentalapp.core.Place;
 import bikerentalapp.core.User;
@@ -44,6 +43,7 @@ public class DirectBikeRentalManagerAccess implements BikeRentalManagerAccess {
      * @param password the password for the user.
      * @return the user object with matching username and password, if it exists in
      *         the model.
+     * @throws IOException if an error occurs during read/write to persistence.
      */
     @Override
     public User logIn(String username, String password) throws IOException {
@@ -53,48 +53,53 @@ public class DirectBikeRentalManagerAccess implements BikeRentalManagerAccess {
     /**
      * Sets a new password for the given user.
      *
-     * @param user     the user to change the password for.
+     * @param username the user to change the password for.
      * @param password the new password for the user.
      * @return the {@code User} object with the new password.
+     * @throws IOException              if an error occurs during read/write to
+     *                                  persistence.
+     * @throws IllegalArgumentException if User.java's password validation does not
+     *                                  approve the password
      */
     @Override
-    public User setUserPassword(User user, String password) throws IOException {
-        return this.bikeRentalManager.setUserPassword(user, password);
-
+    public User setUserPassword(String username, String password) throws IOException, IllegalArgumentException {
+        return this.bikeRentalManager.setUserPassword(username, password);
     }
 
     /**
      * Updates the model in that the given bike is removed from the given place, and
      * added to the given user.
      *
-     * @param place the place to remove the bike from.
-     * @param bike  the bike to remove/add.
-     * @param user  the user to add the bike to.
+     * @param placeName the place to remove the bike from.
+     * @param bikeId    the bike to remove/add.
+     * @param username  the user to add the bike to.
      * @return the new user object after the bike is added.
+     * @throws IOException if an error occurs during read/write to persistence.
      */
     @Override
-    public User rentBike(Place place, Bike bike, User user) throws IOException {
-        return this.bikeRentalManager.rentBike(place, bike, user);
+    public User rentBike(String placeName, String bikeId, String username) throws IOException {
+        return this.bikeRentalManager.rentBike(placeName, bikeId, username);
     }
 
     /**
      * Updates the model in that the given bike is removed from the given user, and
      * added to the given place.
      *
-     * @param user      the user to remove the bike from.
+     * @param username  the user to remove the bike from.
      * @param placeName the name of the place to add the bike to.
      * @return the new user object after the bike is delivered.
+     * @throws IOException if an error occurs during read/write to persistence.
      */
     @Override
-    public User deliverBike(User user, String placeName) throws IOException {
-        return this.bikeRentalManager.deliverBike(user, placeName);
-
+    public User deliverBike(String username, String placeName) throws IOException {
+        return this.bikeRentalManager.deliverBike(username, placeName);
     }
 
     /**
      * Gets all the places available in the app, along with the bikes present there.
      *
      * @return a list of the app's place objects.
+     * @throws IOException if an error occurs during read/write to persistence.
      */
     @Override
     public List<Place> getPlaces() throws IOException {
