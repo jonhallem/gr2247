@@ -245,7 +245,7 @@ public class AppTest extends ApplicationTest {
         clickOn("#selectDepartureLocation"); 
     }
 
-    @DisplayName("Tester profilsiden")
+    @DisplayName("Tester profilsiden med gammelt passord")
     @Test
     @Order(8)
     public void testProfilePageOldPassword() throws IOException {
@@ -261,7 +261,7 @@ public class AppTest extends ApplicationTest {
         FxAssert.verifyThat("OK", NodeMatchers.isVisible());
     }
 
-    @DisplayName("Tester profilsiden")
+    @DisplayName("Tester profilsiden med samme passord")
     @Test
     @Order(8)
     public void testProfilePageSamePassword() throws IOException {
@@ -289,7 +289,7 @@ public class AppTest extends ApplicationTest {
         FxAssert.verifyThat("OK", NodeMatchers.isVisible());        
     }
 
-    @DisplayName("Tester profilsiden")
+    @DisplayName("Tester profilsiden med feil passord")
     @Test
     @Order(8)
     public void testProfilePageWrongOldPassword() throws IOException {
@@ -318,7 +318,7 @@ public class AppTest extends ApplicationTest {
         FxAssert.verifyThat("OK", NodeMatchers.isVisible());        
     }
 
-    @DisplayName("Tester profilsiden")
+    @DisplayName("Tester profilsiden med feilmeldinger under bytte til nytt passord")
     @Test
     @Order(8)
     public void testProfilePageWrongNewPasswords() throws IOException {
