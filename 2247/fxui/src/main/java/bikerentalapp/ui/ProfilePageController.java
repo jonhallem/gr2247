@@ -135,7 +135,7 @@ public class ProfilePageController {
             } else {
                 try {
                     this.loggedInUser = this.bikeRentalManagerAccess
-                            .setUserPassword(this.loggedInUser, newPassword);
+                            .setUserPassword(this.loggedInUser.getUsername(), newPassword);
                     this.hideChangePasswordPane();
                 } catch (IllegalArgumentException | IOException e) {
                     this.errorMessage(e.getMessage());
