@@ -244,8 +244,8 @@ public class BikeRentalAppController {
                 if (bike.getID().equals(bikeId)) {
                     try {
                         this.loggedInUser = this.bikeRentalManagerAccess
-                                .rentBike(chosenDepartureLocation, bike,
-                                        this.loggedInUser);
+                                .rentBike(chosenDepartureLocation.getName(), bike.getID(),
+                                        this.loggedInUser.getUsername());
                     } catch (IOException e) {
 
                         errorMessage(e.toString());
@@ -275,7 +275,7 @@ public class BikeRentalAppController {
     @FXML
     private void deliverBike() {
         try {
-            this.loggedInUser = this.bikeRentalManagerAccess.deliverBike(loggedInUser,
+            this.loggedInUser = this.bikeRentalManagerAccess.deliverBike(this.loggedInUser.getUsername(),
                     selectArrivalLocation.getValue());
             arrivalConfirmationGroup.setVisible(false);
             departureGroup.setVisible(true);
