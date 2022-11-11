@@ -93,6 +93,10 @@ public class ProfilePageController {
         this.updateUserName();
     }
 
+    public void setBikeRentalManagerAccess(BikeRentalManagerAccess bikeRentalManagerAccess) {
+        this.bikeRentalManagerAccess = bikeRentalManagerAccess;
+    }
+
     // ----------- Metoder for endring av passord -------------
 
     /**
@@ -209,6 +213,7 @@ public class ProfilePageController {
                 BikeRentalAppController bikeRentalAppController = fxmlLoader.getController();
                 if (loggedInUser != null) {
                     bikeRentalAppController.setLoggedInUser(loggedInUser);
+                    bikeRentalAppController.setBikeRentalManagerAccess(this.bikeRentalManagerAccess);
                 }
                 if (root instanceof Parent) {
                     this.mainMenuScene = new Scene((Parent) root);

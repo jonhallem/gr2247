@@ -4,6 +4,9 @@ import bikerentalapp.core.Bike;
 import bikerentalapp.core.Place;
 import bikerentalapp.core.User;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -34,6 +37,11 @@ public class BikeRentalAppController {
     private Place chosenDepartureLocation;
 
     private Scene profilePageScene = null;
+
+    // ------- URI for når RemoteApp kjøres -----
+
+    @FXML
+    String endpointUri;
 
     // -------------- Statisk innhold alltid synlig i applikasjonen
     // -----------------
@@ -115,7 +123,15 @@ public class BikeRentalAppController {
     @FXML
     void initialize() {
 
-        this.bikeRentalManagerAccess = new DirectBikeRentalManagerAccess();
+        if (this.endpointUri == null) {
+            this.bikeRentalManagerAccess = new DirectBikeRentalManagerAccess();
+        } else {
+            try {
+                this.bikeRentalManagerAccess = new RemoteBikeRentalManagerAccess(new URI(endpointUri));
+            } catch (URISyntaxException e) {
+                System.err.println(e);
+            }
+        }
 
         rentedBikeIdText.setText("");
 
@@ -151,6 +167,10 @@ public class BikeRentalAppController {
                             + this.loggedInUser.getBike().getID());
         }
 
+    }
+
+    public void setBikeRentalManagerAccess(BikeRentalManagerAccess bikeRentalManagerAccess) {
+        this.bikeRentalManagerAccess = bikeRentalManagerAccess;
     }
 
     // -------- Brukerinnlogging og opprettelse ---------------
@@ -401,6 +421,7 @@ public class BikeRentalAppController {
                 Object root = fxmlLoader.load();
                 ProfilePageController profilePageController = fxmlLoader.getController();
                 profilePageController.setLoggedInUser(this.loggedInUser);
+                profilePageController.setBikeRentalManagerAccess(this.bikeRentalManagerAccess);
                 if (root instanceof Parent) {
                     this.profilePageScene = new Scene((Parent) root);
                 } else if (root instanceof Scene) {
