@@ -1,6 +1,7 @@
 package bikerentalapp.ui;
 
 import bikerentalapp.core.Place;
+import bikerentalapp.core.PlaceContainer;
 import bikerentalapp.core.User;
 import java.io.IOException;
 import java.util.List;
@@ -85,5 +86,5 @@ public interface BikeRentalManagerAccess {
      * @return a list of the app's {@code Place} objects.
      * @throws IOException if an error occurs during read/write to persistence.
      */
-    public List<Place> getPlaces() throws IOException;
+    public PlaceContainer getPlaceContainer() throws IOException;
 }
