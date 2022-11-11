@@ -1,10 +1,8 @@
 package bikerentalapp.ui;
 
-import bikerentalapp.core.Place;
 import bikerentalapp.core.PlaceContainer;
 import bikerentalapp.core.User;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Interface that defines methods to implement the Bike Rental App UI's access
