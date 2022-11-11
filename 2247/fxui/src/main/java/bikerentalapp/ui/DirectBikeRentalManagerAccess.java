@@ -1,10 +1,9 @@
 package bikerentalapp.ui;
 
 import bikerentalapp.core.BikeRentalManager;
-import bikerentalapp.core.Place;
+import bikerentalapp.core.PlaceContainer;
 import bikerentalapp.core.User;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Class that implements the interface BikeRentalManagerAccess. Makes the model
@@ -102,9 +101,8 @@ public class DirectBikeRentalManagerAccess implements BikeRentalManagerAccess {
      * @throws IOException if an error occurs during read/write to persistence.
      */
     @Override
-    public List<Place> getPlaces() throws IOException {
-        // TODO Auto-generated method stub
-        return this.bikeRentalManager.getPlaces();
+    public PlaceContainer getPlaceContainer() throws IOException {
+        return this.bikeRentalManager.getPlaceContainer();
     }
 
 }
