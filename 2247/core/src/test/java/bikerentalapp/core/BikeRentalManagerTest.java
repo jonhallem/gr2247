@@ -49,7 +49,7 @@ public class BikeRentalManagerTest {
         List<String> correctPlaceList = new ArrayList<>(
                 Arrays.asList("Bymarka", "Munkholmen", "Lerkendal", "Tiller", "Nidarosdomen", "Gløshaugen", "Lilleby",
                         "testPlace", "testPlace2"));
-        List<Place> returnedPlaceList = BRM.getPlaces();
+        List<Place> returnedPlaceList = BRM.getPlaceContainer().getPlaces();
 
         for (Place place : returnedPlaceList) {
             if (!correctPlaceList.contains(place.getName())) {
