@@ -326,7 +326,7 @@ public class BikeRentalAppController {
         listOfAvailableBikes.getItems().clear();
 
         try {
-            for (Place place : bikeRentalManagerAccess.getPlaces()) {
+            for (Place place : bikeRentalManagerAccess.getPlaceContainer().getPlaces()) {
                 if (place.getName().equals(selectDepartureLocation.getValue())) {
                     chosenDepartureLocation = place;
                 }
@@ -372,7 +372,7 @@ public class BikeRentalAppController {
     private void updateLocations() {
 
         try {
-            for (Place place : bikeRentalManagerAccess.getPlaces()) {
+            for (Place place : bikeRentalManagerAccess.getPlaceContainer().getPlaces()) {
                 selectDepartureLocation.getItems().add(place.getName());
                 selectArrivalLocation.getItems().add(place.getName());
             }
