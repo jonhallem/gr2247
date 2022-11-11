@@ -2,7 +2,6 @@ package bikerentalapp.core;
 
 import bikerentalapp.json.BikeRentalPersistence;
 import java.io.IOException;
-import java.util.List;
 
 public class BikeRentalManager {
 
@@ -31,17 +30,6 @@ public class BikeRentalManager {
      */
     public BikeRentalPersistence getBikeRentalPersistence() {
         return this.bikeRentalPersistence;
-    }
-
-    /**
-     * Returns a list of places
-     * 
-     * @return List of placeobjects
-     * @throws IOException if an error occurs during filehandling
-     */
-    public List<Place> getPlaces() throws IOException {
-        PlaceContainer placeContainer = this.bikeRentalPersistence.readPlaceContainer();
-        return placeContainer.getPlaces();
     }
 
     /**
