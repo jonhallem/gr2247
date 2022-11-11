@@ -59,7 +59,7 @@ public interface BikeRentalManagerAccess {
      * @param placeName the place to remove the bike from.
      * @param bikeId    the bike to remove/add.
      * @param username  the username of the user to add the bike to.
-     * @return the new username object after the bike is added.
+     * @return the new {@code User} object after the bike is added.
      * @throws IOException              if an error occurs during read/write to
      *                                  persistence.
      * @throws IllegalArgumentException if the given place is not found in
