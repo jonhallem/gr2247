@@ -44,6 +44,17 @@ public class BikeRentalManager {
         return placeContainer.getPlaces();
     }
 
+    /**
+     * Returns a placeContainer, containing a list of places.
+     * 
+     * @return {@code PlaceContainer}
+     * @throws IOException if an error occurs during filehandling
+     */
+    public PlaceContainer getPlaceContainer() throws IOException {
+        PlaceContainer placeContainer = this.bikeRentalPersistence.readPlaceContainer();
+        return placeContainer;
+    }
+
     // ----------- Metoder -------------
 
     /**
