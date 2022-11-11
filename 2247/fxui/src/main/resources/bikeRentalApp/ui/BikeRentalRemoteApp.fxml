@@ -5,7 +5,7 @@
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="todolist.ui.BikeRentalAppController">
     <fx:define>
-        <String fx:id="endpointUri" fx:value="http://localhost:8080/todo/"/>
+        <String fx:id="endpointUri" fx:value="http://localhost:8080/bikerental/"/>
     </fx:define>
     <fx:include fx:id="AppView" source="BikeRentalApp.fxml"/>
 </VBox>
