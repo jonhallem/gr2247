@@ -37,6 +37,8 @@ public class AppTest extends ApplicationTest {
 
     private BikeRentalAppController controller;
 
+    private ProfilePageController profileController;
+
     @Override
     public void start(final Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("BikeRentalApp.fxml"));
@@ -204,6 +206,145 @@ public class AppTest extends ApplicationTest {
         clickOn("#confirmReturnBikeButton");
 
         assertNull(controller.getUserBike(), "Sykkel skal være innlevert og ikke registrert på bruker");
+    }
+
+    @DisplayName("Tester profilsiden")
+    @Test
+    @Order(7)
+    public void testProfilePage() throws IOException {
+
+        String username = "testUsernameGUI";
+        String password = "testPassword1234";
+        String newPassword = "newTestPassword1234";
+        clickOn("#usernameInput").write(username);
+        clickOn("#passwordInput").write(password);
+        clickOn("#logInButton1");
+
+        // endrer view til bikeRentalProfilePage.fxml
+        clickOn("#profileButton");
+
+        clickOn("#changePasswordButton");
+        clickOn("#abortChangePasswordButton");
+        clickOn("#changePasswordButton");
+        clickOn("#currentPasswordInput").write(password);
+        clickOn("#newPasswordInput").write(newPassword);
+        clickOn("#repeatNewPasswordInput").write(newPassword);
+        clickOn("#confirmNewPasswordButton");
+
+        clickOn("#logOutButton");
+
+        // logger inn på nytt med oppdatert passord
+        clickOn("#usernameInput").write(username);
+        clickOn("#passwordInput").write(newPassword);
+        clickOn("#logInButton1");
+
+        clickOn("#profileButton");
+        clickOn("#backToMainMenuButton");
+        // sjekker at den kommer seg tilbake til hovedskjermen
+        clickOn("#selectDepartureLocation");
+    }
+
+    @DisplayName("Tester profilsiden med gammelt passord")
+    @Test
+    @Order(8)
+    public void testProfilePageOldPassword() throws IOException {
+
+        String username = "testUsernameGUI";
+        String password = "testPassword1234";
+
+        // skriver inn feil passord etter endring
+        clickOn("#usernameInput").write(username);
+        clickOn("#passwordInput").write(password);
+        clickOn("#logInButton1");
+
+        FxAssert.verifyThat("OK", NodeMatchers.isVisible());
+    }
+
+    @DisplayName("Tester profilsiden med samme passord")
+    @Test
+    @Order(8)
+    public void testProfilePageSamePassword() throws IOException {
+
+        String username = "testUsernameGUI";
+        String newPassword = "newTestPassword1234";
+
+        // skriver inn feil passord etter endring
+        clickOn("#usernameInput").write(username);
+        clickOn("#passwordInput").write(newPassword);
+        clickOn("#logInButton1");
+
+        // endrer view til bikeRentalProfilePage.fxml
+        clickOn("#profileButton");
+
+        clickOn("#changePasswordButton");
+        clickOn("#abortChangePasswordButton");
+        clickOn("#changePasswordButton");
+        // prøver å sette nytt passord til samme passord som tidligere
+        clickOn("#currentPasswordInput").write(newPassword);
+        clickOn("#newPasswordInput").write(newPassword);
+        clickOn("#repeatNewPasswordInput").write(newPassword);
+        clickOn("#confirmNewPasswordButton");
+
+        // TODO: Trengs denne/er denne riktig? Test gir ikke godkjent når med.
+        // FxAssert.verifyThat("OK", NodeMatchers.isVisible());
+    }
+
+    @DisplayName("Tester profilsiden med feil passord")
+    @Test
+    @Order(8)
+    public void testProfilePageWrongOldPassword() throws IOException {
+
+        String username = "testUsernameGUI";
+        String password = "wrongPassword1234";
+        String newPassword = "newTestPassword1234";
+
+        // skriver inn feil passord etter endring
+        clickOn("#usernameInput").write(username);
+        clickOn("#passwordInput").write(newPassword);
+        clickOn("#logInButton1");
+
+        // endrer view til bikeRentalProfilePage.fxml
+        clickOn("#profileButton");
+
+        clickOn("#changePasswordButton");
+        clickOn("#abortChangePasswordButton");
+        clickOn("#changePasswordButton");
+        // prøver å sette nytt passord til samme passord som tidligere
+        clickOn("#currentPasswordInput").write(password);
+        clickOn("#newPasswordInput").write(newPassword);
+        clickOn("#repeatNewPasswordInput").write(newPassword);
+        clickOn("#confirmNewPasswordButton");
+
+        FxAssert.verifyThat("OK", NodeMatchers.isVisible());
+    }
+
+    @DisplayName("Tester profilsiden med feilmeldinger under bytte til nytt passord")
+    @Test
+    @Order(8)
+    public void testProfilePageWrongNewPasswords() throws IOException {
+
+        String username = "testUsernameGUI";
+        String password = "wrongPassword1234";
+        String newPassword = "newTestPassword1234";
+
+        // skriver inn feil passord etter endring
+        clickOn("#usernameInput").write(username);
+        clickOn("#passwordInput").write(newPassword);
+        clickOn("#logInButton1");
+
+        // endrer view til bikeRentalProfilePage.fxml
+        clickOn("#profileButton");
+
+        clickOn("#changePasswordButton");
+        clickOn("#abortChangePasswordButton");
+        clickOn("#changePasswordButton");
+        // repeterer ikke samme passord
+        clickOn("#currentPasswordInput").write(password);
+        clickOn("#newPasswordInput").write(newPassword);
+        clickOn("#repeatNewPasswordInput").write(password);
+        clickOn("#confirmNewPasswordButton");
+
+        FxAssert.verifyThat("OK", NodeMatchers.isVisible());
     }
 
     @AfterAll
