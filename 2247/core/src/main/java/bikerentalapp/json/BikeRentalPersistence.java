@@ -15,8 +15,8 @@ import java.nio.file.Path;
 
 public class BikeRentalPersistence {
 
-    private ObjectMapper mapper;
-    private ObjectWriter writer;
+    private static ObjectMapper mapper;
+    private static ObjectWriter writer;
 
     // Konstruktør
 
@@ -26,9 +26,9 @@ public class BikeRentalPersistence {
      * objects and {@code UserContainer} objects to file, as well as read them.
      */
     public BikeRentalPersistence() {
-        this.mapper = new ObjectMapper();
-        this.mapper.registerModule(new BikeRentalModule());
-        this.writer = mapper.writer(new DefaultPrettyPrinter());
+        mapper = new ObjectMapper();
+        mapper.registerModule(new BikeRentalModule());
+        writer = mapper.writer(new DefaultPrettyPrinter());
     }
 
     // Persistens av stedene
@@ -40,7 +40,7 @@ public class BikeRentalPersistence {
      * @throws IOException
      */
     public void writePlaceContainer(PlaceContainer placeContainer) throws IOException {
-        this.writer.writeValue(this.getFile("places"), placeContainer);
+        writer.writeValue(this.getFile("places"), placeContainer);
     }
 
     /**
@@ -53,7 +53,7 @@ public class BikeRentalPersistence {
      */
     public PlaceContainer readPlaceContainer() throws IOException {
         this.ensureSaveFileExists("places");
-        return this.mapper.readValue(this.getFile("places"), PlaceContainer.class);
+        return mapper.readValue(this.getFile("places"), PlaceContainer.class);
     }
 
     // Persistens av brukerne
@@ -65,7 +65,7 @@ public class BikeRentalPersistence {
      * @throws IOException
      */
     public void writeUserContainer(UserContainer userContainer) throws IOException {
-        this.writer.writeValue(this.getFile("users"), userContainer);
+        writer.writeValue(this.getFile("users"), userContainer);
     }
 
     /**
@@ -78,7 +78,7 @@ public class BikeRentalPersistence {
      */
     public UserContainer readUserContainer() throws IOException {
         this.ensureSaveFileExists("users");
-        return this.mapper.readValue(this.getFile("users"), UserContainer.class);
+        return mapper.readValue(this.getFile("users"), UserContainer.class);
     }
 
     // Støttemetoder for filbehandling
@@ -121,6 +121,18 @@ public class BikeRentalPersistence {
             Files.createDirectories(getSaveFileFolderPath());
             file.createNewFile();
         }
+    }
+
+    // Returnere mapper
+
+    /**
+     * Returns a mapper containing modules for {@code User}, {@code Bike},
+     * {@code Place}, {@code PlaceContainer} and {@code UserContainer}.
+     * 
+     * @return {@code ObjectMapper}
+     */
+    public static ObjectMapper getObjectMapper() {
+        return mapper;
     }
 
 }
