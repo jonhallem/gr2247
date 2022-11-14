@@ -1,12 +1,12 @@
 package bikerentalapp.restserver;
 
+import bikerentalapp.json.BikeRentalPersistence;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.ext.ContextResolver;
 import jakarta.ws.rs.ext.Provider;
-import bikerentalapp.json.BikeRentalPersistence;
 
 /**
  * Provides the Jackson module used for JSON serialization.
