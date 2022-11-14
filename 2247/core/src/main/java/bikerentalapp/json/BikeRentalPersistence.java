@@ -12,11 +12,68 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 public class BikeRentalPersistence {
 
     private static ObjectMapper mapper;
     private static ObjectWriter writer;
+    private static String DEFAULT_PLACECONTAINER = """
+                    {
+                    "places" : [ {
+                      "name" : "Bymarka",
+                      "maximumNumberOfBikes" : "10",
+                      "bikes" : [ {
+                        "iD" : "BIKEIDN2",
+                        "type" : "Tandemsykkel",
+                        "colour" : "Gul"
+                      }, {
+                        "iD" : "BIKEIDN6",
+                        "type" : "Tandemsykkel",
+                        "colour" : "Gul"
+                      } ]
+                    }, {
+                      "name" : "Munkholmen",
+                      "maximumNumberOfBikes" : "10",
+                      "bikes" : [ {
+                        "iD" : "BIKEIDN3",
+                        "type" : "Tandemsykkel",
+                        "colour" : "Gul"
+                      }, {
+                        "iD" : "BIKEIDN4",
+                        "type" : "Tandemsykkel",
+                        "colour" : "Gul"
+                      }, {
+                        "iD" : "BIKEIDN1",
+                        "type" : "Tandemsykkel",
+                        "colour" : "Gul"
+                      }, {
+                        "iD" : "BIKEIDN5",
+                        "type" : "Tandemsykkel",
+                        "colour" : "Gul"
+                      } ]
+                    }, {
+                      "name" : "Lerkendal",
+                      "maximumNumberOfBikes" : "10",
+                      "bikes" : [ ]
+                    }, {
+                      "name" : "Tiller",
+                      "maximumNumberOfBikes" : "10",
+                      "bikes" : [ ]
+                    }, {
+                      "name" : "Nidarosdomen",
+                      "maximumNumberOfBikes" : "10",
+                      "bikes" : [ ]
+                    }, {
+                      "name" : "Gløshaugen",
+                      "maximumNumberOfBikes" : "10",
+                      "bikes" : [ ]
+                    }, {
+                      "name" : "Lilleby",
+                      "maximumNumberOfBikes" : "10",
+                      "bikes" : [ ]
+                    } ]
+            }; """;
 
     // Konstruktør
 
@@ -92,6 +149,7 @@ public class BikeRentalPersistence {
      * @return a {@code File} object
      */
     private File getFile(String fileName) {
+        System.out.println(getSaveFileFolderPath().resolve(fileName + ".json"));
         return getSaveFileFolderPath().resolve(fileName + ".json").toFile();
     }
 
@@ -102,11 +160,9 @@ public class BikeRentalPersistence {
      * @return a {@code Path} object
      */
     private Path getSaveFileFolderPath() {
-        return Path.of("");
+        return Path.of(System.getProperty("user.home"), "BikeRentalApp");
     }
 
-    // TODO: Vurder å slette denne, mulig den ikke trengs når lagringsfilene uansett
-    // er i repoet
     /**
      * Ensures that the JSON file to read from actually exists before reading,
      * avoiding a FileNotFoundException.
@@ -120,7 +176,16 @@ public class BikeRentalPersistence {
         if ((!file.exists() || file.isDirectory())) {
             Files.createDirectories(getSaveFileFolderPath());
             file.createNewFile();
+            if (fileName.equals("users")) {
+                this.writeUserContainer(new UserContainer(new ArrayList<>()));
+            } else {
+                this.writePlaceContainer(this.createDefaultPlaceContainer());
+            }
         }
+    }
+
+    private PlaceContainer createDefaultPlaceContainer() throws IOException {
+        return mapper.readValue(DEFAULT_PLACECONTAINER, PlaceContainer.class);
     }
 
     // Returnere mapper
