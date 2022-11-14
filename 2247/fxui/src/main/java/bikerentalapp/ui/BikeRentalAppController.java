@@ -4,6 +4,9 @@ import bikerentalapp.core.Bike;
 import bikerentalapp.core.Place;
 import bikerentalapp.core.User;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -35,7 +38,13 @@ public class BikeRentalAppController {
 
     private Scene profilePageScene = null;
 
-    // -------------- Statisk innhold alltid synlig i applikasjonen -----------------
+    // ------- URI for når RemoteApp kjøres -----
+
+    @FXML
+    String endpointUri;
+
+    // -------------- Statisk innhold alltid synlig i applikasjonen
+    // -----------------
 
     @FXML
     private Label appTitle;
@@ -114,7 +123,15 @@ public class BikeRentalAppController {
     @FXML
     void initialize() {
 
-        this.bikeRentalManagerAccess = new DirectBikeRentalManagerAccess();
+        if (this.endpointUri == null) {
+            this.bikeRentalManagerAccess = new DirectBikeRentalManagerAccess();
+        } else {
+            try {
+                this.bikeRentalManagerAccess = new RemoteBikeRentalManagerAccess(new URI(endpointUri));
+            } catch (URISyntaxException e) {
+                System.err.println(e);
+            }
+        }
 
         rentedBikeIdText.setText("");
 
@@ -150,6 +167,15 @@ public class BikeRentalAppController {
                             + this.loggedInUser.getBike().getID());
         }
 
+    }
+
+    public void setBikeRentalManagerAccess(BikeRentalManagerAccess bikeRentalManagerAccess) {
+        if (bikeRentalManagerAccess instanceof RemoteBikeRentalManagerAccess) {
+            RemoteBikeRentalManagerAccess remoteBikeRentalManagerAccess = (RemoteBikeRentalManagerAccess) bikeRentalManagerAccess;
+            this.bikeRentalManagerAccess = new RemoteBikeRentalManagerAccess(remoteBikeRentalManagerAccess.getUri());
+        } else {
+            this.bikeRentalManagerAccess = new DirectBikeRentalManagerAccess();
+        }
     }
 
     // -------- Brukerinnlogging og opprettelse ---------------
@@ -243,8 +269,8 @@ public class BikeRentalAppController {
                 if (bike.getID().equals(bikeId)) {
                     try {
                         this.loggedInUser = this.bikeRentalManagerAccess
-                                .rentBike(chosenDepartureLocation, bike,
-                                        this.loggedInUser);
+                                .rentBike(chosenDepartureLocation.getName(), bike.getID(),
+                                        this.loggedInUser.getUsername());
                     } catch (IOException e) {
 
                         errorMessage(e.toString());
@@ -274,7 +300,7 @@ public class BikeRentalAppController {
     @FXML
     private void deliverBike() {
         try {
-            this.loggedInUser = this.bikeRentalManagerAccess.deliverBike(loggedInUser,
+            this.loggedInUser = this.bikeRentalManagerAccess.deliverBike(this.loggedInUser.getUsername(),
                     selectArrivalLocation.getValue());
             arrivalConfirmationGroup.setVisible(false);
             departureGroup.setVisible(true);
@@ -325,7 +351,7 @@ public class BikeRentalAppController {
         listOfAvailableBikes.getItems().clear();
 
         try {
-            for (Place place : bikeRentalManagerAccess.getPlaces()) {
+            for (Place place : bikeRentalManagerAccess.getPlaceContainer().getPlaces()) {
                 if (place.getName().equals(selectDepartureLocation.getValue())) {
                     chosenDepartureLocation = place;
                 }
@@ -371,7 +397,7 @@ public class BikeRentalAppController {
     private void updateLocations() {
 
         try {
-            for (Place place : bikeRentalManagerAccess.getPlaces()) {
+            for (Place place : bikeRentalManagerAccess.getPlaceContainer().getPlaces()) {
                 selectDepartureLocation.getItems().add(place.getName());
                 selectArrivalLocation.getItems().add(place.getName());
             }
@@ -400,6 +426,7 @@ public class BikeRentalAppController {
                 Object root = fxmlLoader.load();
                 ProfilePageController profilePageController = fxmlLoader.getController();
                 profilePageController.setLoggedInUser(this.loggedInUser);
+                profilePageController.setBikeRentalManagerAccess(this.bikeRentalManagerAccess);
                 if (root instanceof Parent) {
                     this.profilePageScene = new Scene((Parent) root);
                 } else if (root instanceof Scene) {

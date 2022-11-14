@@ -91,6 +91,15 @@ public class ProfilePageController {
         this.updateUserName();
     }
 
+    public void setBikeRentalManagerAccess(BikeRentalManagerAccess bikeRentalManagerAccess) {
+        if (bikeRentalManagerAccess instanceof RemoteBikeRentalManagerAccess) {
+            RemoteBikeRentalManagerAccess remoteBikeRentalManagerAccess = (RemoteBikeRentalManagerAccess) bikeRentalManagerAccess;
+            this.bikeRentalManagerAccess = new RemoteBikeRentalManagerAccess(remoteBikeRentalManagerAccess.getUri());
+        } else {
+            this.bikeRentalManagerAccess = new DirectBikeRentalManagerAccess();
+        }
+    }
+
     // ----------- Metoder for endring av passord -------------
 
     /**
@@ -135,7 +144,7 @@ public class ProfilePageController {
             } else {
                 try {
                     this.loggedInUser = this.bikeRentalManagerAccess
-                            .setUserPassword(this.loggedInUser, newPassword);
+                            .setUserPassword(this.loggedInUser.getUsername(), newPassword);
                     this.hideChangePasswordPane();
                 } catch (IllegalArgumentException | IOException e) {
                     this.errorMessage(e.getMessage());
@@ -210,6 +219,7 @@ public class ProfilePageController {
                 if (loggedInUser != null) {
                     bikeRentalAppController.setLoggedInUser(loggedInUser);
                 }
+                bikeRentalAppController.setBikeRentalManagerAccess(this.bikeRentalManagerAccess);
                 if (root instanceof Parent) {
                     this.mainMenuScene = new Scene((Parent) root);
                 } else if (root instanceof Scene) {

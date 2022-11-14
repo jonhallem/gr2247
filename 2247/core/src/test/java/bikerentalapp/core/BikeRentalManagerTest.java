@@ -49,7 +49,7 @@ public class BikeRentalManagerTest {
         List<String> correctPlaceList = new ArrayList<>(
                 Arrays.asList("Bymarka", "Munkholmen", "Lerkendal", "Tiller", "Nidarosdomen", "Gløshaugen", "Lilleby",
                         "testPlace", "testPlace2"));
-        List<Place> returnedPlaceList = BRM.getPlaces();
+        List<Place> returnedPlaceList = BRM.getPlaceContainer().getPlaces();
 
         for (Place place : returnedPlaceList) {
             if (!correctPlaceList.contains(place.getName())) {
@@ -121,7 +121,7 @@ public class BikeRentalManagerTest {
         this.placeContainer.findPlace("testPlace2").addBike(bikeToRent);
         this.bikeRentalPersistence.writePlaceContainer(placeContainer);
         Place validPlace = placeContainer.findPlace("testPlace2");
-        Place inlvalidPlace = new Place("Nowhere", 100);
+        Place invalidPlace = new Place("Nowhere", 100);
 
         User loggedInUser = BRM.signUp("testName3", "testPassword123");
 
@@ -129,11 +129,11 @@ public class BikeRentalManagerTest {
                 "før utlån skal bruker ikke en nyregistrert bruker ha noen registert sykkel");
 
         Exception exception = Assertions.assertThrows(IllegalArgumentException.class,
-                () -> BRM.rentBike(inlvalidPlace, bikeToRent, loggedInUser));
+                () -> BRM.rentBike(invalidPlace.getName(), bikeToRent.getID(), loggedInUser.getUsername()));
         assertTrue(exception.getMessage().equals("Et sted med dette navnet finnes ikke"),
                 "ved feil stedsnavn skal unntak utløses");
 
-        BRM.rentBike(validPlace, bikeToRent, loggedInUser);
+        BRM.rentBike(validPlace.getName(), bikeToRent.getID(), loggedInUser.getUsername());
 
         this.userContainer = this.bikeRentalPersistence.readUserContainer();
         User loggedInUserInUserContainer = userContainer.findUser(loggedInUser.getUsername());
@@ -146,7 +146,7 @@ public class BikeRentalManagerTest {
         assertFalse(placeContainer.findPlace(validPlace.getName()).getBikes().contains(bikeToRent),
                 "Utlånt sykkel skal ikke lenger finnes i stedet i placecontainer som tilsvarer stedet der den ble leid fra");
 
-        BRM.deliverBike(loggedInUser, validPlace.getName());
+        BRM.deliverBike(loggedInUser.getUsername(), validPlace.getName());
 
         User loggedInUserFromContainer = this.bikeRentalPersistence.readUserContainer().findUser("testName3");
 
