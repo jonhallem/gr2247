@@ -37,8 +37,6 @@ public class AppTest extends ApplicationTest {
 
     private BikeRentalAppController controller;
 
-    private ProfilePageController profileController;
-
     @Override
     public void start(final Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("BikeRentalApp.fxml"));
@@ -66,7 +64,8 @@ public class AppTest extends ApplicationTest {
         clickOn("#signUpButton");
 
         placeContainer.addPlace("testPlaceGUI", 2);
-        placeContainer.findPlace("testPlaceGUI").addBike(new Bike("BIKE1234", "Fjellsykkel", "Rød"));
+        placeContainer.findPlace("testPlaceGUI").addBike(new Bike("BIKE1234",
+                "Fjellsykkel", "Rød"));
         bikeRentalPersistence.writePlaceContainer(placeContainer);
 
         userContainer.addUser(controller.getLoggedInUser());
@@ -285,8 +284,7 @@ public class AppTest extends ApplicationTest {
         clickOn("#repeatNewPasswordInput").write(newPassword);
         clickOn("#confirmNewPasswordButton");
 
-        // TODO: Trengs denne/er denne riktig? Test gir ikke godkjent når med.
-        // FxAssert.verifyThat("OK", NodeMatchers.isVisible());
+        FxAssert.verifyThat("OK", NodeMatchers.isVisible());
     }
 
     @DisplayName("Tester profilsiden med feil passord")
@@ -320,11 +318,10 @@ public class AppTest extends ApplicationTest {
 
     @DisplayName("Tester profilsiden med feilmeldinger under bytte til nytt passord")
     @Test
-    @Order(8)
+    @Order(9)
     public void testProfilePageWrongNewPasswords() throws IOException {
 
         String username = "testUsernameGUI";
-        String password = "wrongPassword1234";
         String newPassword = "newTestPassword1234";
 
         // skriver inn feil passord etter endring
@@ -339,9 +336,9 @@ public class AppTest extends ApplicationTest {
         clickOn("#abortChangePasswordButton");
         clickOn("#changePasswordButton");
         // repeterer ikke samme passord
-        clickOn("#currentPasswordInput").write(password);
-        clickOn("#newPasswordInput").write(newPassword);
-        clickOn("#repeatNewPasswordInput").write(password);
+        clickOn("#currentPasswordInput").write(newPassword);
+        clickOn("#newPasswordInput").write("wrongPassword12345");
+        clickOn("#repeatNewPasswordInput").write("wrongPassword123");
         clickOn("#confirmNewPasswordButton");
 
         FxAssert.verifyThat("OK", NodeMatchers.isVisible());
