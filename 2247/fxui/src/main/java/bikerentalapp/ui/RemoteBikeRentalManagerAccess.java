@@ -39,8 +39,10 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
      * @param endpointBaseUri the base URI.
      */
     public RemoteBikeRentalManagerAccess(URI endpointBaseUri) {
+        BikeRentalPersistence bikeRentalPersistence = new BikeRentalPersistence();
         this.endpointBaseUri = endpointBaseUri;
-        this.objectMapper = BikeRentalPersistence.getObjectMapper();
+        this.objectMapper = bikeRentalPersistence.getObjectMapper();
+        System.out.println("OBJECTMAPPER SET: " + objectMapper);
     }
 
     /**
@@ -50,7 +52,7 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
      * @return a placeContainer.
      */
     private PlaceContainer getPlaceContainerFromServer() {
-        PlaceContainer placeContainer = new PlaceContainer(null);
+        PlaceContainer placeContainer = null;
         HttpRequest request = HttpRequest.newBuilder(endpointBaseUri.resolve("getPlaceContainer"))
                 .header(ACCEPT_HEADER, APPLICATION_JSON)
                 .GET()
