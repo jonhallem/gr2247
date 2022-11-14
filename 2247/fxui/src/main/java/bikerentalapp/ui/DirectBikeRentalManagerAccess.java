@@ -61,7 +61,8 @@ public class DirectBikeRentalManagerAccess implements BikeRentalManagerAccess {
      *                                  approve the password
      */
     @Override
-    public User setUserPassword(String username, String password) throws IOException, IllegalArgumentException {
+    public User setUserPassword(String username, String password)
+            throws IOException, IllegalArgumentException {
         return this.bikeRentalManager.setUserPassword(username, password);
     }
 
