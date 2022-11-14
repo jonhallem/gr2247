@@ -94,7 +94,12 @@ public class ProfilePageController {
     }
 
     public void setBikeRentalManagerAccess(BikeRentalManagerAccess bikeRentalManagerAccess) {
-        this.bikeRentalManagerAccess = bikeRentalManagerAccess;
+        if (bikeRentalManagerAccess instanceof RemoteBikeRentalManagerAccess) {
+            RemoteBikeRentalManagerAccess remoteBikeRentalManagerAccess = (RemoteBikeRentalManagerAccess) bikeRentalManagerAccess;
+            this.bikeRentalManagerAccess = new RemoteBikeRentalManagerAccess(remoteBikeRentalManagerAccess.getUri());
+        } else {
+            this.bikeRentalManagerAccess = new DirectBikeRentalManagerAccess();
+        }
     }
 
     // ----------- Metoder for endring av passord -------------
