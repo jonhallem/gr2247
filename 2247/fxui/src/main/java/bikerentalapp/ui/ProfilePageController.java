@@ -213,8 +213,8 @@ public class ProfilePageController {
                 BikeRentalAppController bikeRentalAppController = fxmlLoader.getController();
                 if (loggedInUser != null) {
                     bikeRentalAppController.setLoggedInUser(loggedInUser);
-                    bikeRentalAppController.setBikeRentalManagerAccess(this.bikeRentalManagerAccess);
                 }
+                bikeRentalAppController.setBikeRentalManagerAccess(this.bikeRentalManagerAccess);
                 if (root instanceof Parent) {
                     this.mainMenuScene = new Scene((Parent) root);
                 } else if (root instanceof Scene) {
