@@ -1,11 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="bikerentalapp.ui.BikeRentalAppController">
-    <fx:define>
-        <String fx:id="endpointUri" fx:value="http://localhost:8080/bikerental/"/>
-    </fx:define>
-    <fx:include fx:id="AppView" source="BikeRentalApp.fxml"/>
-</VBox>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="839.0" prefWidth="541.0" style="-fx-background-color: f2f2f7;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bikerentalapp.ui.BikeRentalAppController">
+    <children>
+       <fx:define>
+           <String fx:id="endpointUri" fx:value="http://localhost:8080/bikerental/"/>
+       </fx:define>
+       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1fffa9" height="139.0" layoutX="-55.0" layoutY="-15.0" stroke="TRANSPARENT" strokeType="INSIDE" width="597.0">
+          <effect>
+             <DropShadow />
+          </effect>
+       </Rectangle>
+       <Label fx:id="appTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="96.0" layoutY="22.0" prefHeight="88.0" prefWidth="349.0" text="BikeRent" textAlignment="CENTER">
+          <font>
+             <Font size="36.0" />
+          </font>
+       </Label>
+       <Button fx:id="profileButton" layoutX="472.0" layoutY="22.0" mnemonicParsing="false" onAction="#showProfilePage" text="Profil" />
+       <Pane fx:id="logInGroup" layoutX="126.0" layoutY="178.0" prefHeight="336.0" prefWidth="290.0">
+          <children>
+             <ImageView fitHeight="159.0" fitWidth="154.0" layoutX="71.0" layoutY="-17.0" preserveRatio="true">
+                <image>
+                   <Image url="@../../img/cyclingIcon.png" />
+                </image>
+             </ImageView>
+             <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#1fffa9" height="170.0" layoutX="4.0" layoutY="153.0" stroke="TRANSPARENT" strokeType="INSIDE" width="280.0">
+                <effect>
+                   <DropShadow />
+                </effect>
+             </Rectangle>
+             <TextField fx:id="usernameInput" layoutX="111.0" layoutY="202.0" />
+             <Label layoutX="28.0" layoutY="206.0" prefHeight="17.0" prefWidth="70.0" text="Brukernavn:" />
+             <Label layoutX="28.0" layoutY="244.0" prefHeight="17.0" prefWidth="70.0" text="Passord:" />
+             <PasswordField fx:id="passwordInput" layoutX="111.0" layoutY="241.0" prefHeight="26.0" prefWidth="160.0" />
+             <Label alignment="CENTER" layoutX="31.0" layoutY="151.0" prefHeight="37.0" prefWidth="233.0" text="Innloggingsinformasjon:" textAlignment="CENTER" />
+             <Button fx:id="signUpButton" layoutX="151.0" layoutY="286.0" mnemonicParsing="false" onAction="#signUp" prefHeight="26.0" prefWidth="92.0" text="Registrer deg" />
+             <Button fx:id="logInButton1" layoutX="45.0" layoutY="286.0" mnemonicParsing="false" onAction="#logIn" prefHeight="26.0" prefWidth="79.0" text="Logg inn" />
+          </children>
+       </Pane>
+       <Pane fx:id="departureGroup" layoutX="-1.0" layoutY="124.0" prefHeight="504.0" prefWidth="543.0" visible="false">
+          <children>
+             <Label layoutX="196.0" layoutY="30.0" text="Hvor vil du reise fra?">
+                <font>
+                   <Font size="18.0" />
+                </font>
+             </Label>
+             <ComboBox fx:id="selectDepartureLocation" layoutX="134.0" layoutY="77.0" onAction="#loadBikesIntoList" prefHeight="26.0" prefWidth="269.0" promptText="Velg sted for avreise" />
+             <ListView fx:id="listOfAvailableBikes" layoutX="54.0" layoutY="124.0" prefHeight="256.0" prefWidth="429.0" />
+             <Button fx:id="rentBikeButton" layoutX="171.0" layoutY="411.0" mnemonicParsing="false" onAction="#rentBike" prefHeight="59.0" prefWidth="202.0" style="-fx-background-color: green;" text="Lån valgt sykkel">
+                <font>
+                   <Font size="24.0" />
+                </font>
+                <effect>
+                   <DropShadow />
+                </effect>
+             </Button>
+          </children>
+       </Pane>
+       <Pane fx:id="userInformationGroup" layoutX="32.0" layoutY="669.0" prefHeight="131.0" prefWidth="485.0">
+          <children>
+             <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#1fffa9" height="186.0" layoutX="-10.0" layoutY="-40.0" stroke="TRANSPARENT" strokeType="INSIDE" width="507.0">
+                <effect>
+                   <DropShadow />
+                </effect>
+             </Rectangle>
+             <Label fx:id="rentedBikeIdText" layoutX="234.0" prefHeight="131.0" prefWidth="237.0" text="Fjellsykkel 12345678" wrapText="true">
+                <font>
+                   <Font size="24.0" />
+                </font>
+             </Label>
+             <ImageView fitHeight="123.0" fitWidth="115.0" layoutX="60.0" layoutY="3.0" preserveRatio="true">
+                <image>
+                   <Image url="@../../img/bicycleIcon.png" />
+                </image>
+             </ImageView>
+             <Label fx:id="yourBikeTitle" alignment="CENTER" layoutX="118.0" layoutY="-35.0" prefHeight="37.0" prefWidth="233.0" text="Din sykkel:" textAlignment="CENTER">
+                <font>
+                   <Font size="24.0" />
+                </font>
+             </Label>
+          </children>
+       </Pane>
+       <Pane fx:id="arrivalGroup" layoutX="1.0" layoutY="128.0" prefHeight="502.0" prefWidth="539.0" visible="false">
+          <children>
+             <Button fx:id="returnBikeButton" layoutX="164.0" layoutY="348.0" mnemonicParsing="false" onAction="#showReturnGroup" prefHeight="98.0" prefWidth="202.0" style="-fx-background-color: red;" text="Lever sykkel">
+                <font>
+                   <Font size="24.0" />
+                </font>
+                <effect>
+                   <DropShadow />
+                </effect>
+             </Button>
+             <ImageView fitHeight="834.0" fitWidth="599.0" layoutX="21.0" layoutY="-53.0" preserveRatio="true">
+                <image>
+                   <Image url="@../../img/GodTur.png" />
+                </image>
+             </ImageView>
+          </children>
+       </Pane>
+       <Pane fx:id="arrivalConfirmationGroup" layoutX="1.0" layoutY="123.0" prefHeight="506.0" prefWidth="540.0" visible="false">
+          <children>
+             <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#1fffa9" height="282.0" layoutX="105.0" layoutY="118.0" stroke="TRANSPARENT" strokeType="INSIDE" width="346.0">
+                <effect>
+                   <DropShadow />
+                </effect>
+             </Rectangle>
+             <Label layoutX="174.0" layoutY="127.0" text="Hvor skal du levere sykkelen?">
+                <font>
+                   <Font size="18.0" />
+                </font>
+             </Label>
+             <ComboBox fx:id="selectArrivalLocation" layoutX="145.0" layoutY="174.0" prefHeight="26.0" prefWidth="269.0" promptText="Velg sted for innlevering" />
+             <Button fx:id="confirmReturnBikeButton" layoutX="177.0" layoutY="301.0" mnemonicParsing="false" onAction="#deliverBike" prefHeight="55.0" prefWidth="202.0" style="-fx-background-color: red;" text="Bekreft innlevering">
+                <font>
+                   <Font size="18.0" />
+                </font>
+                <effect>
+                   <DropShadow />
+                </effect>
+             </Button>
+          </children>
+       </Pane>
+    </children>
+</Pane>
