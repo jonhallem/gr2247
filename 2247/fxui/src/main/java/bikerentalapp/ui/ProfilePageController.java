@@ -41,7 +41,8 @@ public class ProfilePageController {
     @FXML
     private Label usernameTitle;
 
-    // -------------- FXML-elementer relatert til endring av passord -----------------
+    // -------------- FXML-elementer relatert til endring av passord
+    // -----------------
 
     @FXML
     private Button changePasswordButton;
@@ -64,7 +65,8 @@ public class ProfilePageController {
     @FXML
     private PasswordField repeatNewPasswordInput;
 
-    // -------------- FXML-elementer relatert til leiehistorikk av passord -----------------
+    // -------------- FXML-elementer relatert til leiehistorikk av passord
+    // -----------------
 
     @FXML
     private ListView<String> listOfRentalHistory;
@@ -91,10 +93,17 @@ public class ProfilePageController {
         this.updateUserName();
     }
 
-    public void setBikeRentalManagerAccess(BikeRentalManagerAccess bikeRentalManagerAccess) {
+    /**
+     * Sets the bikerentalmanageraccess to the correct type (direct or remote).
+     *
+     * @param brmAcess the {@code BikeRentalManager} object.
+     */
+    public void setBikeRentalManagerAccess(
+            BikeRentalManagerAccess brmAcess) {
         if (bikeRentalManagerAccess instanceof RemoteBikeRentalManagerAccess) {
-            RemoteBikeRentalManagerAccess remoteBikeRentalManagerAccess = (RemoteBikeRentalManagerAccess) bikeRentalManagerAccess;
-            this.bikeRentalManagerAccess = new RemoteBikeRentalManagerAccess(remoteBikeRentalManagerAccess.getUri());
+            RemoteBikeRentalManagerAccess remoteBrMa = (RemoteBikeRentalManagerAccess) brmAcess;
+            this.bikeRentalManagerAccess = new RemoteBikeRentalManagerAccess(
+                    remoteBrMa.getUri());
         } else {
             this.bikeRentalManagerAccess = new DirectBikeRentalManagerAccess();
         }
@@ -137,7 +146,7 @@ public class ProfilePageController {
                 this.errorMessage("Nåværende passord er ikke riktig.");
             } else if (this.loggedInUser.getPassword().equals(newPassword)) {
                 this.errorMessage("Det nye passordet kan ikke være likt det gamle passordet");
-            }else if (!newPassword.equals(newPasswordRepeated)) {
+            } else if (!newPassword.equals(newPasswordRepeated)) {
                 this.errorMessage(
                         "Passordene i feltet \"Nytt passord\" og feltet \"Gjenta nytt passord\" "
                                 + "stemmer ikke overens.");
