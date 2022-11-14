@@ -89,10 +89,8 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
                     HttpResponse.BodyHandlers.ofString());
             String responseString = response.body();
             Boolean isUpdated = objectMapper.readValue(responseString, Boolean.class);
-            if (isUpdated == null) {
-                // TODO:
-            } else if (!isUpdated) {
-                // TODO:
+            if (isUpdated == null || !isUpdated) {
+                throw new IOException("Error on server side, could not update database.");
             }
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
@@ -120,10 +118,8 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
                     HttpResponse.BodyHandlers.ofString());
             String responseString = response.body();
             Boolean isUpdated = objectMapper.readValue(responseString, Boolean.class);
-            if (isUpdated == null) {
-                // TODO:
-            } else if (!isUpdated) {
-                // TODO:
+            if (isUpdated == null || !isUpdated) {
+                throw new IOException("Error on server side, could not update database.");
             }
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
@@ -137,7 +133,7 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
      * @return a userContainer.
      */
     private UserContainer getUserContainerFromServer() {
-        UserContainer userContainer = new UserContainer(null);
+        UserContainer userContainer = null;
         HttpRequest request = HttpRequest.newBuilder(endpointBaseUri.resolve("getUserContainer"))
                 .header(ACCEPT_HEADER, APPLICATION_JSON)
                 .GET()
@@ -220,6 +216,10 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
     @Override
     public PlaceContainer getPlaceContainer() throws IOException {
         return this.getPlaceContainerFromServer();
+    }
+
+    public URI getUri() {
+        return this.endpointBaseUri;
     }
 
 }
