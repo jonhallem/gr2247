@@ -1,20 +1,18 @@
 package bikerentalapp.ui;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpRequest.BodyPublishers;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import bikerentalapp.core.Bike;
 import bikerentalapp.core.Place;
 import bikerentalapp.core.PlaceContainer;
 import bikerentalapp.core.User;
 import bikerentalapp.core.UserContainer;
 import bikerentalapp.json.BikeRentalPersistence;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpRequest.BodyPublishers;
+import java.net.http.HttpResponse;
 
 /**
  * Class that implements the interface BikeRentalManagerAccess. Makes the model
@@ -35,7 +33,7 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
     /**
      * Constructor which instantiates a {@code RemoteBikeRentalManagerAccess} object
      * with a base URI and a new {@code ObjectMapper} object.
-     * 
+     *
      * @param endpointBaseUri the base URI.
      */
     public RemoteBikeRentalManagerAccess(URI endpointBaseUri) {
@@ -48,7 +46,7 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
     /**
      * Sends a request to server to return a {@code PlaceContainer} object that
      * reflects the place persistence in the model.
-     * 
+     *
      * @return a placeContainer.
      */
     private PlaceContainer getPlaceContainerFromServer() {
@@ -71,7 +69,6 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
     /**
      * Sends a request to server to update the model persistence with the given
      * {@code PlaceContainer} object.
-     * 
      * The server repiles with false if there was an error.
      *
      * @throws RuntimeException if there is an error sending the request or with
@@ -80,7 +77,8 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
     private void sendPlaceContainerToServer(PlaceContainer placeContainer) {
         try {
             String json = objectMapper.writeValueAsString(placeContainer);
-            HttpRequest request = HttpRequest.newBuilder(endpointBaseUri.resolve("updatePlaceContainer"))
+            HttpRequest request = HttpRequest
+                    .newBuilder(endpointBaseUri.resolve("updatePlaceContainer"))
                     .header(ACCEPT_HEADER, APPLICATION_JSON)
                     .header(CONTENT_TYPE_HEADER, APPLICATION_JSON)
                     .POST(BodyPublishers.ofString(json))
@@ -100,7 +98,6 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
     /**
      * Sends a request to server to update the model persistence with the given
      * {@code UserContainer} object.
-     * 
      * The server repiles with false if there was an error.
      *
      * @throws RuntimeException if there is an error sending the request or with
@@ -109,7 +106,8 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
     private void sendUserContainerToServer(UserContainer userContainer) {
         try {
             String json = objectMapper.writeValueAsString(userContainer);
-            HttpRequest request = HttpRequest.newBuilder(endpointBaseUri.resolve("updateUserContainer"))
+            HttpRequest request = HttpRequest
+                    .newBuilder(endpointBaseUri.resolve("updateUserContainer"))
                     .header(ACCEPT_HEADER, APPLICATION_JSON)
                     .header(CONTENT_TYPE_HEADER, APPLICATION_JSON)
                     .POST(BodyPublishers.ofString(json))
@@ -129,7 +127,7 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
     /**
      * Sends a request to server to return a {@code UserContainer} object that
      * reflects the user persistence in the model.
-     * 
+     *
      * @return a userContainer.
      */
     private UserContainer getUserContainerFromServer() {
@@ -164,7 +162,8 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
     }
 
     @Override
-    public User logIn(String username, String password) throws IOException, IllegalArgumentException {
+    public User logIn(String username, String password)
+            throws IOException, IllegalArgumentException {
         UserContainer userContainer = this.getUserContainerFromServer();
         for (User user : userContainer.getUsers()) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
@@ -176,7 +175,8 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
     }
 
     @Override
-    public User setUserPassword(String username, String password) throws IllegalArgumentException, IOException {
+    public User setUserPassword(String username, String password)
+            throws IllegalArgumentException, IOException {
         UserContainer userContainer = this.getUserContainerFromServer();
         User userFromContainter = userContainer.findUser(username);
         userFromContainter.changePassword(password);
@@ -190,9 +190,11 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
         UserContainer userContainer = this.getUserContainerFromServer();
         PlaceContainer placeContainer = this.getPlaceContainerFromServer();
         Place placeToRentFromInPlaceContainer = placeContainer.findPlace(placeName);
-        if (placeToRentFromInPlaceContainer.getBikes().stream().filter(bike -> bike.getID().equals(bikeId))
+        if (placeToRentFromInPlaceContainer.getBikes().stream()
+                .filter(bike -> bike.getID().equals(bikeId))
                 .count() == 0) {
-            throw new IllegalArgumentException("Det gitte stedet inneholder ikke den gitte sykkelen.");
+            throw new IllegalArgumentException(
+                    "Det gitte stedet inneholder ikke den gitte sykkelen.");
         }
         User userToRentBike = userContainer.findUser(username);
         userToRentBike.setBike(placeToRentFromInPlaceContainer.removeAndGetBike(bikeId));
