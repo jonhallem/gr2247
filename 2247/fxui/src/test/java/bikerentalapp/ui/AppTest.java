@@ -165,6 +165,25 @@ public class AppTest extends ApplicationTest {
                 "Bruker skal ha registrert utlånt sykkel som ID: 'BIKE1234'");
     }
 
+    @DisplayName("Tester at bruker har registrert sykkel")
+    @Test
+    @Order(5)
+    public void testUserHasRentedBike() {
+        String username = "testUsernameGUI";
+        String password = "testPassword1234";
+        clickOn("#usernameInput").write(username);
+        clickOn("#passwordInput").write(password);
+        clickOn("#logInButton1");
+
+        clickOn("#profileButton");
+        clickOn("#backToMainMenuButton");
+
+        // bruker skal allerede ha registrert sykkel
+        clickOn("#returnBikeButton");
+        assertEquals("BIKE1234", controller.getUserBike().getID(),
+                "Bruker skal ha registrert utlånt sykkel som ID: 'BIKE1234'");
+    }
+
     @DisplayName("Tester innlevering av sykkel til teststed")
     @Test
     @Order(5)
