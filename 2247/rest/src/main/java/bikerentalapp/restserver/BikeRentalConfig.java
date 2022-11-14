@@ -1,27 +1,24 @@
 package bikerentalapp.restserver;
 
+import bikerentalapp.core.BikeRentalManager;
+import bikerentalapp.restapi.BikeRentalService;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
-import bikerentalapp.core.BikeRentalManager;
-//TODO: Nødvendig?? 
-//import bikerentalapp.json.BikeRentalPersistence;
-import bikerentalapp.restapi.BikeRentalService;
-
+/**
+ * Configures the rest service, registers JSON support with Jackson, BikeRental
+ * Service, and an ObjectMapper to serialize, deserialize.
+ */
 public class BikeRentalConfig extends ResourceConfig {
 
     private BikeRentalManager bikeRentalManager;
-    // TODO: Nødvendig??
-    // private BikeRentalPersistence bikeRentalPersistence;
 
     /**
-     * Initialize{@code BikeRentalConfig} with bikeRentalManager.
-     * 
-     * @param bikeRentalManager
+     * Initializes the {@code BikeRentalConfig}.
      */
-    public BikeRentalConfig(BikeRentalManager bikeRentalManager) {
-        this.bikeRentalManager = bikeRentalManager;
+    public BikeRentalConfig() {
+        this.bikeRentalManager = new BikeRentalManager();
 
         register(BikeRentalService.class);
         register(BikeRentalModuleObjectMapperProvider.class);
@@ -31,27 +28,7 @@ public class BikeRentalConfig extends ResourceConfig {
             @Override
             protected void configure() {
                 bind(BikeRentalConfig.this.bikeRentalManager);
-                // bind(BikeRentalConfig.this.bikeRentalManager.getBikeRentalPersistence());
             }
         });
     }
-
-    /**
-     * Initialize {@code BikeRentalConfig} with a new {@code BikeRentalManager}.
-     */
-    public BikeRentalConfig() {
-        this(new BikeRentalManager());
-    }
-
-    // TODO: NØDVENDIG??
-    /**
-     * Returns the {@code BikeRentalManager} object held by
-     * {@code BikeRentalConfig}.
-     * 
-     * @return bikeRentalManager
-     */
-    public BikeRentalManager getBikeRentalManager() {
-        return this.bikeRentalManager;
-    }
-
 }
