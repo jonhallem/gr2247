@@ -199,6 +199,7 @@ public class BikeRentalManagerTest {
         userContainer.removeUser("testName");
         userContainer.removeUser("testName2");
         userContainer.removeUser("testName3");
+        userContainer.removeUser("testChangePasswordUser");
         placeContainer.removePlace("testPlace");
         placeContainer.removePlace("testPlace2");
         bikeRentalPersistence.writeUserContainer(userContainer);
