@@ -121,18 +121,24 @@ public class BikeRentalPersistence {
      * @param fileName the name of the file (without the .json file ending)
      *                 to ensure the existanse of
      *
-     * @throws IOException writing {@cod userContainer} or {@code placeContainer}
-     *                     fails.
+     * @throws IllegalStateException filename already exsists.
+     * @throws IOException           writing {@cod userContainer} or
+     *                               {@code placeContainer}
+     *                               fails.
      */
     private void ensureSaveFileExists(String fileName) throws IOException {
         File file = new File(getFile(fileName).toString());
         if ((!file.exists() || file.isDirectory())) {
             Files.createDirectories(getSaveFileFolderPath());
-            file.createNewFile();
-            if (fileName.equals("users")) {
-                this.writeUserContainer(new UserContainer(new ArrayList<>()));
+            if (file.createNewFile()) {
+                if (fileName.equals("users")) {
+                    this.writeUserContainer(new UserContainer(new ArrayList<>()));
+                } else {
+                    this.writePlaceContainer(this.createDefaultPlaceContainer());
+                }
             } else {
-                this.writePlaceContainer(this.createDefaultPlaceContainer());
+                throw new IllegalStateException(
+                        "Kunne ikke opprette ny fil. Filnavn eksistere allerede.");
             }
         }
     }
