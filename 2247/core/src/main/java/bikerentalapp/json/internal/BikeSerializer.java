@@ -1,12 +1,10 @@
 package bikerentalapp.json.internal;
 
-import java.io.IOException;
-
+import bikerentalapp.core.Bike;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-
-import bikerentalapp.core.Bike;
+import java.io.IOException;
 
 public class BikeSerializer extends JsonSerializer<Bike> {
 
@@ -20,11 +18,12 @@ public class BikeSerializer extends JsonSerializer<Bike> {
      */
 
     @Override
-    public void serialize(Bike bike, JsonGenerator jGen, SerializerProvider serializerProvider) throws IOException {
-        jGen.writeStartObject();
-        jGen.writeStringField("iD", bike.getId());
-        jGen.writeStringField("type", bike.getType());
-        jGen.writeStringField("colour", bike.getColour());
-        jGen.writeEndObject();
+    public void serialize(Bike bike, JsonGenerator jsonGen,
+            SerializerProvider serializerProvider) throws IOException {
+        jsonGen.writeStartObject();
+        jsonGen.writeStringField("iD", bike.getId());
+        jsonGen.writeStringField("type", bike.getType());
+        jsonGen.writeStringField("colour", bike.getColour());
+        jsonGen.writeEndObject();
     }
 }
