@@ -1,13 +1,11 @@
 package bikerentalapp.json.internal;
 
-import java.io.IOException;
-
+import bikerentalapp.core.Bike;
+import bikerentalapp.core.Place;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-
-import bikerentalapp.core.Bike;
-import bikerentalapp.core.Place;
+import java.io.IOException;
 
 public class PlaceSerializer extends JsonSerializer<Place> {
 
@@ -21,15 +19,17 @@ public class PlaceSerializer extends JsonSerializer<Place> {
      */
 
     @Override
-    public void serialize(Place place, JsonGenerator jGen, SerializerProvider serializerProvider) throws IOException {
-        jGen.writeStartObject();
-        jGen.writeStringField("name", place.getName());
-        jGen.writeStringField("maximumNumberOfBikes", String.valueOf(place.getMaximumNumberOfBikes()));
-        jGen.writeArrayFieldStart("bikes");
+    public void serialize(Place place, JsonGenerator jsonGen,
+            SerializerProvider serializerProvider) throws IOException {
+        jsonGen.writeStartObject();
+        jsonGen.writeStringField("name", place.getName());
+        jsonGen.writeStringField("maximumNumberOfBikes",
+                String.valueOf(place.getMaximumNumberOfBikes()));
+        jsonGen.writeArrayFieldStart("bikes");
         for (Bike bike : place) {
-            jGen.writeObject(bike);
+            jsonGen.writeObject(bike);
         }
-        jGen.writeEndArray();
-        jGen.writeEndObject();
+        jsonGen.writeEndArray();
+        jsonGen.writeEndObject();
     }
 }
