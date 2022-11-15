@@ -1,13 +1,11 @@
 package bikerentalapp.json.internal;
 
-import java.io.IOException;
-
+import bikerentalapp.core.User;
+import bikerentalapp.core.UserContainer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-
-import bikerentalapp.core.User;
-import bikerentalapp.core.UserContainer;
+import java.io.IOException;
 
 public class UserContainerSerializer extends JsonSerializer<UserContainer> {
 
@@ -19,14 +17,15 @@ public class UserContainerSerializer extends JsonSerializer<UserContainer> {
      */
 
     @Override
-    public void serialize(UserContainer userContainer, JsonGenerator jGen, SerializerProvider serializerProvider)
+    public void serialize(UserContainer userContainer,
+            JsonGenerator jsonGen, SerializerProvider serializerProvider)
             throws IOException {
-        jGen.writeStartObject();
-        jGen.writeArrayFieldStart("users");
+        jsonGen.writeStartObject();
+        jsonGen.writeArrayFieldStart("users");
         for (User user : userContainer) {
-            jGen.writeObject(user);
+            jsonGen.writeObject(user);
         }
-        jGen.writeEndArray();
-        jGen.writeEndObject();
+        jsonGen.writeEndArray();
+        jsonGen.writeEndObject();
     }
 }
