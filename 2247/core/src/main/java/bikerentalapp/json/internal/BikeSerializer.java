@@ -22,7 +22,7 @@ public class BikeSerializer extends JsonSerializer<Bike> {
     @Override
     public void serialize(Bike bike, JsonGenerator jGen, SerializerProvider serializerProvider) throws IOException {
         jGen.writeStartObject();
-        jGen.writeStringField("iD", bike.getID());
+        jGen.writeStringField("iD", bike.getId());
         jGen.writeStringField("type", bike.getType());
         jGen.writeStringField("colour", bike.getColour());
         jGen.writeEndObject();

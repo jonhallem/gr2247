@@ -162,7 +162,7 @@ public class AppTest extends ApplicationTest {
         clickOn("#rentBikeButton");
 
         assertNotNull(controller.getLoggedInUser(), "Innlogget bruker skal være registrert");
-        assertEquals("BIKE1234", controller.getUserBike().getID(),
+        assertEquals("BIKE1234", controller.getUserBike().getId(),
                 "Bruker skal ha registrert utlånt sykkel som ID: 'BIKE1234'");
     }
 
@@ -193,7 +193,7 @@ public class AppTest extends ApplicationTest {
         clickOn("#passwordInput").write(password);
         clickOn("#logInButton1");
 
-        assertEquals("BIKE1234", controller.getUserBike().getID(),
+        assertEquals("BIKE1234", controller.getUserBike().getId(),
                 "Bruker skal allerede ha lånt en sykkel med ID 'BIKE1234'");
 
         // riktig sted vil alltid ligge nederst under testing

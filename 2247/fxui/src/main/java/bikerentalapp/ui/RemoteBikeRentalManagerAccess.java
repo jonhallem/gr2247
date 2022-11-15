@@ -190,7 +190,7 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
         UserContainer userContainer = this.getUserContainerFromServer();
         PlaceContainer placeContainer = this.getPlaceContainerFromServer();
         Place placeToRentFromInPlaceContainer = placeContainer.findPlace(placeName);
-        if (placeToRentFromInPlaceContainer.getBikes().stream().filter(bike -> bike.getID().equals(bikeId))
+        if (placeToRentFromInPlaceContainer.getBikes().stream().filter(bike -> bike.getId().equals(bikeId))
                 .count() == 0) {
             throw new IllegalArgumentException("Det gitte stedet inneholder ikke den gitte sykkelen.");
         }

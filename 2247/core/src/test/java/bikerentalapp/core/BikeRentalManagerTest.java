@@ -129,16 +129,16 @@ public class BikeRentalManagerTest {
                 "før utlån skal bruker ikke en nyregistrert bruker ha noen registert sykkel");
 
         Exception exception = Assertions.assertThrows(IllegalArgumentException.class,
-                () -> BRM.rentBike(invalidPlace.getName(), bikeToRent.getID(), loggedInUser.getUsername()));
+                () -> BRM.rentBike(invalidPlace.getName(), bikeToRent.getId(), loggedInUser.getUsername()));
         assertTrue(exception.getMessage().equals("Et sted med dette navnet finnes ikke"),
                 "ved feil stedsnavn skal unntak utløses");
 
-        BRM.rentBike(validPlace.getName(), bikeToRent.getID(), loggedInUser.getUsername());
+        BRM.rentBike(validPlace.getName(), bikeToRent.getId(), loggedInUser.getUsername());
 
         this.userContainer = this.bikeRentalPersistence.readUserContainer();
         User loggedInUserInUserContainer = userContainer.findUser(loggedInUser.getUsername());
 
-        assertEquals("BIKY1234", loggedInUserInUserContainer.getBike().getID(),
+        assertEquals("BIKY1234", loggedInUserInUserContainer.getBike().getId(),
                 "utlånt sykkel hos den innloggedebrukeren i persistens skal stemme overens med registert sykkel");
 
         placeContainer = this.bikeRentalPersistence.readPlaceContainer();
@@ -161,7 +161,7 @@ public class BikeRentalManagerTest {
         Place validPlaceFromPlaceContainer = placeContainer.findPlace(validPlace.getName());
 
         assertTrue(
-                validPlaceFromPlaceContainer.getBikes().stream().filter(bike -> bike.getID().equals("BIKY1234"))
+                validPlaceFromPlaceContainer.getBikes().stream().filter(bike -> bike.getId().equals("BIKY1234"))
                         .count() == 1,
                 "Utleiestedet skal ha fått tilbake sykkelen.");
 

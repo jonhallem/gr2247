@@ -138,7 +138,7 @@ public class BikeRentalManager {
         UserContainer userContainer = bikeRentalPersistence.readUserContainer();
 
         Place placeToRentFromInPlaceContainer = placeContainer.findPlace(nameOfPlaceToRentFrom);
-        if (placeToRentFromInPlaceContainer.getBikes().stream().filter(bike -> bike.getID().equals(bikeToRentId))
+        if (placeToRentFromInPlaceContainer.getBikes().stream().filter(bike -> bike.getId().equals(bikeToRentId))
                 .count() == 0) {
             throw new IllegalArgumentException("Det gitte stedet inneholder ikke den gitte sykkelen.");
         }

@@ -157,17 +157,17 @@ public class BikeRentalModuleTest {
             assertEquals("Bymarka", place1.getName());
             assertEquals(5, place1.getMaximumNumberOfBikes());
             assertEquals(2, place1.getBikes().size());
-            assertEquals("BIKEIDN1", bike1AtPlace1.getID());
+            assertEquals("BIKEIDN1", bike1AtPlace1.getId());
             assertEquals("Tandemsykkel", bike1AtPlace1.getType());
             assertEquals("Gul", bike1AtPlace1.getColour());
-            assertEquals("BIKEIDN2", bike2AtPlace1.getID());
+            assertEquals("BIKEIDN2", bike2AtPlace1.getId());
             assertEquals("Terrengsykkel", bike2AtPlace1.getType());
             assertEquals("Blå", bike2AtPlace1.getColour());
 
             assertEquals("Munkholmen", place2.getName());
             assertEquals(10, place2.getMaximumNumberOfBikes());
             assertEquals(1, place2.getBikes().size());
-            assertEquals("BIKEIDN3", bike1AtPlace2.getID());
+            assertEquals("BIKEIDN3", bike1AtPlace2.getId());
             assertEquals("Tandemsykkel", bike1AtPlace2.getType());
             assertEquals("Grønn", bike1AtPlace2.getColour());
 
@@ -202,7 +202,7 @@ public class BikeRentalModuleTest {
             assertEquals("Mikkel", user3.getUsername());
             assertEquals("mikkel123", user3.getPassword());
             assertEquals(bikeOfUser3, user3.getBike());
-            assertEquals("BIKEIDN2", user3.getBike().getID());
+            assertEquals("BIKEIDN2", user3.getBike().getId());
             assertEquals("Tandemsykkel", user3.getBike().getType());
             assertEquals("Gul", user3.getBike().getColour());
 
