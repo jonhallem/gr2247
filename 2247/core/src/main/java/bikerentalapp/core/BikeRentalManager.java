@@ -13,7 +13,7 @@ public class BikeRentalManager {
 
     /**
      * Constructs a BikeRentalManager object with loggedInUser and
-     * bikeRentalPersistence
+     * bikeRentalPersistence.
      */
     public BikeRentalManager() {
 
@@ -23,9 +23,8 @@ public class BikeRentalManager {
     // -------------- Gettere og settere ---------------
 
     /**
-     * 
      * Returns the BikeRentalPersistence held by the BikeRentalManager.
-     * 
+     *
      * @return BikeRentalPersistence
      */
     public BikeRentalPersistence getBikeRentalPersistence() {
@@ -34,7 +33,7 @@ public class BikeRentalManager {
 
     /**
      * Returns a placeContainer, containing a list of places.
-     * 
+     *
      * @return {@code PlaceContainer}
      * @throws IOException if an error occurs during filehandling
      */
@@ -47,8 +46,8 @@ public class BikeRentalManager {
 
     /**
      * Changes the password of the logged in user and saves the change to
-     * persistence
-     * 
+     * persistence.
+     *
      * @param username    the username of the user
      * @param newPassword the new password of the user
      * @return the {@code User} object with a changed password
@@ -69,15 +68,16 @@ public class BikeRentalManager {
     }
 
     /**
-     * Sets the loggedInUser to the correct user in the database
-     * 
-     * @param username The string username
-     * @param password The string password
-     * @return the logged in {@code User} object
+     * Sets the loggedInUser to the correct user in the database.
+     *
+     * @param username The string username.
+     * @param password The string password.
+     * @return the logged in {@code User} object.
      * @throws IllegalArgumentException if the username or password is not found in
-     *                                  the database
+     *                                  the database.
      */
-    public User logIn(String username, String password) throws IOException, IllegalArgumentException {
+    public User logIn(String username, String password)
+            throws IOException, IllegalArgumentException {
 
         UserContainer userContainer = bikeRentalPersistence.readUserContainer();
 
@@ -92,7 +92,7 @@ public class BikeRentalManager {
     /**
      * Creates a user and appends it to the database. The created user is also set
      * to loggedInUser
-     * 
+     *
      * @param username A unique string username not found in the database
      * @param password A strong string password
      * @return the signed up {@code User} object
@@ -120,7 +120,7 @@ public class BikeRentalManager {
      * Updates the persistence and user: removes the {@code Bike} object from the
      * given
      * {@code Place} object, and assigns it to the given {@code User} object.
-     * 
+     *
      * @param nameOfPlaceToRentFrom the {@code Place} object selected to rent bike
      *                              from
      * @param bikeToRentId          the {@code Bike} object selected to rent
@@ -138,9 +138,11 @@ public class BikeRentalManager {
         UserContainer userContainer = bikeRentalPersistence.readUserContainer();
 
         Place placeToRentFromInPlaceContainer = placeContainer.findPlace(nameOfPlaceToRentFrom);
-        if (placeToRentFromInPlaceContainer.getBikes().stream().filter(bike -> bike.getId().equals(bikeToRentId))
+        if (placeToRentFromInPlaceContainer.getBikes()
+                .stream().filter(bike -> bike.getId().equals(bikeToRentId))
                 .count() == 0) {
-            throw new IllegalArgumentException("Det gitte stedet inneholder ikke den gitte sykkelen.");
+            throw new IllegalArgumentException(
+                    "Det gitte stedet inneholder ikke den gitte sykkelen.");
         }
         User userToRentBike = userContainer.findUser(username);
 
@@ -155,8 +157,9 @@ public class BikeRentalManager {
     /**
      * The bike appended to the user is removed and appended to the selected place -
      * ending the bikerenting.
-     * 
-     * @param user                   the user to find in persistence to remove the
+     *
+     * @param username               the name of the user to find in persistence to
+     *                               remove the
      *                               bike from
      * @param nameOfPlaceToDeliverTo the string place selected to deliver bike to
      * @return the new user object after the bike is delivered
