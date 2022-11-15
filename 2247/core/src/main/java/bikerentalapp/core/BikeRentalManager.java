@@ -17,11 +17,10 @@ public class BikeRentalManager {
     // ----------- Konstruktør -------------
 
     /**
-     * Constructs a BikeRentalManager object with loggedInUser and
+     * Constructs a BikeRentalManager object with a
      * bikeRentalPersistence.
      */
     public BikeRentalManager() {
-
         this.bikeRentalPersistence = new BikeRentalPersistence();
     }
 
