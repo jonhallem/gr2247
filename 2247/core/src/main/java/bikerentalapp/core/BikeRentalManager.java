@@ -59,13 +59,13 @@ public class BikeRentalManager {
     public User setUserPassword(String username, String newPassword)
             throws IllegalArgumentException, IOException {
         UserContainer userContainer = this.bikeRentalPersistence.readUserContainer();
-        User loggedInUserFromContainter = userContainer.findUser(username);
+        User loggedInUserFromContainer = userContainer.findUser(username);
 
-        loggedInUserFromContainter.changePassword(newPassword);
+        loggedInUserFromContainer.changePassword(newPassword);
 
         this.bikeRentalPersistence.writeUserContainer(userContainer);
 
-        return loggedInUserFromContainter;
+        return loggedInUserFromContainer;
     }
 
     /**
