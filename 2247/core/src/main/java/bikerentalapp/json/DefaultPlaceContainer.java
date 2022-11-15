@@ -1,5 +1,8 @@
 package bikerentalapp.json;
 
+/**
+ * A class for storing a String of the default PlaceContainer JSON.
+ */
 public class DefaultPlaceContainer {
 
     private static final String DEFAULT_PLACECONTAINER = """
@@ -164,6 +167,11 @@ public class DefaultPlaceContainer {
               }
                 """;
 
+    /**
+     * Returns the default PlaceContainer JSON as a string.
+     *
+     * @return the default PlaceContainer JSON as a string.
+     */
     public static String getDefaultPlaceContainerString() {
         return DEFAULT_PLACECONTAINER;
     }
