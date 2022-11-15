@@ -145,7 +145,7 @@ public class BikeRentalPersistence {
      * @return {@code ObjectMapper}
      */
     public static ObjectMapper getObjectMapper() {
-        return mapper;
+        return mapper.copy();
     }
 
 }
