@@ -1,13 +1,11 @@
 package bikerentalapp.json.internal;
 
-import java.io.IOException;
-
+import bikerentalapp.core.Place;
+import bikerentalapp.core.PlaceContainer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-
-import bikerentalapp.core.Place;
-import bikerentalapp.core.PlaceContainer;
+import java.io.IOException;
 
 public class PlaceContainerSerializer extends JsonSerializer<PlaceContainer> {
 
@@ -19,14 +17,15 @@ public class PlaceContainerSerializer extends JsonSerializer<PlaceContainer> {
      */
 
     @Override
-    public void serialize(PlaceContainer placeContainer, JsonGenerator jGen, SerializerProvider serializerProvider)
+    public void serialize(PlaceContainer placeContainer,
+            JsonGenerator jsonGen, SerializerProvider serializerProvider)
             throws IOException {
-        jGen.writeStartObject();
-        jGen.writeArrayFieldStart("places");
+        jsonGen.writeStartObject();
+        jsonGen.writeArrayFieldStart("places");
         for (Place place : placeContainer) {
-            jGen.writeObject(place);
+            jsonGen.writeObject(place);
         }
-        jGen.writeEndArray();
-        jGen.writeEndObject();
+        jsonGen.writeEndArray();
+        jsonGen.writeEndObject();
     }
 }
