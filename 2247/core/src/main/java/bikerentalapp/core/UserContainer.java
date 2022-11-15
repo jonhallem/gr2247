@@ -20,7 +20,7 @@ public class UserContainer implements Iterable<User> {
      * @param userList to make into a {@code UserContainer}.
      */
     public UserContainer(List<User> userList) {
-        this.users = userList;
+        this.users = new ArrayList<>(userList);
     }
 
     /**
