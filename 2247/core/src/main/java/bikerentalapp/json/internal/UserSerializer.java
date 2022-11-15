@@ -1,12 +1,10 @@
 package bikerentalapp.json.internal;
 
-import java.io.IOException;
-
+import bikerentalapp.core.User;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-
-import bikerentalapp.core.User;
+import java.io.IOException;
 
 public class UserSerializer extends JsonSerializer<User> {
 
@@ -20,12 +18,13 @@ public class UserSerializer extends JsonSerializer<User> {
      */
 
     @Override
-    public void serialize(User user, JsonGenerator jGen, SerializerProvider serializerProvider) throws IOException {
-        jGen.writeStartObject();
-        jGen.writeStringField("username", user.getUsername());
-        jGen.writeStringField("password", user.getPassword());
-        jGen.writePOJOField("bike", user.getBike());
-        jGen.writeEndObject();
+    public void serialize(User user, JsonGenerator jsonGen,
+            SerializerProvider serializerProvider) throws IOException {
+        jsonGen.writeStartObject();
+        jsonGen.writeStringField("username", user.getUsername());
+        jsonGen.writeStringField("password", user.getPassword());
+        jsonGen.writePOJOField("bike", user.getBike());
+        jsonGen.writeEndObject();
     }
 
 }
