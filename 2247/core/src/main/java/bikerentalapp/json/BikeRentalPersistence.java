@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class BikeRentalPersistence {
 
-    private static ObjectMapper mapper;
+    private static ObjectMapper mapper = new ObjectMapper();
     private static ObjectWriter writer;
 
     // Konstruktør
@@ -30,7 +30,6 @@ public class BikeRentalPersistence {
      * objects and {@code UserContainer} objects to file, as well as read them.
      */
     public BikeRentalPersistence() {
-        mapper = new ObjectMapper();
         mapper.registerModule(new BikeRentalModule());
         writer = mapper.writer(new DefaultPrettyPrinter());
     }
