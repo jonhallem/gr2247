@@ -28,7 +28,7 @@ public class BikeRentalManager {
      * @return BikeRentalPersistence
      */
     public BikeRentalPersistence getBikeRentalPersistence() {
-        return this.bikeRentalPersistence;
+        return new BikeRentalPersistence();
     }
 
     /**
