@@ -1,8 +1,6 @@
 package bikerentalapp.restserver;
 
 import bikerentalapp.json.BikeRentalPersistence;
-import bikerentalapp.json.internal.BikeRentalModule;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
