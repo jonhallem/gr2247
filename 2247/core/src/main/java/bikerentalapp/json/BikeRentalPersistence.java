@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class BikeRentalPersistence {
 
     private static ObjectMapper mapper = new ObjectMapper();
-    private static ObjectWriter writer;
+    private ObjectWriter writer;
 
     // Konstruktør
 
