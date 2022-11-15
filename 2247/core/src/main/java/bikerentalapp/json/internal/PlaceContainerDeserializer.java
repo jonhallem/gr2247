@@ -1,9 +1,7 @@
 package bikerentalapp.json.internal;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
+import bikerentalapp.core.Place;
+import bikerentalapp.core.PlaceContainer;
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.TreeNode;
@@ -12,9 +10,9 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-
-import bikerentalapp.core.Place;
-import bikerentalapp.core.PlaceContainer;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlaceContainerDeserializer extends JsonDeserializer<PlaceContainer> {
 
