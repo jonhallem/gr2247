@@ -12,7 +12,7 @@ public class Bike {
     private String type;
     private String colour;
     private final Collection<String> validTypes = new ArrayList<>(Arrays.asList(
-            "Landeveissykkel", "Terrengsykkel", "Elekstrisk terrengsykkel", "Fjellsykkel",
+            "Landeveissykkel", "Terrengsykkel", "Elektrisk terrengsykkel", "Fjellsykkel",
             "Fatbike", "Elektrisk fatbike", "Tandemsykkel", "Elektrisk tandemsykkel",
             "Christianiasykkel", "Hybridsykkel"));
     private final Collection<String> validColours = new ArrayList<>(Arrays.asList(

@@ -17,7 +17,6 @@ Applikasjonen vil tilby et bredt utvalg av sykkeltyper for utleie:
 - Elektrisk terrengsykkel 
 - Fjellsykkel
 - Fatbike 
-- Elektrisk fatbike
 - Tandemsykkel
 - Elektrisk tandemsykkel
 - Christianiasykkel  
@@ -25,13 +24,13 @@ Applikasjonen vil tilby et bredt utvalg av sykkeltyper for utleie:
 
 ## Utleiesteder:
 For å være tilgjengelig for Bike Rental App's kunder, er vi tilgjengelige der du er!
+- Bymarka
+- Munkholmen
+- Lerkendal
 - Tiller
 - Nidarosdomen
 - Gløshaugen
 - Lilleby
-- Munkholmen 
-- Lerkendal
-- Bymarka
 
 ---
 

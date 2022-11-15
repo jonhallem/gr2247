@@ -1,17 +1,16 @@
 package bikerentalapp.json;
 
-import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-
 import bikerentalapp.core.PlaceContainer;
 import bikerentalapp.core.UserContainer;
 import bikerentalapp.json.internal.BikeRentalModule;
-
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 public class BikeRentalPersistence {
 
@@ -102,11 +101,9 @@ public class BikeRentalPersistence {
      * @return a {@code Path} object
      */
     private Path getSaveFileFolderPath() {
-        return Path.of("");
+        return Path.of(System.getProperty("user.home"), "BikeRentalApp");
     }
 
-    // TODO: Vurder å slette denne, mulig den ikke trengs når lagringsfilene uansett
-    // er i repoet
     /**
      * Ensures that the JSON file to read from actually exists before reading,
      * avoiding a FileNotFoundException.
@@ -120,7 +117,23 @@ public class BikeRentalPersistence {
         if ((!file.exists() || file.isDirectory())) {
             Files.createDirectories(getSaveFileFolderPath());
             file.createNewFile();
+            if (fileName.equals("users")) {
+                this.writeUserContainer(new UserContainer(new ArrayList<>()));
+            } else {
+                this.writePlaceContainer(this.createDefaultPlaceContainer());
+            }
         }
+    }
+
+    /**
+     * Creates a {@code PlaceContainer} object based on the contents of
+     * {@code DefaultPlaceContainer}.
+     *
+     * @return a {@code PlaceContainer} object.
+     * @throws IOException if there is a mapping error.
+     */
+    private PlaceContainer createDefaultPlaceContainer() throws IOException {
+        return mapper.readValue(DefaultPlaceContainer.getDefaultPlaceContainerString(), PlaceContainer.class);
     }
 
     // Returnere mapper
