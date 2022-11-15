@@ -1,6 +1,8 @@
 package bikerentalapp.restserver;
 
 import bikerentalapp.json.BikeRentalPersistence;
+import bikerentalapp.json.internal.BikeRentalModule;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
@@ -24,12 +26,18 @@ public class BikeRentalModuleObjectMapperProvider implements ContextResolver<Obj
      * class.
      */
     public BikeRentalModuleObjectMapperProvider() {
-        objectMapper = BikeRentalPersistence.getObjectMapper();
+        this.objectMapper = BikeRentalPersistence.getObjectMapper();
+    }
+
+    private ObjectMapper createObjectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new BikeRentalModule());
+        return objectMapper.copy();
     }
 
     @Override
     public ObjectMapper getContext(Class<?> type) {
-        return objectMapper;
+        return this.objectMapper.copy();
     }
 
 }
