@@ -1,13 +1,11 @@
 package bikerentalapp.json;
 
-import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-
 import bikerentalapp.core.PlaceContainer;
 import bikerentalapp.core.UserContainer;
 import bikerentalapp.json.internal.BikeRentalModule;
-
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,62 +16,6 @@ public class BikeRentalPersistence {
 
     private static ObjectMapper mapper;
     private static ObjectWriter writer;
-    private static String DEFAULT_PLACECONTAINER = """
-                    {
-                    "places" : [ {
-                      "name" : "Bymarka",
-                      "maximumNumberOfBikes" : "10",
-                      "bikes" : [ {
-                        "iD" : "BIKEIDN2",
-                        "type" : "Tandemsykkel",
-                        "colour" : "Gul"
-                      }, {
-                        "iD" : "BIKEIDN6",
-                        "type" : "Tandemsykkel",
-                        "colour" : "Gul"
-                      } ]
-                    }, {
-                      "name" : "Munkholmen",
-                      "maximumNumberOfBikes" : "10",
-                      "bikes" : [ {
-                        "iD" : "BIKEIDN3",
-                        "type" : "Tandemsykkel",
-                        "colour" : "Gul"
-                      }, {
-                        "iD" : "BIKEIDN4",
-                        "type" : "Tandemsykkel",
-                        "colour" : "Gul"
-                      }, {
-                        "iD" : "BIKEIDN1",
-                        "type" : "Tandemsykkel",
-                        "colour" : "Gul"
-                      }, {
-                        "iD" : "BIKEIDN5",
-                        "type" : "Tandemsykkel",
-                        "colour" : "Gul"
-                      } ]
-                    }, {
-                      "name" : "Lerkendal",
-                      "maximumNumberOfBikes" : "10",
-                      "bikes" : [ ]
-                    }, {
-                      "name" : "Tiller",
-                      "maximumNumberOfBikes" : "10",
-                      "bikes" : [ ]
-                    }, {
-                      "name" : "Nidarosdomen",
-                      "maximumNumberOfBikes" : "10",
-                      "bikes" : [ ]
-                    }, {
-                      "name" : "Gløshaugen",
-                      "maximumNumberOfBikes" : "10",
-                      "bikes" : [ ]
-                    }, {
-                      "name" : "Lilleby",
-                      "maximumNumberOfBikes" : "10",
-                      "bikes" : [ ]
-                    } ]
-            }; """;
 
     // Konstruktør
 
@@ -149,7 +91,6 @@ public class BikeRentalPersistence {
      * @return a {@code File} object
      */
     private File getFile(String fileName) {
-        System.out.println(getSaveFileFolderPath().resolve(fileName + ".json"));
         return getSaveFileFolderPath().resolve(fileName + ".json").toFile();
     }
 
@@ -184,8 +125,15 @@ public class BikeRentalPersistence {
         }
     }
 
+    /**
+     * Creates a {@code PlaceContainer} object based on the contents of
+     * {@code DefaultPlaceContainer}.
+     *
+     * @return a {@code PlaceContainer} object.
+     * @throws IOException if there is a mapping error.
+     */
     private PlaceContainer createDefaultPlaceContainer() throws IOException {
-        return mapper.readValue(DEFAULT_PLACECONTAINER, PlaceContainer.class);
+        return mapper.readValue(DefaultPlaceContainer.getDefaultPlaceContainerString(), PlaceContainer.class);
     }
 
     // Returnere mapper
