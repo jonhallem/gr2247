@@ -3,6 +3,11 @@ package bikerentalapp.core;
 import bikerentalapp.json.BikeRentalPersistence;
 import java.io.IOException;
 
+/**
+ * {@code BikeRentalManager} holds a {@code BikeRentalPersistence} object used
+ * to read and write {@code User}, {@code Bike}, and {@code Place} information
+ * to and from json objects.
+ */
 public class BikeRentalManager {
 
     // ------------ Tilstand ---------------
