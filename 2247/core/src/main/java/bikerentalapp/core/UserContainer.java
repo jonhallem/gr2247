@@ -35,7 +35,7 @@ public class UserContainer implements Iterable<User> {
     /**
      * Adds a {@code User} object to the list of users, {@code users}.
      *
-     * @param user
+     * @param user to add to the list of users.
      */
     public void addUser(User user) {
         this.users.add(user);
