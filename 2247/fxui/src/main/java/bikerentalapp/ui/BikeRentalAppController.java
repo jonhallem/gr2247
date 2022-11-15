@@ -172,11 +172,11 @@ public class BikeRentalAppController {
     /**
      * Sets the bikerentalmanageraccess to the correct type (direct or remote).
      *
-     * @param brmAcess the {@code BikeRentalManager} object.
+     * @param brmAcc the {@code BikeRentalManager} object.
      */
-    public void setBikeRentalManagerAccess(BikeRentalManagerAccess brmAcess) {
+    public void setBikeRentalManagerAccess(BikeRentalManagerAccess brmAcc) {
         if (bikeRentalManagerAccess instanceof RemoteBikeRentalManagerAccess) {
-            RemoteBikeRentalManagerAccess remoteBrMa = (RemoteBikeRentalManagerAccess) brmAcess;
+            RemoteBikeRentalManagerAccess remoteBrMa = (RemoteBikeRentalManagerAccess) brmAcc;
             this.bikeRentalManagerAccess = new RemoteBikeRentalManagerAccess(
                     remoteBrMa.getUri());
         } else {
