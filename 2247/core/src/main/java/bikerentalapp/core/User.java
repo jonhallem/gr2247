@@ -168,9 +168,11 @@ public class User {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(password);
 
+        // Konkatinasjon fordi checkstyles ikke var fornøyd med en lang streng.
         if (!matcher.matches()) {
-            throw new IllegalArgumentException(
-                    "Passordet oppfyller ikke kravet. \nPassordet må inneholde minst en bokstav og ett tall,  \nog være minst 3 tegn langt.");
+            throw new IllegalArgumentException("Passordet oppfyller ikke kravet."
+                    + "\nPassordet må inneholde minst en bokstav og ett tall,"
+                    + "\nog være minst 3 tegn langt.");
         }
     }
 
