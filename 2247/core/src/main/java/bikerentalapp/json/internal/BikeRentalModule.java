@@ -5,20 +5,25 @@ import bikerentalapp.core.Place;
 import bikerentalapp.core.PlaceContainer;
 import bikerentalapp.core.User;
 import bikerentalapp.core.UserContainer;
-import com.fasterxml.jackson.core.util.VersionUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
+/**
+ * A Jackson module setting up JSON serializers and deserializers for BikeRental
+ * model objects.
+ */
 @SuppressWarnings("serial")
 public class BikeRentalModule extends SimpleModule {
 
     private static final String NAME = "BikeRentalModule";
-    private static final VersionUtil VERSION_UTIL = new VersionUtil() {
-    };
 
+    /**
+     * Initializes the BikeRentalModule with the neccessary serializers and
+     * deserializers.
+     */
     public BikeRentalModule() {
+        super(NAME, Version.unknownVersion());
 
-        super(NAME, VERSION_UTIL.version());
         addSerializer(User.class, new UserSerializer());
         addDeserializer(User.class, new UserDeserializer());
 
