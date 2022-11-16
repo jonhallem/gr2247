@@ -11,6 +11,11 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import java.io.IOException;
 
+/**
+ * JSON deserializer for the {@code Bike} class.
+ * Supports reading and instantiating {@code Bike} objects from JSON
+ * files through {@code ObjectMapper} class.
+ */
 public class BikeDeserializer extends JsonDeserializer<Bike> {
 
     @Override
@@ -20,6 +25,14 @@ public class BikeDeserializer extends JsonDeserializer<Bike> {
         return this.deserialize((JsonNode) treeNode);
     }
 
+    /**
+     * Deserializes a {@code JsonNode} object to instantiate a new {@code Bike}
+     * object with the correct properties.
+     *
+     * @param jsonNode to deserialize.
+     * @return a instantiatied {@code Bike} object with properties according to the
+     *         JsonNode.
+     */
     public Bike deserialize(JsonNode jsonNode) {
         if (jsonNode instanceof ObjectNode) {
             ObjectNode objectNode = (ObjectNode) jsonNode;
