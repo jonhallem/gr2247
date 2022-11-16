@@ -129,11 +129,12 @@ public class BikeRentalPersistence {
         File file = new File(getFile(fileName).toString());
         if (!file.exists()) {
             Files.createDirectories(getSaveFileFolderPath());
-            file.createNewFile();
-            if (fileName.equals("users")) {
-                this.writeUserContainer(new UserContainer(new ArrayList<>()));
-            } else {
-                this.writePlaceContainer(this.createDefaultPlaceContainer());
+            if (file.createNewFile()) {
+                if (fileName.equals("users")) {
+                    this.writeUserContainer(new UserContainer(new ArrayList<>()));
+                } else {
+                    this.writePlaceContainer(this.createDefaultPlaceContainer());
+                }
             }
         }
     }
