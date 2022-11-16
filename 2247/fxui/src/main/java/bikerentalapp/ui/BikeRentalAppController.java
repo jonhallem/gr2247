@@ -306,6 +306,10 @@ public class BikeRentalAppController {
     @FXML
     private void deliverBike() {
         try {
+            if (selectArrivalLocation.getValue() == null) {
+                errorMessage("Velg et sted!");
+                return;
+            }
             this.loggedInUser = this.bikeRentalManagerAccess
                     .deliverBike(this.loggedInUser.getUsername(),
                             selectArrivalLocation.getValue());
