@@ -454,7 +454,13 @@ public class BikeRentalAppController {
      * @return the {@code User} object logged in.
      */
     public User getLoggedInUser() {
-        return this.loggedInUser;
+        if (this.loggedInUser != null) {
+            return new User(this.loggedInUser.getUsername(), this.loggedInUser.getPassword(),
+                    this.loggedInUser.getBike());
+        } else {
+            return null;
+        }
+
     }
 
     /**
