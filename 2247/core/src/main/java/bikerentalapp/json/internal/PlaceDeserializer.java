@@ -15,6 +15,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * JSON deserializer for the {@code Place} class.
+ * Supports reading and instantiating {@code Place} objects from JSON
+ * files through {@code ObjectMapper} class.
+ */
 public class PlaceDeserializer extends JsonDeserializer<Place> {
 
     private BikeDeserializer bikeDeserializer = new BikeDeserializer();
@@ -26,6 +31,14 @@ public class PlaceDeserializer extends JsonDeserializer<Place> {
         return this.deserialize((JsonNode) treeNode);
     }
 
+    /**
+     * Deserializes a {@code JsonNode} object to instantiate a new {@code Place}
+     * object with the correct properties.
+     *
+     * @param jsonNode to deserialize.
+     * @return a instantiatied {@code Place} object with properties according to the
+     *         JsonNode.
+     */
     public Place deserialize(JsonNode jsonNode) {
         if (jsonNode instanceof ObjectNode) {
             ObjectNode objectNode = (ObjectNode) jsonNode;
