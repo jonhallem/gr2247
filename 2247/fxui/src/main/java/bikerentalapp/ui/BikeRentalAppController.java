@@ -316,7 +316,12 @@ public class BikeRentalAppController {
             arrivalConfirmationGroup.setVisible(false);
             departureGroup.setVisible(true);
             rentedBikeIdText.setText("");
-            loadBikesIntoList();
+
+            for (Place place : bikeRentalManagerAccess.getPlaceContainer().getPlaces()) {
+                if (place.getName().equals(selectArrivalLocation.getValue())) {
+                    chosenDepartureLocation = place;
+                }
+            }
 
             // TODO: change exception?
         } catch (Exception e) {
