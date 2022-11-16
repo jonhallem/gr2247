@@ -149,7 +149,12 @@ public class BikeRentalAppController {
      *                     session.
      */
     public void setLoggedInUser(User loggedInUser) {
-        this.loggedInUser = loggedInUser;
+        if (loggedInUser != null) {
+            this.loggedInUser = new User(loggedInUser.getUsername(), loggedInUser.getPassword(),
+                    loggedInUser.getBike());
+        } else {
+            this.loggedInUser = null;
+        }
 
         logInGroup.setVisible(false);
         rentedBikeIdText.setText("");
@@ -454,7 +459,12 @@ public class BikeRentalAppController {
      * @return the {@code User} object logged in.
      */
     public User getLoggedInUser() {
-        return this.loggedInUser;
+        if (this.loggedInUser != null) {
+            return new User(this.loggedInUser.getUsername(), this.loggedInUser.getPassword(),
+                    this.loggedInUser.getBike());
+        } else {
+            return null;
+        }
     }
 
     /**

@@ -89,7 +89,12 @@ public class ProfilePageController {
      * @param loggedInUser the {@code User} object currently logged in.
      */
     public void setLoggedInUser(User loggedInUser) {
-        this.loggedInUser = loggedInUser;
+        if (loggedInUser != null) {
+            this.loggedInUser = new User(loggedInUser.getUsername(), loggedInUser.getPassword(),
+                    loggedInUser.getBike());
+        } else {
+            this.loggedInUser = null;
+        }
         this.updateUserName();
     }
 
