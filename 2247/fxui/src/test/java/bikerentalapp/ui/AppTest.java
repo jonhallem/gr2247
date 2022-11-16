@@ -180,7 +180,7 @@ public class AppTest extends ApplicationTest {
 
         // bruker skal allerede ha registrert sykkel
         clickOn("#returnBikeButton");
-        assertEquals("BIKE1234", controller.getUserBike().getID(),
+        assertEquals("BIKE1234", controller.getUserBike().getId(),
                 "Bruker skal ha registrert utlånt sykkel som ID: 'BIKE1234'");
     }
 
