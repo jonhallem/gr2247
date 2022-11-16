@@ -1,21 +1,15 @@
 package bikerentalapp.core;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import bikerentalapp.core.Bike;
-import bikerentalapp.core.Place;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 
 public class PlaceTest {
 
@@ -41,13 +35,13 @@ public class PlaceTest {
     @DisplayName("Tester opprettelsen av et nytt Place-objekt med valide argumenter")
     public void testNewPlace_validArguments() {
 
-        Place place1 = new Place("Bymarka", 1);
+        new Place("Bymarka", 1);
 
-        Place place2 = new Place("Bymarka1", 120);
+        new Place("Bymarka1", 120);
 
-        Place place3 = new Place("bymarka", 40);
+        new Place("bymarka", 40);
 
-        Place place4 = new Place("Gløshaugen", 30, this.listOfBikes);
+        new Place("Gløshaugen", 30, this.listOfBikes);
     }
 
     @Test

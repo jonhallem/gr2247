@@ -127,7 +127,7 @@ public class BikeRentalPersistence {
      */
     private void ensureSaveFileExists(String fileName) throws IOException {
         File file = new File(getFile(fileName).toString());
-        if ((!file.exists() || file.isDirectory())) {
+        if (!file.exists()) {
             Files.createDirectories(getSaveFileFolderPath());
             if (file.createNewFile()) {
                 if (fileName.equals("users")) {
@@ -135,9 +135,6 @@ public class BikeRentalPersistence {
                 } else {
                     this.writePlaceContainer(this.createDefaultPlaceContainer());
                 }
-            } else {
-                throw new IllegalStateException(
-                        "Kunne ikke opprette ny fil. Filnavn eksistere allerede.");
             }
         }
     }
