@@ -14,6 +14,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * JSON deserializer for the {@code UserContainer} class.
+ * Supports reading and instantiating {@code UserContainer} objects from JSON
+ * files through {@code ObjectMapper} class.
+ */
 public class UserContainerDeserializer extends JsonDeserializer<UserContainer> {
 
     private UserDeserializer userDeserializer = new UserDeserializer();
@@ -25,6 +30,16 @@ public class UserContainerDeserializer extends JsonDeserializer<UserContainer> {
         return this.deserialize((JsonNode) treeNode);
     }
 
+    /**
+     * Deserializes a {@code JsonNode} object to instantiate a new
+     * {@code UserContainer}
+     * object with the correct properties.
+     *
+     * @param jsonNode to deserialize.
+     * @return a instantiatied {@code UserContainer} object with properties
+     *         according to the
+     *         JsonNode.
+     */
     public UserContainer deserialize(JsonNode jsonNode) {
         List<User> userList = new ArrayList<>();
         if (jsonNode instanceof ObjectNode) {
