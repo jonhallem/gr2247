@@ -149,7 +149,12 @@ public class BikeRentalAppController {
      *                     session.
      */
     public void setLoggedInUser(User loggedInUser) {
-        this.loggedInUser = new User(loggedInUser.getUsername(), loggedInUser.getPassword(), loggedInUser.getBike());
+        if (loggedInUser != null) {
+            this.loggedInUser = new User(loggedInUser.getUsername(), loggedInUser.getPassword(),
+                    loggedInUser.getBike());
+        } else {
+            this.loggedInUser = null;
+        }
 
         logInGroup.setVisible(false);
         rentedBikeIdText.setText("");
