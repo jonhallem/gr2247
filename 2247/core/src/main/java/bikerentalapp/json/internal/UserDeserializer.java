@@ -45,7 +45,7 @@ public class UserDeserializer extends JsonDeserializer<User> {
 
             Bike bike = null;
 
-            if (bikeNode.asText() != "null") {
+            if (!bikeNode.asText().equals("null")) {
                 bike = bikeDeserializer.deserialize(bikeNode);
             }
 
