@@ -7,6 +7,11 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
 
+/**
+ * JSON serializer for the {@code PlaceContainer} class.
+ * Supports writing {@code PlaceContainer} objects to JSON files through
+ * {@code ObjectMapper} class.
+ */
 public class PlaceContainerSerializer extends JsonSerializer<PlaceContainer> {
 
     /*
