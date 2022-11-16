@@ -1,14 +1,10 @@
 package bikerentalapp.core;
 
-import org.junit.jupiter.api.Test;
-
-import bikerentalapp.core.Bike;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BikeTest {
 
@@ -23,11 +19,11 @@ public class BikeTest {
     @Test
     @DisplayName("Tester opprettelsen av et nytt Bike-objekt med valide argumenter")
     public void testNewBike_validArguments() {
-        Bike bike1 = new Bike("BIKE1234", "Terrengsykkel", "Blå");
+        new Bike("BIKE1234", "Terrengsykkel", "Blå");
 
-        Bike bike2 = new Bike("BIKEBIKE", "Fjellsykkel", "Rosa");
+        new Bike("BIKEBIKE", "Fjellsykkel", "Rosa");
 
-        Bike bike3 = new Bike("12345678", "Elektrisk tandemsykkel", "Svart");
+        new Bike("12345678", "Elektrisk tandemsykkel", "Svart");
     }
 
     @Test
