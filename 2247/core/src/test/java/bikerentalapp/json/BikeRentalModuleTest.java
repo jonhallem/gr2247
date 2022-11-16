@@ -1,28 +1,52 @@
 package bikerentalapp.json;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.jupiter.api.Test;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import bikerentalapp.core.Bike;
 import bikerentalapp.core.Place;
 import bikerentalapp.core.PlaceContainer;
 import bikerentalapp.core.User;
 import bikerentalapp.core.UserContainer;
 import bikerentalapp.json.internal.BikeRentalModule;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class BikeRentalModuleTest {
 
     private static ObjectMapper mapper = new ObjectMapper();
 
-    final static String placeContainerAsJSON = """
+    final static String bikeAsJson = """
+            {
+                "iD" : "BIKEIDN1",
+                "type" : "Tandemsykkel",
+                "colour" : "Gul"
+            }
+            """;
+
+    final static String placeAsJson = """
+            {
+                "name" : "Bymarka",
+                "maximumNumberOfBikes" : "5",
+                "bikes" : [ {
+                  "iD" : "BIKEIDN1",
+                  "type" : "Tandemsykkel",
+                  "colour" : "Gul"
+                } ]
+            }
+                """;
+
+    final static String userAsJson = """
+            {
+                "username" : "Jarl",
+                "password" : "jarl123",
+                "bike" : null
+            }
+                """;
+
+    final static String placeContainerAsJson = """
                 {
                     "places" : [ {
                       "name" : "Bymarka",
@@ -52,7 +76,7 @@ public class BikeRentalModuleTest {
                   }
             """;
 
-    final static String userContainerAsJSON = """
+    final static String userContainerAsJson = """
                 {
                     "users" : [ {
                       "username" : "Jarl",
@@ -73,6 +97,54 @@ public class BikeRentalModuleTest {
                     } ]
                   }
             """;
+
+    @Test
+    public void testDeserializer_Bike() {
+        mapper.registerModule(new BikeRentalModule());
+
+        try {
+            Bike bike = mapper.readValue(bikeAsJson, Bike.class);
+
+            assertEquals("BIKEIDN1", bike.getId());
+            assertEquals("Tandemsykkel", bike.getType());
+            assertEquals("Gul", bike.getColour());
+
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testDeserializer_Place() {
+        mapper.registerModule(new BikeRentalModule());
+
+        try {
+            Place place = mapper.readValue(placeAsJson, Place.class);
+
+            assertEquals("Bymarka", place.getName());
+            assertEquals(5, place.getMaximumNumberOfBikes());
+            assertEquals(1, place.getBikes().size());
+
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testDeserializer_User() {
+        mapper.registerModule(new BikeRentalModule());
+
+        try {
+            User user = mapper.readValue(userAsJson, User.class);
+
+            assertEquals("Jarl", user.getUsername());
+            assertEquals("jarl123", user.getPassword());
+            assertEquals(null, user.getBike());
+
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
 
     @Test
     public void testSerializers_PlaceContainer() {
@@ -144,7 +216,7 @@ public class BikeRentalModuleTest {
     public void testDeserializers_PlaceContainer() {
         mapper.registerModule(new BikeRentalModule());
         try {
-            PlaceContainer placeContainer = mapper.readValue(placeContainerAsJSON, PlaceContainer.class);
+            PlaceContainer placeContainer = mapper.readValue(placeContainerAsJson, PlaceContainer.class);
             Place place1 = placeContainer.getPlaces().get(0);
             Bike bike1AtPlace1 = place1.getBikes().get(0);
             Bike bike2AtPlace1 = place1.getBikes().get(1);
@@ -185,7 +257,7 @@ public class BikeRentalModuleTest {
         mapper.registerModule(new BikeRentalModule());
 
         try {
-            UserContainer userContainer = mapper.readValue(userContainerAsJSON, UserContainer.class);
+            UserContainer userContainer = mapper.readValue(userContainerAsJson, UserContainer.class);
             User user1 = userContainer.getUsers().get(0);
             User user2 = userContainer.getUsers().get(1);
             User user3 = userContainer.getUsers().get(2);
