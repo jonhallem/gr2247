@@ -89,7 +89,7 @@ public class BikeTest {
     @DisplayName("Tester at riktige verdier blir hentet ut av gettere")
     public void testGetters() {
 
-        assertEquals("BIKE1234", bike.getID(), "getID skal returnere Bike1234");
+        assertEquals("BIKE1234", bike.getId(), "getID skal returnere Bike1234");
 
         assertEquals("Terrengsykkel", bike.getType(), "getType skal returnere Terrengsykkel");
 

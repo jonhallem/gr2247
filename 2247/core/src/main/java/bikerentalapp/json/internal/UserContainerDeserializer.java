@@ -1,9 +1,7 @@
 package bikerentalapp.json.internal;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
+import bikerentalapp.core.User;
+import bikerentalapp.core.UserContainer;
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.TreeNode;
@@ -12,10 +10,15 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import bikerentalapp.core.User;
-import bikerentalapp.core.UserContainer;
-
+/**
+ * JSON deserializer for the {@code UserContainer} class.
+ * Supports reading and instantiating {@code UserContainer} objects from JSON
+ * files through {@code ObjectMapper} class.
+ */
 public class UserContainerDeserializer extends JsonDeserializer<UserContainer> {
 
     private UserDeserializer userDeserializer = new UserDeserializer();
@@ -27,6 +30,16 @@ public class UserContainerDeserializer extends JsonDeserializer<UserContainer> {
         return this.deserialize((JsonNode) treeNode);
     }
 
+    /**
+     * Deserializes a {@code JsonNode} object to instantiate a new
+     * {@code UserContainer}
+     * object with the correct properties.
+     *
+     * @param jsonNode to deserialize.
+     * @return a instantiatied {@code UserContainer} object with properties
+     *         according to the
+     *         JsonNode.
+     */
     public UserContainer deserialize(JsonNode jsonNode) {
         List<User> userList = new ArrayList<>();
         if (jsonNode instanceof ObjectNode) {

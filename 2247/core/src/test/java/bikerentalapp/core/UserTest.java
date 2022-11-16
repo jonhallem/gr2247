@@ -55,7 +55,7 @@ public class UserTest {
         // Setter bike til user, oppretter bike2, og forsøker å legge bike2 til bruker.
         user.setBike(bike);
 
-        assertEquals(user.getBike().getID(), "TESTIDN1", "Sykkel med riktig ID skal være satt");
+        assertEquals(user.getBike().getId(), "TESTIDN1", "Sykkel med riktig ID skal være satt");
 
         Bike bike2 = new Bike("TESTIDN2", "Terrengsykkel", "Rød");
         assertThrows(IllegalStateException.class, () -> {

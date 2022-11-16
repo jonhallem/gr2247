@@ -64,6 +64,8 @@ public class BikeRentalManagerTest {
     public void testSignUp() throws IOException {
 
         User newUser = BRM.signUp("testName", "testPassword123");
+        userContainer.addUser(newUser);
+        bikeRentalPersistence.writeUserContainer(userContainer);
 
         assertEquals("testName", newUser.getUsername(),
                 "Brukernavnet til den nye brukeren skal være 'testName'");
@@ -85,9 +87,27 @@ public class BikeRentalManagerTest {
 
     }
 
-    @DisplayName("Tester om brukere kan logge inn med riktig innloggingsinformasjon")
+    @DisplayName("Tester om bruker kan endre passord")
     @Test
     @Order(3)
+    public void testSetPassword() throws IOException {
+
+        BRM.signUp("testChangePasswordUser", "testPassword123");
+        this.userContainer = this.bikeRentalPersistence.readUserContainer();
+        bikeRentalPersistence.writeUserContainer(userContainer);
+        BRM.logIn("testChangePasswordUser", "testPassword123");
+        BRM.setUserPassword("testChangePasswordUser", "testPassword12345");
+        this.userContainer = this.bikeRentalPersistence.readUserContainer();
+        bikeRentalPersistence.writeUserContainer(userContainer);
+
+        assertEquals("testPassword12345",
+                BRM.getBikeRentalPersistence().readUserContainer().findUser("testChangePasswordUser").getPassword(),
+                "Passordet til brukeren skal være 'testPassword12345'");
+    }
+
+    @DisplayName("Tester om brukere kan logge inn med riktig innloggingsinformasjon")
+    @Test
+    @Order(4)
     public void testLogIn() throws IOException {
 
         BRM.signUp("testName2", "testPassword123");
@@ -112,12 +132,13 @@ public class BikeRentalManagerTest {
 
     @DisplayName("Tester om sykler blir lånt ut og levert riktig")
     @Test
-    @Order(4)
+    @Order(5)
     public void testRentAndDeliverBike() throws IOException {
 
         this.placeContainer = BRM.getBikeRentalPersistence().readPlaceContainer();
         this.placeContainer.addPlace("testPlace2", 2);
         Bike bikeToRent = new Bike("BIKY1234", "Fjellsykkel", "Rød");
+        Bike bikeNotToRent = new Bike("BUKY1234", "Fjellsykkel", "Rød");
         this.placeContainer.findPlace("testPlace2").addBike(bikeToRent);
         this.bikeRentalPersistence.writePlaceContainer(placeContainer);
         Place validPlace = placeContainer.findPlace("testPlace2");
@@ -129,16 +150,21 @@ public class BikeRentalManagerTest {
                 "før utlån skal bruker ikke en nyregistrert bruker ha noen registert sykkel");
 
         Exception exception = Assertions.assertThrows(IllegalArgumentException.class,
-                () -> BRM.rentBike(invalidPlace.getName(), bikeToRent.getID(), loggedInUser.getUsername()));
-        assertTrue(exception.getMessage().equals("Et sted med dette navnet finnes ikke"),
+                () -> BRM.rentBike(validPlace.getName(), bikeNotToRent.getId(), loggedInUser.getUsername()));
+        assertTrue(exception.getMessage().equals("Det gitte stedet inneholder ikke den gitte sykkelen."),
+                "ved feil sykkelnavn skal unntak utløses");
+
+        Exception exception2 = Assertions.assertThrows(IllegalArgumentException.class,
+                () -> BRM.rentBike(invalidPlace.getName(), bikeToRent.getId(), loggedInUser.getUsername()));
+        assertTrue(exception2.getMessage().equals("Et sted med dette navnet finnes ikke"),
                 "ved feil stedsnavn skal unntak utløses");
 
-        BRM.rentBike(validPlace.getName(), bikeToRent.getID(), loggedInUser.getUsername());
+        BRM.rentBike(validPlace.getName(), bikeToRent.getId(), loggedInUser.getUsername());
 
         this.userContainer = this.bikeRentalPersistence.readUserContainer();
         User loggedInUserInUserContainer = userContainer.findUser(loggedInUser.getUsername());
 
-        assertEquals("BIKY1234", loggedInUserInUserContainer.getBike().getID(),
+        assertEquals("BIKY1234", loggedInUserInUserContainer.getBike().getId(),
                 "utlånt sykkel hos den innloggedebrukeren i persistens skal stemme overens med registert sykkel");
 
         placeContainer = this.bikeRentalPersistence.readPlaceContainer();
@@ -161,7 +187,7 @@ public class BikeRentalManagerTest {
         Place validPlaceFromPlaceContainer = placeContainer.findPlace(validPlace.getName());
 
         assertTrue(
-                validPlaceFromPlaceContainer.getBikes().stream().filter(bike -> bike.getID().equals("BIKY1234"))
+                validPlaceFromPlaceContainer.getBikes().stream().filter(bike -> bike.getId().equals("BIKY1234"))
                         .count() == 1,
                 "Utleiestedet skal ha fått tilbake sykkelen.");
 
@@ -173,6 +199,7 @@ public class BikeRentalManagerTest {
         userContainer.removeUser("testName");
         userContainer.removeUser("testName2");
         userContainer.removeUser("testName3");
+        userContainer.removeUser("testChangePasswordUser");
         placeContainer.removePlace("testPlace");
         placeContainer.removePlace("testPlace2");
         bikeRentalPersistence.writeUserContainer(userContainer);

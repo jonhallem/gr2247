@@ -1,9 +1,7 @@
 package bikerentalapp.json.internal;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
+import bikerentalapp.core.Bike;
+import bikerentalapp.core.Place;
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.TreeNode;
@@ -13,20 +11,34 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import bikerentalapp.core.Bike;
-import bikerentalapp.core.Place;
-
+/**
+ * JSON deserializer for the {@code Place} class.
+ * Supports reading and instantiating {@code Place} objects from JSON
+ * files through {@code ObjectMapper} class.
+ */
 public class PlaceDeserializer extends JsonDeserializer<Place> {
 
     private BikeDeserializer bikeDeserializer = new BikeDeserializer();
 
     @Override
-    public Place deserialize(JsonParser parser, DeserializationContext context) throws IOException, JacksonException {
+    public Place deserialize(JsonParser parser,
+            DeserializationContext context) throws IOException, JacksonException {
         TreeNode treeNode = parser.getCodec().readTree(parser);
         return this.deserialize((JsonNode) treeNode);
     }
 
+    /**
+     * Deserializes a {@code JsonNode} object to instantiate a new {@code Place}
+     * object with the correct properties.
+     *
+     * @param jsonNode to deserialize.
+     * @return a instantiatied {@code Place} object with properties according to the
+     *         JsonNode.
+     */
     public Place deserialize(JsonNode jsonNode) {
         if (jsonNode instanceof ObjectNode) {
             ObjectNode objectNode = (ObjectNode) jsonNode;
@@ -43,7 +55,8 @@ public class PlaceDeserializer extends JsonDeserializer<Place> {
                 }
             }
             if (nameNode instanceof TextNode && maximumNumberOfBikesNode instanceof TextNode) {
-                return new Place(((TextNode) nameNode).asText(), ((TextNode) maximumNumberOfBikesNode).asInt(), bikes);
+                return new Place(((TextNode) nameNode)
+                        .asText(), ((TextNode) maximumNumberOfBikesNode).asInt(), bikes);
             }
         }
         return null;

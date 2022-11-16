@@ -5,10 +5,13 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.regex.Pattern;
 
+/**
+ * A class for {@code Bike} objects. Keeps track of the bike's id, type and
+ * colour.
+ */
 public class Bike {
 
-    // Tilstand
-    private String iD;
+    private String id;
     private String type;
     private String colour;
     private final Collection<String> validTypes = new ArrayList<>(Arrays.asList(
@@ -18,59 +21,56 @@ public class Bike {
     private final Collection<String> validColours = new ArrayList<>(Arrays.asList(
             "Rød", "Blå", "Grønn", "Rosa", "Gul", "Lilla", "Svart", "Hvit"));
 
-    // Konstruktør
     /**
-     * Constructs a {@code Bike} object, used to store the ID, type and colour of a
+     * Constructs a {@code Bike} object, used to store the id, type and colour of a
      * bike.
-     * 
-     * @param iD     the String ID of the bike. Must only consist of numerals and/or
+     *
+     * @param id     the String id of the bike. Must only consist of numerals and/or
      *               capital
-     *               lettrs, must be of length 8
+     *               lettrs, must be of length 8.
      * @param type   the String type of the bike. Must be one of the types listed in
      *               the collection
-     *               "validTypes" in {@code Bike}
+     *               "validTypes" in {@code Bike}.
      * @param colour the String colour of the bike. Must be one of the colours
      *               listed in the collection
-     *               "validColours" in {@code Bike}
+     *               "validColours" in {@code Bike}.
      * @throws IllegalArgumentException if the input is not valid according to the
      *                                  validator methods
-     *                                  in the {@code Bike} class
+     *                                  in the {@code Bike} class.
      */
-    public Bike(String iD, String type, String colour) {
-        this.validateID(iD);
+    public Bike(String id, String type, String colour) {
+        this.validateId(id);
         this.validateType(type);
         this.validateColour(colour);
-        this.iD = iD;
+        this.id = id;
         this.type = type;
         this.colour = colour;
     }
 
-    // Valideringsmetoder
-
     /**
-     * Validates an input String ID for a {@code Bike} object.
-     * 
-     * @param iD a String to validate
+     * Validates an input String id for a {@code Bike} object.
+     *
+     * @param id a String to validate
      * @throws IllegalArgumentExepction if the string doesn't consist of only
      *                                  numerals and/or
      *                                  capital letters, and/or has a length not
-     *                                  equal to 8
+     *                                  equal to 8.
      */
-    private void validateID(String iD) {
-        this.inputNotNullValidator(iD);
-        if (!Pattern.matches("[A-Z0-9]{8}", iD)) {
-            throw new IllegalArgumentException("ID-format ugyldig. Må bestå av tall og store " +
-                    "bokstaver og ha en lengde på 8 tegn.");
+    private void validateId(String id) {
+        this.inputNotNullValidator(id);
+        if (!Pattern.matches("[A-Z0-9]{8}", id)) {
+            throw new IllegalArgumentException("id-format ugyldig. Må bestå av tall og store "
+                    + "bokstaver og ha en lengde på 8 tegn.");
         }
     }
 
     /**
      * Validates an input String type for a {@code Bike} object.
-     * 
+     *
      * @param type a String to validate
      * @throws IllegalArgumentExepction if the collection "validTypes" in
      *                                  {@code Bike} does not
-     *                                  contain the input String type
+     *                                  contain the input String type.
      */
     private void validateType(String type) {
         this.inputNotNullValidator(type);
@@ -81,11 +81,11 @@ public class Bike {
 
     /**
      * Validates an input String colour for a {@code Bike} object.
-     * 
-     * @param colour a String to validate
+     *
+     * @param colour a String to validate.
      * @throws IllegalArgumentException if the collection "validColours" in
      *                                  {@code Bike} does not
-     *                                  contain the input String colour
+     *                                  contain the input String colour.
      */
     private void validateColour(String colour) {
         this.inputNotNullValidator(colour);
@@ -96,9 +96,9 @@ public class Bike {
 
     /**
      * Validates an Object for not being null.
-     * 
-     * @param input an Object to validate
-     * @throws IllegalArgumentException if the input Object is null
+     *
+     * @param input an Object to validate.
+     * @throws IllegalArgumentException if the input Object is null.
      */
     private void inputNotNullValidator(Object input) {
         if (input == null) {
@@ -106,21 +106,19 @@ public class Bike {
         }
     }
 
-    // Gettere
-
     /**
-     * Getter for the ID of the {@code Bike} object.
-     * 
-     * @return the String ID of the {@code Bike} object
+     * Getter for the id of the {@code Bike} object.
+     *
+     * @return the String id of the {@code Bike} object.
      */
-    public String getID() {
-        return this.iD;
+    public String getId() {
+        return this.id;
     }
 
     /**
      * Getter for the type of the {@code Bike} object.
-     * 
-     * @return the String type of the {@code Bike} object
+     *
+     * @return the String type of the {@code Bike} object.
      */
     public String getType() {
         return this.type;
@@ -128,8 +126,8 @@ public class Bike {
 
     /**
      * Getter for the colour of the {@code Bike} object.
-     * 
-     * @return the String colour of the {@code Bike} object
+     *
+     * @return the String colour of the {@code Bike} object.
      */
     public String getColour() {
         return this.colour;

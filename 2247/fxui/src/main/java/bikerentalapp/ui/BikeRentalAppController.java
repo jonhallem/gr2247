@@ -164,7 +164,7 @@ public class BikeRentalAppController {
             arrivalGroup.setVisible(true);
             rentedBikeIdText.setText(
                     this.loggedInUser.getBike().getType() + " - "
-                            + this.loggedInUser.getBike().getID());
+                            + this.loggedInUser.getBike().getId());
         }
 
     }
@@ -212,7 +212,7 @@ public class BikeRentalAppController {
                 arrivalGroup.setVisible(true);
                 rentedBikeIdText.setText(
                         this.loggedInUser.getBike().getType() + " - "
-                                + this.loggedInUser.getBike().getID());
+                                + this.loggedInUser.getBike().getId());
             }
         } catch (IllegalArgumentException e) {
 
@@ -272,10 +272,10 @@ public class BikeRentalAppController {
             String bikeId = selectedBike.split(" --- ")[0].split(": ")[1];
 
             for (Bike bike : chosenDepartureLocation.getBikes()) {
-                if (bike.getID().equals(bikeId)) {
+                if (bike.getId().equals(bikeId)) {
                     try {
                         this.loggedInUser = this.bikeRentalManagerAccess
-                                .rentBike(chosenDepartureLocation.getName(), bike.getID(),
+                                .rentBike(chosenDepartureLocation.getName(), bike.getId(),
                                         this.loggedInUser.getUsername());
                     } catch (IOException e) {
 
@@ -284,7 +284,7 @@ public class BikeRentalAppController {
                     } catch (IllegalArgumentException e) {
                         errorMessage(e.toString());
                     }
-                    rentedBikeIdText.setText(bike.getType() + " - " + bike.getID());
+                    rentedBikeIdText.setText(bike.getType() + " - " + bike.getId());
                     break;
                 }
             }
@@ -372,7 +372,7 @@ public class BikeRentalAppController {
 
             StringBuilder sb = new StringBuilder();
             sb.append("SykkelID: ");
-            sb.append(bike.getID());
+            sb.append(bike.getId());
             sb.append(" --- ");
             sb.append("Type: ");
             sb.append(bike.getType());
