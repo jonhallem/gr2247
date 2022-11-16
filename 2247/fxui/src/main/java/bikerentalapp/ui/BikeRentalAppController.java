@@ -6,7 +6,6 @@ import bikerentalapp.core.User;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -127,7 +126,8 @@ public class BikeRentalAppController {
             this.bikeRentalManagerAccess = new DirectBikeRentalManagerAccess();
         } else {
             try {
-                this.bikeRentalManagerAccess = new RemoteBikeRentalManagerAccess(new URI(endpointUri));
+                this.bikeRentalManagerAccess = new RemoteBikeRentalManagerAccess(
+                        new URI(endpointUri));
             } catch (URISyntaxException e) {
                 System.err.println(e);
             }
@@ -169,10 +169,16 @@ public class BikeRentalAppController {
 
     }
 
-    public void setBikeRentalManagerAccess(BikeRentalManagerAccess bikeRentalManagerAccess) {
+    /**
+     * Sets the bikerentalmanageraccess to the correct type (direct or remote).
+     *
+     * @param brmAcc the {@code BikeRentalManager} object.
+     */
+    public void setBikeRentalManagerAccess(BikeRentalManagerAccess brmAcc) {
         if (bikeRentalManagerAccess instanceof RemoteBikeRentalManagerAccess) {
-            RemoteBikeRentalManagerAccess remoteBikeRentalManagerAccess = (RemoteBikeRentalManagerAccess) bikeRentalManagerAccess;
-            this.bikeRentalManagerAccess = new RemoteBikeRentalManagerAccess(remoteBikeRentalManagerAccess.getUri());
+            RemoteBikeRentalManagerAccess remoteBrMa = (RemoteBikeRentalManagerAccess) brmAcc;
+            this.bikeRentalManagerAccess = new RemoteBikeRentalManagerAccess(
+                    remoteBrMa.getUri());
         } else {
             this.bikeRentalManagerAccess = new DirectBikeRentalManagerAccess();
         }
@@ -300,8 +306,9 @@ public class BikeRentalAppController {
     @FXML
     private void deliverBike() {
         try {
-            this.loggedInUser = this.bikeRentalManagerAccess.deliverBike(this.loggedInUser.getUsername(),
-                    selectArrivalLocation.getValue());
+            this.loggedInUser = this.bikeRentalManagerAccess
+                    .deliverBike(this.loggedInUser.getUsername(),
+                            selectArrivalLocation.getValue());
             arrivalConfirmationGroup.setVisible(false);
             departureGroup.setVisible(true);
             rentedBikeIdText.setText("");

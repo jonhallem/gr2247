@@ -24,12 +24,12 @@ public class BikeRentalModuleObjectMapperProvider implements ContextResolver<Obj
      * class.
      */
     public BikeRentalModuleObjectMapperProvider() {
-        objectMapper = BikeRentalPersistence.getObjectMapper();
+        this.objectMapper = BikeRentalPersistence.getObjectMapper();
     }
 
     @Override
     public ObjectMapper getContext(Class<?> type) {
-        return objectMapper;
+        return this.objectMapper.copy();
     }
 
 }
