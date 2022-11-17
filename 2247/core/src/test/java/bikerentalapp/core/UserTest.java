@@ -9,7 +9,7 @@ public class UserTest {
 
     @Test
     @DisplayName("Tester det å opprette en ny bruker")
-    void testNewUser() {
+    public void testNewUser() {
         assertThrows(IllegalArgumentException.class, () -> {
             new User(null, "test123");
         }, "IllegalArgument skal utløses om brukernavnet er 'null'.");
@@ -42,7 +42,7 @@ public class UserTest {
 
     @Test
     @DisplayName("Tester det å legge til sykkler til en bruker. ")
-    void testAddBike() {
+    public void testAddBike() {
         User user = new User("username", "password1234");
         Bike bike = new Bike("TESTIDN1", "Landeveissykkel", "Blå");
 
@@ -61,7 +61,7 @@ public class UserTest {
 
     @Test
     @DisplayName("Tester det å fjerne sykkler fra en bruker ")
-    void testReturnAndRomoveBike() {
+    public void testReturnAndRomoveBike() {
         User user = new User("username", "password1234");
         Bike bike = new Bike("TESTIDN1", "Landeveissykkel", "Blå");
         user.setBike(bike);
