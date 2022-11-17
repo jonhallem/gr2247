@@ -99,7 +99,8 @@ For å teste kodekvalitet og testdekningsgrad er JaCoCo, Checkstyle og Spotbugs 
 JaCoCo er brukt for å undersøke testdekningsgraden. Dette gjøres ved å kalle: **mvn clean jacoco:prepare-agent install jacoco:report**
 Checkstyle er brukt for å undersøke kodestilen, i henhold til google_checks.xml. Checkstyle kalles ved: **mvn checkstyle:check**
 Checkstyle rapporterer ikke om noen klare brudd, men gir et sett med advarsler. Dette er advarsler som stort sett omhandler indentering. 
-Spotbugs er brukt for å finne utrygg og ukonvensjonell bruk av kode. Spotbugs kalles ved: **mvn spotbugs:check**
+Spotbugs er brukt for å finne utrygg og ukonvensjonell bruk av kode. Spotbugs kalles ved: **mvn spotbugs:check**, og kan også sees ved **mvn spotbugs:gui** i et mer oversiktlig brukergrensesnitt. 
+JaCoCo, Checkstyle og Spotbugs kan kalles fra rotmappen, *2247*, eller fra hver av modulene: *core*, *fxui*, *integrationtests*, *rest*. 
 
 ## Arbeidesvaner
 
