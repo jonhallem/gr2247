@@ -118,8 +118,8 @@
             <systemPropertyVariables>
                 <headless>${headlessTests}</headless>
             </systemPropertyVariables>
-            <forkCount>0</forkCount>
-            <reuseForks>true</reuseForks>
+            <!-- <forkCount>0</forkCount>
+            <reuseForks>true</reuseForks> -->
             <argLine>
             @{jaCoCoArgLine} -Dtestfx.robot=awt
             --add-opens bikerentalapp.ui/bikerentalapp.ui=ALL-UNNAMED --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
@@ -167,6 +167,9 @@
       <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
+          <configuration>
+            <propertyName>jaCoCoArgLine</propertyName>
+          </configuration>
       </plugin>
 
       <!-- Run the checkstyle code quality tool -->
