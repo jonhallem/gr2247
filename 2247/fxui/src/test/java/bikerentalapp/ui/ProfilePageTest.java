@@ -30,13 +30,10 @@ public class ProfilePageTest extends ApplicationTest {
 
     private PlaceContainer placeContainer;
 
-    private BikeRentalAppController controller;
-
     @Override
     public void start(final Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("BikeRentalApp.fxml"));
         Parent parent = fxmlLoader.load();
-        this.controller = fxmlLoader.getController();
         stage.setScene(new Scene(parent));
         stage.show();
     }
