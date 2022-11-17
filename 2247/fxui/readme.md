@@ -3,25 +3,31 @@
 ## FXUI
 
 ### BikeRentalAppController
-Hovedkontrolleren som tar for seg endringer i viewet. Kontrollerklassen presenterer logikk og funksjonalitet i core gjennom data fra remote og appAccess.
+Hovedkontrolleren som tar for seg endringer i viewet. Kontrolleren aksesserer funksjonalitet i modellen gjennom BikeRentalManagerAccess.
 
 ### ProfilePageController
-ProfilePageControlleren tar for seg endringer i viewet når bruker går inn i profilsiden i applikasjonen. 
+ProfilePageControlleren tar for seg endringer i viewet når bruker går inn i profilsiden i applikasjonen. Kontrolleren aksesserer funksjonalitet i modellen gjennom BikeRentalManagerAccess.
 
 ### App
-Klassen ansvarlig for å kjøre applikasjonen.
+Klasse som initialiserer kjøring av appliasjonen med direkte modellaksess.
+
+### RemoteApp
+Klasse som initialiserer kjøring av appliasjonen med remote modellaksess.
 
 ### BikeRentalManagerAccess
+Interface som definerer metoder kontrollere trenger i modellen.
 
 
 ### DirectBikeRentalManagerAccess
+Implementerer metodene i BikeRentalManagerAccess gjennom direkte metodekall i BikeRentalManager.
 
 
 ### RemoteBikeRentalManagerAccess
+Implementerer metodene i BikeRentalManagerAccess gjennom http-requests til REST API.
 
 
 ## Resources
-Inneholder javafx fxml filer med applikasjonens utseende for hovedsiden og profilsiden, i tillegg til en img mappe med bilder og ikoner brukt i applikasjonen.
+Inneholder fxml-filer med applikasjonens grafiske brukergrensesnitt for hovedsiden og profilsiden, i tillegg til en img mappe med bilder og ikoner brukt i applikasjonen.
 
 # Testing
-Testingen består av 2 klasser som hver tar for seg en kontroller. AppTest tester BikeRentalAppController og at riktig innhold blir presentert korrekt basert på data fra dataoverføring/access/remote og funksjonalitet i core. I tillegg testet det at innholdet blir presentert riktig på profilsiden i ProfilePageTest. Testene i GUIet blir testet ved hjelp av testfx.
+Testingen består av 2 klasser som hver tar for seg en kontroller. AppTest tester BikeRentalAppController og at innhold blir presentert korrekt basert på data fra BikeRentalAccess. I tillegg testet det at innholdet blir presentert riktig på profilsiden i ProfilePageTest. Testene i GUIet blir testet ved hjelp av TestFX.

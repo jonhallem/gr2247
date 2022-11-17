@@ -34,7 +34,7 @@ public class PlaceContainerTest {
 
     @Test
     @DisplayName("Tester det å hente listen over stedene")
-    void testConstructor_and_getPlaces() {
+    public void testConstructor_and_getPlaces() {
 
         assertEquals(placeContainer.getPlaces(), testPlaceList,
                 "Listen getPlaces returner skal være den samme som ble satt inn i konstruktøren.");
@@ -42,7 +42,7 @@ public class PlaceContainerTest {
 
     @Test
     @DisplayName("Tester det å legge til et place objekt")
-    void testAddPlace() {
+    public void testAddPlace() {
 
         assertEquals(placeContainer.getPlaces().size(), 2,
                 "Listen getPlaces returnerer skal være av lengde 2.");
@@ -58,7 +58,7 @@ public class PlaceContainerTest {
 
     @Test
     @DisplayName("Tester det å fjerne et place objekt")
-    void testRemovePlace() {
+    public void testRemovePlace() {
         assertEquals(placeContainer.getPlaces().size(), 2,
                 "Listen getPlaces returnerer skal være av lengde 2.");
 
@@ -74,7 +74,7 @@ public class PlaceContainerTest {
 
     @Test
     @DisplayName("Tester det å fjerne et place objekt")
-    void testFindPlace() {
+    public void testFindPlace() {
         assertEquals(placeContainer.findPlace("TestPlace1"), place1,
                 "findPlace() skal returnere place1 når navnet til place1 brukes som argument.");
 
@@ -89,7 +89,7 @@ public class PlaceContainerTest {
 
     @Test
     @DisplayName("Tester det å iterere over place-objekter")
-    void testIterator() {
+    public void testIterator() {
 
         Iterator<Place> iterator = placeContainer.iterator();
 
