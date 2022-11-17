@@ -118,8 +118,6 @@
             <systemPropertyVariables>
                 <headless>${headlessTests}</headless>
             </systemPropertyVariables>
-            <!-- <forkCount>0</forkCount>
-            <reuseForks>true</reuseForks> -->
             <argLine>
             @{jaCoCoArgLine} -Dtestfx.robot=awt
             --add-opens bikerentalapp.ui/bikerentalapp.ui=ALL-UNNAMED --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
