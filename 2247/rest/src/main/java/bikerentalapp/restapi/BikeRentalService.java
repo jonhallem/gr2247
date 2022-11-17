@@ -2,13 +2,16 @@ package bikerentalapp.restapi;
 
 import bikerentalapp.core.BikeRentalManager;
 import bikerentalapp.core.PlaceContainer;
-import bikerentalapp.core.UserContainer;
+import bikerentalapp.core.User;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +30,140 @@ public class BikeRentalService {
     private static final Logger LOG = LoggerFactory.getLogger(BikeRentalService.class);
 
     private BikeRentalManager bikeRentalManager = new BikeRentalManager();
+
+    /**
+     * REST service method for signups.
+     *
+     * @param usernameAndPassword a String form param derived from the http
+     *                            request-body containing the username and password
+     *                            devided by "/".
+     * @return a an http response containing the signed up {@code User} object, or
+     *         an error message.
+     */
+    @POST
+    @Path("/signUp")
+    @Consumes("application/x-www-form-urlencoded")
+    public Response signUpAndReturnUser(
+            @FormParam("usernameAndPassword") String usernameAndPassword) {
+        String[] list = usernameAndPassword.split("/");
+        String username = list[0];
+        String password = list[1];
+        System.out.println("RECIEVED USERNAME: " + username);
+        LOG.debug("signUp: " + username + ", " + password);
+        try {
+            User user = this.bikeRentalManager.signUp(username, password);
+            return this.generateOkResponse(user);
+        } catch (Exception e) {
+            return this.generateExceptionResponse(Response.Status.CONFLICT, e.getMessage());
+        }
+    }
+
+    /**
+     * REST service method for logins.
+     *
+     * @param usernameAndPassword a String form param derived from the http
+     *                            request-body containing the username and password
+     *                            devided by "/".
+     * @return a an http response containing the logged in {@code User} object, or
+     *         an error message.
+     */
+    @POST
+    @Path("/logIn")
+    @Consumes("application/x-www-form-urlencoded")
+    public Response logInAndReturnUser(
+            @FormParam("usernameAndPassword") String usernameAndPassword) {
+        String[] list = usernameAndPassword.split("/");
+        String username = list[0];
+        String password = list[1];
+        LOG.debug("logIn: " + username + ", " + password);
+        try {
+            User user = this.bikeRentalManager.logIn(username, password);
+            return this.generateOkResponse(user);
+        } catch (Exception e) {
+            return this.generateExceptionResponse(Response.Status.NOT_FOUND, e.getMessage());
+        }
+    }
+
+    /**
+     * REST service method for setting the password of a user.
+     *
+     * @param usernameAndPassword a String form param derived from the http
+     *                            request-body containing the username and new
+     *                            password devided by "/".
+     * @return a an http response containing the {@code User} object with the
+     *         changed password, or an error message.
+     */
+    @POST
+    @Path("/setPassword")
+    @Consumes("application/x-www-form-urlencoded")
+    public Response setPasswordAndReturnUser(
+            @FormParam("usernameAndPassword") String usernameAndPassword) {
+        String[] list = usernameAndPassword.split("/");
+        String username = list[0];
+        String password = list[1];
+        LOG.debug("setPassword: " + username + ", " + password);
+        try {
+            User user = this.bikeRentalManager.setUserPassword(username, password);
+            return this.generateOkResponse(user);
+        } catch (Exception e) {
+            return this.generateExceptionResponse(Response.Status.NOT_ACCEPTABLE, e.getMessage());
+        }
+    }
+
+    /**
+     * REST service method for renting a bike.
+     *
+     * @param placeNameAndBikeIdAndUsername a String form param derived from the
+     *                                      http request-body containing the
+     *                                      placeName, bikeId and username devided
+     *                                      by "/".
+     * @return a an http response containing the {@code User} object with the
+     *         rented {@code Bike} object, or an error message.
+     */
+    @POST
+    @Path("/rentBike")
+    @Consumes("application/x-www-form-urlencoded")
+    public Response rentBikeAndReturnUser(
+            @FormParam("placeNameAndBikeIdAndUsername") String placeNameAndBikeIdAndUsername) {
+        String[] list = placeNameAndBikeIdAndUsername.split("/");
+        String placeName = list[0];
+        String bikeId = list[1];
+        String username = list[2];
+        LOG.debug("rentBike: " + placeName + ", " + bikeId + ", " + username);
+        try {
+            User user = this.bikeRentalManager.rentBike(placeName, bikeId, username);
+            return this.generateOkResponse(user);
+        } catch (Exception e) {
+            return this.generateExceptionResponse(Response.Status.NOT_ACCEPTABLE, e.getMessage());
+        }
+    }
+
+    /**
+     * REST service method for delivering a bike.
+     *
+     * @param usernameAndPlaceName a String form param derived from the
+     *                             http request-body containing the
+     *                             username and placeName devided
+     *                             by "/".
+     * @return a an http response containing the {@code User} object without the
+     *         delivered {@code Bike} object, or an error message.
+     */
+    @POST
+    @Path("/deliverBike")
+    @Consumes("application/x-www-form-urlencoded")
+    public Response deliverBikeAndReturnUser(
+            @FormParam("usernameAndPlaceName") String usernameAndPlaceName) {
+        String[] list = usernameAndPlaceName.split("/");
+        String username = list[0];
+        String placeName = list[1];
+        LOG.debug("deliverBike: " + username + ", " + placeName);
+        try {
+            User user = this.bikeRentalManager.deliverBike(username, placeName);
+            return this.generateOkResponse(user);
+        } catch (Exception e) {
+            return this.generateExceptionResponse(Response.Status.NOT_ACCEPTABLE, e.getMessage());
+        }
+    }
 
     /**
      * Defines the http request format and method to get a {@code PlaceContainer}
@@ -48,70 +185,32 @@ public class BikeRentalService {
     }
 
     /**
-     * Defines the http request format and method to get a {@code UserContainer}
-     * object that
-     * represents the users stored on the server.
+     * Generates a {@code Response} object with response status "OK" and a
+     * {@code User} object within its body.
      *
-     * @return a {@code UserContainer} object in JSON format, if it can be read.
-     *         Otherwise, {@code null}.
+     * @param user the {@code User} object to attatch.
+     * @return the generated {@code Response} object.
      */
-    @GET
-    @Path("/getUserContainer")
-    @Produces(MediaType.APPLICATION_JSON)
-    public UserContainer getUserContainer() {
-        LOG.debug("getUserContainer");
-        try {
-            return this.bikeRentalManager.getBikeRentalPersistence().readUserContainer();
-        } catch (IOException e) {
-            return null;
-        }
+    private Response generateOkResponse(User user) {
+        return Response
+                .status(Response.Status.OK)
+                .entity(user)
+                .build();
     }
 
     /**
-     * Defines the http request format and method to update the stored places on the
-     * server.
+     * Generates a {@code Response} object with a given response status and an
+     * exception message within its body.
      *
-     * @param placeContainer a {@code PlaceContainer} object that represents the new
-     *                       state of the apps places.
-     * @return {@code true} as a JSON if update was successful, othwise
-     *         {@code false} as a JSON.
+     * @param responseStatus   an appropriate response {@code Status} object.
+     * @param exceptionMessage an exception message.
+     * @return the generated {@code Response} object.
      */
-    @POST
-    @Path("/updatePlaceContainer")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Boolean updatePlaceContainer(PlaceContainer placeContainer) {
-        LOG.debug("updatePlaceConatiner", placeContainer);
-        try {
-            this.bikeRentalManager.getBikeRentalPersistence().writePlaceContainer(placeContainer);
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
-    }
-
-    /**
-     * Defines the http request format and method to update the stored users on the
-     * server.
-     *
-     * @param userContainer a {@code UserContainer} object that represents the new
-     *                      state of the apps users.
-     * @return {@code true} as a JSON if update was successful, othwise
-     *         {@code false} as a JSON.
-     */
-    @POST
-    @Path("/updateUserContainer")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Boolean updateUserContainer(UserContainer userContainer) {
-        LOG.debug("updateUserConatiner", userContainer);
-        try {
-            this.bikeRentalManager.getBikeRentalPersistence().writeUserContainer(userContainer);
-            return true;
-        } catch (IOException e) {
-            // TODO
-            return false;
-        }
+    private Response generateExceptionResponse(Status responseStatus, String exceptionMessage) {
+        return Response
+                .status(responseStatus)
+                .entity(exceptionMessage)
+                .build();
     }
 
 }

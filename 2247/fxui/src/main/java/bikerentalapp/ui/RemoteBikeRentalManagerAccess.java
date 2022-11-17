@@ -1,17 +1,16 @@
 package bikerentalapp.ui;
 
-import bikerentalapp.core.Bike;
-import bikerentalapp.core.Place;
 import bikerentalapp.core.PlaceContainer;
 import bikerentalapp.core.User;
-import bikerentalapp.core.UserContainer;
 import bikerentalapp.json.BikeRentalPersistence;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
+import java.nio.charset.StandardCharsets;
 import java.net.http.HttpResponse;
 
 /**
@@ -28,6 +27,8 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
 
     private static final String CONTENT_TYPE_HEADER = "Content-Type";
 
+    private static final String APPLICATION_FORM_URLENCODED = "application/x-www-form-urlencoded";
+
     private ObjectMapper objectMapper;
 
     /**
@@ -40,7 +41,91 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
         BikeRentalPersistence bikeRentalPersistence = new BikeRentalPersistence();
         this.endpointBaseUri = endpointBaseUri;
         this.objectMapper = bikeRentalPersistence.getObjectMapper();
-        System.out.println("OBJECTMAPPER SET: " + objectMapper);
+    }
+
+    @Override
+    public User signUp(String username, String password) throws IOException {
+
+        HttpRequest request = HttpRequest.newBuilder(endpointBaseUri.resolve("signUp"))
+                .header(ACCEPT_HEADER, APPLICATION_JSON)
+                .header(CONTENT_TYPE_HEADER, APPLICATION_FORM_URLENCODED)
+                .POST(BodyPublishers.ofString("usernameAndPassword=" + uriParam(username + "/" + password)))
+                .build();
+        System.out.println("REQUEST: " + request);
+
+        try {
+            return this.sendHttpRequestsAndReadUserFromResponseString(request);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public User logIn(String username, String password) throws IOException {
+
+        HttpRequest request = HttpRequest.newBuilder(endpointBaseUri.resolve("logIn"))
+                .header(ACCEPT_HEADER, APPLICATION_JSON)
+                .header(CONTENT_TYPE_HEADER, APPLICATION_FORM_URLENCODED)
+                .POST(BodyPublishers.ofString("usernameAndPassword=" + uriParam(username + "/" + password)))
+                .build();
+        System.out.println("REQUEST: " + request);
+
+        try {
+            return this.sendHttpRequestsAndReadUserFromResponseString(request);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public User setUserPassword(String username, String password) throws IOException {
+        HttpRequest request = HttpRequest.newBuilder(endpointBaseUri.resolve("setPassword"))
+                .header(ACCEPT_HEADER, APPLICATION_JSON)
+                .header(CONTENT_TYPE_HEADER, APPLICATION_FORM_URLENCODED)
+                .POST(BodyPublishers.ofString("usernameAndPassword=" + uriParam(username + "/" + password)))
+                .build();
+        System.out.println("REQUEST: " + request);
+
+        try {
+            return this.sendHttpRequestsAndReadUserFromResponseString(request);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public User rentBike(String placeName, String bikeId, String username)
+            throws IOException {
+        HttpRequest request = HttpRequest.newBuilder(endpointBaseUri.resolve("rentBike"))
+                .header(ACCEPT_HEADER, APPLICATION_JSON)
+                .header(CONTENT_TYPE_HEADER, APPLICATION_FORM_URLENCODED)
+                .POST(BodyPublishers.ofString(
+                        "placeNameAndBikeIdAndUsername=" + uriParam(placeName + "/" + bikeId + "/" + username)))
+                .build();
+        System.out.println("REQUEST: " + request);
+
+        try {
+            return this.sendHttpRequestsAndReadUserFromResponseString(request);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public User deliverBike(String username, String placeName) throws IOException {
+        HttpRequest request = HttpRequest.newBuilder(endpointBaseUri.resolve("deliverBike"))
+                .header(ACCEPT_HEADER, APPLICATION_JSON)
+                .header(CONTENT_TYPE_HEADER, APPLICATION_FORM_URLENCODED)
+                .POST(BodyPublishers.ofString(
+                        "usernameAndPlaceName=" + uriParam(username + "/" + placeName)))
+                .build();
+        System.out.println("REQUEST: " + request);
+
+        try {
+            return this.sendHttpRequestsAndReadUserFromResponseString(request);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -49,7 +134,8 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
      *
      * @return a placeContainer.
      */
-    private PlaceContainer getPlaceContainerFromServer() {
+    @Override
+    public PlaceContainer getPlaceContainer() {
         PlaceContainer placeContainer = null;
         HttpRequest request = HttpRequest.newBuilder(endpointBaseUri.resolve("getPlaceContainer"))
                 .header(ACCEPT_HEADER, APPLICATION_JSON)
@@ -67,160 +153,49 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
     }
 
     /**
-     * Sends a request to server to update the model persistence with the given
-     * {@code PlaceContainer} object.
-     * The server repiles with false if there was an error.
-     *
-     * @throws RuntimeException if there is an error sending the request or with
-     *                          reading the returned value.
+     * Returns the set {@code URI} object.
+     * 
+     * @return a {@code URI} object.
      */
-    private void sendPlaceContainerToServer(PlaceContainer placeContainer) {
-        try {
-            String json = objectMapper.writeValueAsString(placeContainer);
-            HttpRequest request = HttpRequest
-                    .newBuilder(endpointBaseUri.resolve("updatePlaceContainer"))
-                    .header(ACCEPT_HEADER, APPLICATION_JSON)
-                    .header(CONTENT_TYPE_HEADER, APPLICATION_JSON)
-                    .POST(BodyPublishers.ofString(json))
-                    .build();
-            final HttpResponse<String> response = HttpClient.newBuilder().build().send(request,
-                    HttpResponse.BodyHandlers.ofString());
-            String responseString = response.body();
-            Boolean isUpdated = objectMapper.readValue(responseString, Boolean.class);
-            if (isUpdated == null || !isUpdated) {
-                throw new IOException("Error on server side, could not update database.");
-            }
-        } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * Sends a request to server to update the model persistence with the given
-     * {@code UserContainer} object.
-     * The server repiles with false if there was an error.
-     *
-     * @throws RuntimeException if there is an error sending the request or with
-     *                          reading the returned value.
-     */
-    private void sendUserContainerToServer(UserContainer userContainer) {
-        try {
-            String json = objectMapper.writeValueAsString(userContainer);
-            HttpRequest request = HttpRequest
-                    .newBuilder(endpointBaseUri.resolve("updateUserContainer"))
-                    .header(ACCEPT_HEADER, APPLICATION_JSON)
-                    .header(CONTENT_TYPE_HEADER, APPLICATION_JSON)
-                    .POST(BodyPublishers.ofString(json))
-                    .build();
-            final HttpResponse<String> response = HttpClient.newBuilder().build().send(request,
-                    HttpResponse.BodyHandlers.ofString());
-            String responseString = response.body();
-            Boolean isUpdated = objectMapper.readValue(responseString, Boolean.class);
-            if (isUpdated == null || !isUpdated) {
-                throw new IOException("Error on server side, could not update database.");
-            }
-        } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * Sends a request to server to return a {@code UserContainer} object that
-     * reflects the user persistence in the model.
-     *
-     * @return a userContainer.
-     */
-    private UserContainer getUserContainerFromServer() {
-        UserContainer userContainer = null;
-        HttpRequest request = HttpRequest.newBuilder(endpointBaseUri.resolve("getUserContainer"))
-                .header(ACCEPT_HEADER, APPLICATION_JSON)
-                .GET()
-                .build();
-        try {
-            final HttpResponse<String> response = HttpClient.newBuilder().build().send(request,
-                    HttpResponse.BodyHandlers.ofString());
-            final String responseString = response.body();
-            userContainer = objectMapper.readValue(responseString, UserContainer.class);
-        } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        return userContainer;
-    }
-
-    @Override
-    public User signUp(String username, String password) throws IOException {
-        UserContainer userContainer = this.getUserContainerFromServer();
-        for (User user : userContainer.getUsers()) {
-            if (user.getUsername().equals(username)) {
-                throw new IllegalArgumentException("Brukernavnet er tatt!");
-            }
-        }
-        User user = new User(username, password);
-        userContainer.addUser(user);
-        this.sendUserContainerToServer(userContainer);
-        return user;
-    }
-
-    @Override
-    public User logIn(String username, String password)
-            throws IOException, IllegalArgumentException {
-        UserContainer userContainer = this.getUserContainerFromServer();
-        for (User user : userContainer.getUsers()) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                return user;
-            }
-        }
-        throw new IllegalArgumentException("Brukernavn eller passord er ikke gyldig");
-
-    }
-
-    @Override
-    public User setUserPassword(String username, String password)
-            throws IllegalArgumentException, IOException {
-        UserContainer userContainer = this.getUserContainerFromServer();
-        User userFromContainter = userContainer.findUser(username);
-        userFromContainter.changePassword(password);
-        this.sendUserContainerToServer(userContainer);
-        return userFromContainter;
-    }
-
-    @Override
-    public User rentBike(String placeName, String bikeId, String username)
-            throws IOException, IllegalArgumentException {
-        UserContainer userContainer = this.getUserContainerFromServer();
-        PlaceContainer placeContainer = this.getPlaceContainerFromServer();
-        Place placeToRentFromInPlaceContainer = placeContainer.findPlace(placeName);
-        if (placeToRentFromInPlaceContainer.getBikes().stream().filter(bike -> bike.getId().equals(bikeId))
-                .count() == 0) {
-            throw new IllegalArgumentException(
-                    "Det gitte stedet inneholder ikke den gitte sykkelen.");
-        }
-        User userToRentBike = userContainer.findUser(username);
-        userToRentBike.setBike(placeToRentFromInPlaceContainer.removeAndGetBike(bikeId));
-        this.sendUserContainerToServer(userContainer);
-        this.sendPlaceContainerToServer(placeContainer);
-        return userToRentBike;
-    }
-
-    @Override
-    public User deliverBike(String username, String placeName) throws IOException {
-        UserContainer userContainer = this.getUserContainerFromServer();
-        PlaceContainer placeContainer = this.getPlaceContainerFromServer();
-        User userToDeliverBike = userContainer.findUser(username);
-        Bike bikeToDeliver = userToDeliverBike.removeAndReturnBike();
-        placeContainer.findPlace(placeName).addBike(bikeToDeliver);
-        this.sendUserContainerToServer(userContainer);
-        this.sendPlaceContainerToServer(placeContainer);
-        return userToDeliverBike;
-    }
-
-    @Override
-    public PlaceContainer getPlaceContainer() throws IOException {
-        return this.getPlaceContainerFromServer();
-    }
-
     public URI getUri() {
         return this.endpointBaseUri;
+    }
+
+    /**
+     * Creates and returns a String representing a URI parameter.
+     *
+     * @param string
+     * @return the URI parameter as a String.
+     */
+    private String uriParam(String string) {
+        return URLEncoder.encode(string, StandardCharsets.UTF_8);
+    }
+
+    /**
+     * Sends the given http request and returns the {@code User} object created by
+     * the reponse, or throws an exception with the returned exception message.
+     * 
+     * @param request the http request to send.
+     * @return a {@code User} object derived from the response.
+     * @throws InterruptedException if an error happens during sending/recieving
+     *                              http-request/-response.
+     * @throws IOException          if the repons returns that an exception is
+     *                              thrown in the model on the server side.
+     */
+    private User sendHttpRequestsAndReadUserFromResponseString(HttpRequest request)
+            throws InterruptedException, IOException {
+        final HttpResponse<String> response = HttpClient.newBuilder().build().send(request,
+                HttpResponse.BodyHandlers.ofString());
+
+        String responseString = response.body();
+        System.out.println("RESPONSE: " + responseString);
+
+        if (responseString.startsWith("{")) {
+            User verifiedUser = objectMapper.readValue(responseString, User.class);
+            return verifiedUser;
+        } else {
+            throw new IOException(responseString);
+        }
     }
 
 }

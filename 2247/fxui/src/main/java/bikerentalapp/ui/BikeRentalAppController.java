@@ -180,7 +180,7 @@ public class BikeRentalAppController {
      * @param brmAcc the {@code BikeRentalManager} object.
      */
     public void setBikeRentalManagerAccess(BikeRentalManagerAccess brmAcc) {
-        if (bikeRentalManagerAccess instanceof RemoteBikeRentalManagerAccess) {
+        if (brmAcc instanceof RemoteBikeRentalManagerAccess) {
             RemoteBikeRentalManagerAccess remoteBrMa = (RemoteBikeRentalManagerAccess) brmAcc;
             this.bikeRentalManagerAccess = new RemoteBikeRentalManagerAccess(
                     remoteBrMa.getUri());
