@@ -10,8 +10,8 @@ import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
-import java.nio.charset.StandardCharsets;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Class that implements the interface BikeRentalManagerAccess. Makes the model
@@ -49,7 +49,8 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
         HttpRequest request = HttpRequest.newBuilder(endpointBaseUri.resolve("signUp"))
                 .header(ACCEPT_HEADER, APPLICATION_JSON)
                 .header(CONTENT_TYPE_HEADER, APPLICATION_FORM_URLENCODED)
-                .POST(BodyPublishers.ofString("usernameAndPassword=" + uriParam(username + "/" + password)))
+                .POST(BodyPublishers
+                        .ofString("usernameAndPassword=" + uriParam(username + "/" + password)))
                 .build();
         System.out.println("REQUEST: " + request);
 
@@ -66,7 +67,8 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
         HttpRequest request = HttpRequest.newBuilder(endpointBaseUri.resolve("logIn"))
                 .header(ACCEPT_HEADER, APPLICATION_JSON)
                 .header(CONTENT_TYPE_HEADER, APPLICATION_FORM_URLENCODED)
-                .POST(BodyPublishers.ofString("usernameAndPassword=" + uriParam(username + "/" + password)))
+                .POST(BodyPublishers
+                        .ofString("usernameAndPassword=" + uriParam(username + "/" + password)))
                 .build();
         System.out.println("REQUEST: " + request);
 
@@ -82,7 +84,8 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
         HttpRequest request = HttpRequest.newBuilder(endpointBaseUri.resolve("setPassword"))
                 .header(ACCEPT_HEADER, APPLICATION_JSON)
                 .header(CONTENT_TYPE_HEADER, APPLICATION_FORM_URLENCODED)
-                .POST(BodyPublishers.ofString("usernameAndPassword=" + uriParam(username + "/" + password)))
+                .POST(BodyPublishers
+                        .ofString("usernameAndPassword=" + uriParam(username + "/" + password)))
                 .build();
         System.out.println("REQUEST: " + request);
 
@@ -99,8 +102,10 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
         HttpRequest request = HttpRequest.newBuilder(endpointBaseUri.resolve("rentBike"))
                 .header(ACCEPT_HEADER, APPLICATION_JSON)
                 .header(CONTENT_TYPE_HEADER, APPLICATION_FORM_URLENCODED)
-                .POST(BodyPublishers.ofString(
-                        "placeNameAndBikeIdAndUsername=" + uriParam(placeName + "/" + bikeId + "/" + username)))
+                .POST(BodyPublishers
+                        .ofString(
+                                "placeNameAndBikeIdAndUsername="
+                                        + uriParam(placeName + "/" + bikeId + "/" + username)))
                 .build();
         System.out.println("REQUEST: " + request);
 
@@ -116,8 +121,9 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
         HttpRequest request = HttpRequest.newBuilder(endpointBaseUri.resolve("deliverBike"))
                 .header(ACCEPT_HEADER, APPLICATION_JSON)
                 .header(CONTENT_TYPE_HEADER, APPLICATION_FORM_URLENCODED)
-                .POST(BodyPublishers.ofString(
-                        "usernameAndPlaceName=" + uriParam(username + "/" + placeName)))
+                .POST(BodyPublishers
+                        .ofString(
+                                "usernameAndPlaceName=" + uriParam(username + "/" + placeName)))
                 .build();
         System.out.println("REQUEST: " + request);
 
@@ -137,7 +143,8 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
     @Override
     public PlaceContainer getPlaceContainer() {
         PlaceContainer placeContainer = null;
-        HttpRequest request = HttpRequest.newBuilder(endpointBaseUri.resolve("getPlaceContainer"))
+        HttpRequest request = HttpRequest
+                .newBuilder(endpointBaseUri.resolve("getPlaceContainer"))
                 .header(ACCEPT_HEADER, APPLICATION_JSON)
                 .GET()
                 .build();
@@ -154,7 +161,7 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
 
     /**
      * Returns the set {@code URI} object.
-     * 
+     *
      * @return a {@code URI} object.
      */
     public URI getUri() {
@@ -164,7 +171,7 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
     /**
      * Creates and returns a String representing a URI parameter.
      *
-     * @param string
+     * @param string URI parameter
      * @return the URI parameter as a String.
      */
     private String uriParam(String string) {
@@ -174,7 +181,7 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
     /**
      * Sends the given http request and returns the {@code User} object created by
      * the reponse, or throws an exception with the returned exception message.
-     * 
+     *
      * @param request the http request to send.
      * @return a {@code User} object derived from the response.
      * @throws InterruptedException if an error happens during sending/recieving
@@ -197,5 +204,4 @@ public class RemoteBikeRentalManagerAccess implements BikeRentalManagerAccess {
             throw new IOException(responseString);
         }
     }
-
 }
