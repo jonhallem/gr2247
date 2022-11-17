@@ -48,13 +48,13 @@ For å være tilgjengelig for Bike Rental App's kunder, er vi tilgjengelige der 
 *Merk at her ønsket vi også å implementere lånehistorikk, men grunnet manglende gruppemedlem og diskusjon med studass ble det bestemt å kun utvide applikasjonens funksjonalitet med utlogging og passordendring på profilsiden.*
 
 ---
+## Brukerhistorier
 
-
-## Brukerhistorie-1
+### Brukerhistorie-1
 
 "Som en tidsskvist hverdagspendler ønsker jeg å kunne sykle til og/eller fra jobb, uten å måtte forplikte meg til å sykle begge veier."
 
-## Brukerhistorie-2
+### Brukerhistorie-2
 
 "Som en vanlig person med samme passord på alle digitale tjenester, har jeg - Mona (23) - blitt hacket, og mitt eneste passord er lekket ut på internettet. Jeg må derfor endre passordene på alle tjenester"
 
@@ -74,7 +74,6 @@ Mona (23) kommer fra Kristiansand, og studerer medisin i Trondheim. Hun er veldi
 - En oversikt over tilgjengelige sykler på de ulike utleieområdene (Brukerhistorie 1)
 - En oversikt over ulike tilgjengelige sykkeltyper (Brukerhistorie 1)
 - Hvilken sykkel du leier (Brukerhistorie 1)
-- En historikk over syklene du har leid (Brukerhistorie 3)
 
 ### Viktig å kunne gjøre 
 - Leie og levere en sykkel ved ulike utleieområder (Brukerhistorie 1)
@@ -88,12 +87,22 @@ Applikasjonen kan kjøres ved bruk av **mvn javafx:run** fra mappen *GR2247/2247
 
 Om det oppstår dependency-problemer når 'mvn javafx:run' kjøres i /fxui, naviger tilbake til rotnivå /2247 og kjør kommandoen *'mvn clean -U install'*. Dette burde fikse problemet.
 
+### Kjøre applikasjonen med lokal jersey server
+
+For å starte applikasjonen med lokal server er det nødvendig å bruke en *split terminal*, noe som kan gjøres ved å høyreklikke på terminalen i VS Code og velge *Split Terminal*. 
+Deretter navigeres til mappen *2247/integrationtests* i den ene terminalen, for så å starte den lokale jersey serveren ved å kalle **mvn jetty:run -D"jetty:port=8080"**. For å starte applikasjonen navigeres det til mappen *2247/fxui* i den andre terminalen, og kalles **mvn -Premoteapp javafx:run**. Dette starter applikasjonen med *remoteapp* profilen, som kjører *RemoteApp.java* og starter applikasjonen med oppkobling til server.  
+
+### "Shippable" 
+For å lage et "Shippable" produkt ble utvidelsene *jlink* og *jpackage* benyttet. 
+Prosjektet *zippes* ved kalle **mvn clean javafx:jlink -f ./fxui/pom.xml** fra rotmappen *2247*. 
+Deretter lages et program fra zip-filen ved å kalle **mvn jpackage:jpackage -f ./fxui/pom.xml** fra rotmappen *2247*. 
+
 ## Kodekvalitet
 
 ### Tester
 
 Tester er blitt skrevet for majoriteten av all funksjonalitet i alle modulene. 
-Testdekningsgraden er undersøkt ved bruk av JaCoCo (se neste avsnitt). Det er oppnådd et dekningsgrad på 96% hele prosjektet. 
+Testdekningsgraden er undersøkt ved bruk av JaCoCo (se neste avsnitt). Det er oppnådd et dekningsgrad på 99% core modulen, og 80% på fxui modulen. 
 
 ### Verktøy
 
