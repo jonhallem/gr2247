@@ -311,13 +311,22 @@ public class BikeRentalAppController {
     @FXML
     private void deliverBike() {
         try {
+            if (selectArrivalLocation.getValue() == null) {
+                errorMessage("Velg et sted!");
+                return;
+            }
             this.loggedInUser = this.bikeRentalManagerAccess
                     .deliverBike(this.loggedInUser.getUsername(),
                             selectArrivalLocation.getValue());
             arrivalConfirmationGroup.setVisible(false);
             departureGroup.setVisible(true);
             rentedBikeIdText.setText("");
-            loadBikesIntoList();
+
+            for (Place place : bikeRentalManagerAccess.getPlaceContainer().getPlaces()) {
+                if (place.getName().equals(selectArrivalLocation.getValue())) {
+                    chosenDepartureLocation = place;
+                }
+            }
 
             // TODO: change exception?
         } catch (Exception e) {
