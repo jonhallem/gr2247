@@ -9,6 +9,3 @@ Inneholder egenskaper for slf4j.Logger og slf4j.Loggerfactory simplelogger brukt
 ## webapp/WEB-INF
 ### web.xml
 xml-fil som holder oppsett for jersey serveren og viser relasjon til konfigurasjonsfilen i restserver i rest-modulen.
-
-## Testing
-TBA

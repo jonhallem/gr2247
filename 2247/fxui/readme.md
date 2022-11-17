@@ -1,4 +1,4 @@
-# Modulens funksjonalitet
+# Fxui-Modulens funksjonalitet
 
 ## FXUI
 
@@ -28,6 +28,9 @@ Implementerer metodene i BikeRentalManagerAccess gjennom http-requests til REST 
 
 ## Resources
 Inneholder fxml-filer med applikasjonens grafiske brukergrensesnitt for hovedsiden og profilsiden, i tillegg til en img mappe med bilder og ikoner brukt i applikasjonen.
+
+## Klassediagram
+![Klassediagram](/2247/fxui/classDiagram.png "Klassediagram")
 
 # Testing
 Testingen består av 2 klasser som hver tar for seg en kontroller. AppTest tester BikeRentalAppController og at innhold blir presentert korrekt basert på data fra BikeRentalAccess. I tillegg testet det at innholdet blir presentert riktig på profilsiden i ProfilePageTest. Testene i GUIet blir testet ved hjelp av TestFX.
