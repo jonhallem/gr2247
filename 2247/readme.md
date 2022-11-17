@@ -91,6 +91,11 @@ Om det oppstår dependency-problemer når 'mvn javafx:run' kjøres i /fxui, navi
 For å starte applikasjonen med lokal server er det nødvendig å bruke en *split terminal*, noe som kan gjøres ved å høyreklikke på terminalen i VS Code og velge *Split Terminal*. 
 Deretter navigeres til mappen *2247/integrationtests* i den ene terminalen, for så å starte den lokale jersey serveren ved å kalle **mvn jetty:run -D"jetty:port=8080"**. For å starte applikasjonen navigeres det til mappen *2247/fxui* i den andre terminalen, og kalles **mvn -Premoteapp javafx:run**. Dette starter applikasjonen med *remoteapp* profilen, som kjører *RemoteApp.java* og starter applikasjonen med oppkobling til server.  
 
+### "Shippable" 
+For å lage et "Shippable" produkt ble utvidelsene *jlink* og *jpackage* benyttet. 
+Prosjektet *zippes* ved kalle **mvn clean javafx:jlink -f ./fxui/pom.xml** fra rotmappen *2247*. 
+Deretter lages et program fra zip-filen ved å kalle **mvn jpackage:jpackage -f ./fxui/pom.xml** fra rotmappen *2247*. 
+
 ## Kodekvalitet
 
 ### Tester
