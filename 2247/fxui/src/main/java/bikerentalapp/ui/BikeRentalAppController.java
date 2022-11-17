@@ -221,11 +221,11 @@ public class BikeRentalAppController {
             }
         } catch (IllegalArgumentException e) {
 
-            errorMessage(e.toString());
+            errorMessage(e.getMessage());
 
         } catch (IOException e) {
 
-            errorMessage(e.toString());
+            errorMessage(e.getMessage());
         }
     }
 
@@ -251,11 +251,11 @@ public class BikeRentalAppController {
             profileButton.setVisible(true);
         } catch (IllegalArgumentException e) {
 
-            errorMessage(e.toString());
+            errorMessage(e.getMessage());
 
         } catch (IOException e) {
 
-            errorMessage(e.toString());
+            errorMessage(e.getMessage());
         }
     }
 
@@ -284,10 +284,10 @@ public class BikeRentalAppController {
                                         this.loggedInUser.getUsername());
                     } catch (IOException e) {
 
-                        errorMessage(e.toString());
+                        errorMessage(e.getMessage());
 
                     } catch (IllegalArgumentException e) {
-                        errorMessage(e.toString());
+                        errorMessage(e.getMessage());
                     }
                     rentedBikeIdText.setText(bike.getType() + " - " + bike.getId());
                     break;
@@ -331,7 +331,7 @@ public class BikeRentalAppController {
             // TODO: change exception?
         } catch (Exception e) {
 
-            errorMessage(e.toString());
+            errorMessage(e.getMessage());
         }
     }
 
@@ -379,7 +379,7 @@ public class BikeRentalAppController {
             }
         } catch (IOException e) {
 
-            errorMessage(e.toString());
+            errorMessage(e.getMessage());
         }
 
         for (Bike bike : chosenDepartureLocation) {
@@ -424,7 +424,7 @@ public class BikeRentalAppController {
             }
         } catch (IOException e) {
 
-            errorMessage(e.toString());
+            errorMessage(e.getMessage());
         }
 
     }
