@@ -152,25 +152,8 @@
         <artifactId>javafx-maven-plugin</artifactId>
         <version>0.0.6</version>
         <configuration>
-            <mainClass>bikerentalapp.ui/bikerental.ui.App</mainClass>
-            <!-- rest of options are for jlink -->
-            <compress>2</compress>
-            <noHeaderFiles>true</noHeaderFiles>
-            <stripDebug>true</stripDebug>
-            <noManPages>true</noManPages>
-            <launcher>bikerentalappfx</launcher>
-            <jlinkImageName>bikerentalappfx</jlinkImageName>
-            <jlinkZipName>bikerentalappfx</jlinkZipName>
-        </configuration>
-      </plugin>
-
-      <!-- Run the jlink tool -->
-      <plugin>
-        <groupId>org.openjfx</groupId>
-        <artifactId>javafx-maven-plugin</artifactId>
-        <version>0.0.6</version>
-        <configuration>
             <mainClass>bikerentalapp.ui/bikerentalapp.ui.App</mainClass>
+            <!-- Config for jlink -->
             <compress>2</compress>
             <noHeaderFiles>true</noHeaderFiles>
             <stripDebug>true</stripDebug>
