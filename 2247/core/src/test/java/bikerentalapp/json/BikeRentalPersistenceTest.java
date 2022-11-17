@@ -126,7 +126,7 @@ public class BikeRentalPersistenceTest {
     @DisplayName("Tester henting av ObjectMapper")
     @Test
     public void testGetObjectMapper() {
-        BikeRentalPersistence.getObjectMapper();
+        this.bikeRentalPersistence.getObjectMapper();
     }
 
     @AfterAll

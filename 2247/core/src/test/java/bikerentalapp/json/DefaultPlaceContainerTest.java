@@ -11,7 +11,7 @@ import bikerentalapp.core.PlaceContainer;
 
 public class DefaultPlaceContainerTest {
 
-    private ObjectMapper mapper = BikeRentalPersistence.getObjectMapper();
+    private ObjectMapper mapper = new BikeRentalPersistence().getObjectMapper();
 
     @DisplayName("Tester at DefualtPlaceContainerString har riktig format")
     @Test

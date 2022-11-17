@@ -160,7 +160,7 @@ public class BikeRentalPersistence {
      *
      * @return {@code ObjectMapper}
      */
-    public static ObjectMapper getObjectMapper() {
+    public ObjectMapper getObjectMapper() {
         return mapper.copy();
     }
 
