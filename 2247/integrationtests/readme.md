@@ -4,11 +4,11 @@
 
 ## Resources
 ### simplelogger.properties
-Inneholder egenskaper for simplelogger brukt av slf4j.Logger i rest modulen. 
+Inneholder egenskaper for slf4j.Logger og slf4j.Loggerfactory simplelogger brukt for logging av server-kommandoer i rest modulen. 
 
 ## webapp/WEB-INF
 ### web.xml
-web.xml holder oppsett for jersey serveren og viser relasjon til konfigurasjonsfilen i restserver i rest-modulen.
+xml-fil som holder oppsett for jersey serveren og viser relasjon til konfigurasjonsfilen i restserver i rest-modulen.
 
 ## Testing
 TBA
