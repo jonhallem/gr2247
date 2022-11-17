@@ -45,6 +45,8 @@ For å være tilgjengelig for Bike Rental App's kunder, er vi tilgjengelige der 
 
 ![alt text](skjermbilder/BikeRentalAppSkjermbilde4.jpg "GUI for applikasjonens profilvindu")
 
+*Merk at her ønsket vi også å implementere lånehistorikk, men grunnet manglende gruppemedlem og diskusjon med studass ble det bestemt å kun utvide applikasjonens funksjonalitet med utlogging og passordendring på profilsiden.*
+
 ---
 
 
