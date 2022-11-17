@@ -48,7 +48,6 @@ public class BikeRentalService {
         String[] list = usernameAndPassword.split("/");
         String username = list[0];
         String password = list[1];
-        System.out.println("RECIEVED USERNAME: " + username);
         LOG.debug("signUp: " + username + ", " + password);
         try {
             User user = this.bikeRentalManager.signUp(username, password);
