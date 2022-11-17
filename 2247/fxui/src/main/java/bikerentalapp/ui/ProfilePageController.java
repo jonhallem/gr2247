@@ -76,9 +76,6 @@ public class ProfilePageController {
     @FXML
     void initialize() {
 
-        // TODO: Hvis utleiehistorikk skal implementeres:
-        // updateRentalHistory();
-
         this.bikeRentalManagerAccess = new DirectBikeRentalManagerAccess();
     }
 
@@ -247,23 +244,6 @@ public class ProfilePageController {
         }
         return this.mainMenuScene;
     }
-
-    // TODO: Metode for å oppdatere utleiehistorikk (om vi velger å implementere
-    // det):
-
-    /*
-     * private void updateRentalHistory() {
-     * 
-     * listOfRentalHistory.getItems().clear();
-     * 
-     * //TODO
-     * for (String historyNode : history) {
-     * 
-     * listOfRentalHistory.getItems().add(historyNode);
-     * }
-     * 
-     * }
-     */
 
     /**
      * Shows error popup message in GUI.
