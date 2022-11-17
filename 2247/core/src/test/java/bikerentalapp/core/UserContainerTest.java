@@ -24,7 +24,7 @@ public class UserContainerTest {
 
     @Test
     @DisplayName("Tester det å legge til brukere")
-    void testUserFunctions_addUser() {
+    public void testUserFunctions_addUser() {
         List<User> usersTestList = new ArrayList<>();
 
         assertEquals(
@@ -52,7 +52,7 @@ public class UserContainerTest {
 
     @Test
     @DisplayName("Tester det å hente ut brukere")
-    void testUserFunctions_getUsers() {
+    public void testUserFunctions_getUsers() {
         List<User> usersEmpty = new ArrayList<>();
 
         assertEquals(
@@ -70,7 +70,7 @@ public class UserContainerTest {
 
     @Test
     @DisplayName("Tester det å finne en bruker")
-    void testUserFunctions_findUser() {
+    public void testUserFunctions_findUser() {
 
         // Add user1 to userContainer, but not user2
         User user1 = new User("user1", "pass1");
@@ -93,7 +93,7 @@ public class UserContainerTest {
 
     @Test
     @DisplayName("Tester det å iterere over brukere")
-    void testIterator() {
+    public void testIterator() {
 
         assertFalse(userContainer.iterator().hasNext(),
                 "Iterator av users i userContainer skal ikke ha noe neste når det ikke er noen brukere lagt til.");
