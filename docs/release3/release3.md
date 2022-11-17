@@ -8,21 +8,18 @@ I denne releasen er følgende utarbeidet og/eller implementert:
 - Testing av klasser i prosjektet:
     - 
 - Prosjektet er modularisert og koblet opp mot REST API
-  - Prosjektet bruker web-server
-  - Lagrer placeContainer i JSON
-  - Lagrer userContainer i JSON
-  - 
-- Prosjektet benytter web-server ved å sende og motta HTTP meldinger.
+  - Prosjektet bruker web-server som tar imot http-requests definert i BikeRentalService
+  - BikerRentalSevice kaller metoder i BikeRentalManager for å få tilgang til funksjonalitet i modellen
+  - Ytterligere informasjon om implementasjon finnes i readme i rest-modulen
 - Prosjektet har implementert jlink og jpackage og kan eksportere et shippable produkt.
 -  Spotbugs og Checkstyle i prosjektet har 100% dekningsgrad.
 -  Høy testdekningsgrad i JACOCO. Dette er mye bedre testdekning enn i release 2. Her gjenstår kun dekning av unntakshåndtering utenfor testens kontroll (Feks. korrupte filer, systemfeil eller andre former for IOexceptions).
-- Dokumentasjon knyttet til arbeidsvaner, REST API, 
 - Diagrammer:
   - [Pakkediagram](../../2247/skjermbilder/PakkeDiagram.png) av løsning
   - Sekvensdiagram for å låne en sykkel (Se bilde under)
-  - [Klassediagram](../release2/release2ClassDiagram.png) av applikasjonens funksjonalitet 
+  - Klasse for hver enkelt modul finnes i readme filen i tilsvarende modul.
 
-![alt text](sequenceDiagram.png)) "Sekvensdiagram for å låne en sykkel")
+![alt text](sequenceDiagram.png) "Sekvensdiagram for å låne en sykkel"
 
 
 ---
