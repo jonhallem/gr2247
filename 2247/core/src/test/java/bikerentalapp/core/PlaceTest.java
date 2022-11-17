@@ -185,7 +185,7 @@ public class PlaceTest {
 
     @Test
     @DisplayName("Tester iteratoren")
-    void testIterator() {
+    public void testIterator() {
 
         Place place2 = new Place("Dragvoll", 6);
 
