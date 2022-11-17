@@ -16,15 +16,18 @@ I denne releasen er følgende utarbeidet og/eller implementert:
 - Prosjektet har implementert jlink og jpackage og kan eksportere et shippable produkt.
 -  Spotbugs og Checkstyle i prosjektet har 100% dekningsgrad.
 -  Høy testdekningsgrad i JACOCO. Dette er mye bedre testdekning enn i release 2. Her gjenstår kun dekning av unntakshåndtering utenfor testens kontroll (Feks. korrupte filer, systemfeil eller andre former for IOexceptions).
-- Dokumentasjon knyttet til arbeidsvaner
+- Dokumentasjon knyttet til arbeidsvaner, REST API, 
 - Diagrammer:
-  - Pakkediagram av løsning
-  - Sekvensdiagram 
-  - Klassediagram
+  - [Pakkediagram](../../2247/skjermbilder/PakkeDiagram.png) av løsning
+  - Sekvensdiagram for å låne en sykkel (Se bilde under)
+  - [Klassediagram](../release2/release2ClassDiagram.png) av applikasjonens funksjonalitet 
+
+![alt text](sequenceDiagram.png)) "Sekvensdiagram for å låne en sykkel")
+
 
 ---
 
-I denne releasen er applikasjonen utvidet med profilside funksjonalitet knyttet opp til [brukerhistorie-2](../2247/readme.md#brukerhistorie-2). 
+I denne releasen er applikasjonen utvidet med profilside funksjonalitet knyttet opp til [brukerhistorie-2](../../2247/readme.md#brukerhistorie-2). Her ønsket vi også å implementere lånehistorikk, men grunnet manglende gruppemedlem og diskusjon med studass ble det bestemt å kun utvide applikasjonens funksjonalitet med utlogging og passordendring på profilsiden.
 
 
 Funksjonalitet i applikasjonen:
