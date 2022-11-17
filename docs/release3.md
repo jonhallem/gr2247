@@ -2,25 +2,24 @@
 # Dokumentasjon - release 3
 
 I denne releasen er følgende utarbeidet og/eller implementert:
-- Utvidet applikasjonsfunksjonalitet knyttet til profilside og endring av passord.
+- Utvidet applikasjonsfunksjonaliteten knyttet til profilside og endring av passord.
   -  Denne funksjonalitet har inkludert testing, metoder og kobling til allerede etablert applikasjon. Den utvidede funksjonaliteten har også egen controller og testklasse.
 - Resterende JavaDoc og feilrettinger for prosjektet.
 - Testing av klasser i prosjektet:
     - 
-- Prosjektet er modularisert og koblet opp mot restAPI
+- Prosjektet er modularisert og koblet opp mot REST API
   - Prosjektet bruker web-server
-  - Lagrer places with bikes i JSON
-  - Lagrer users i JSON
+  - Lagrer placeContainer i JSON
+  - Lagrer userContainer i JSON
   - 
 - Prosjektet benytter web-server ved å sende og motta HTTP meldinger.
 - Prosjektet har implementert jlink og jpackage og kan eksportere et shippable produkt.
 -  Spotbugs og Checkstyle i prosjektet har 100% dekningsgrad.
-- Persistens ved hjelp av JSON filer (Filene, places.json og users.json, er per nå lagret flere stedet i prosjektet. Dette skal fikses til neste release)
--  Nær 100% testdekninggrad i JACOCO. Dette er mye bedre testdekning enn i release 2. Her gjenstår kun dekning av unntakshåndtering utenfor testens kontroll (Feks. korrupte filer, systemfeil eller andre former for IOexceptions)
+-  Høy testdekningsgrad i JACOCO. Dette er mye bedre testdekning enn i release 2. Her gjenstår kun dekning av unntakshåndtering utenfor testens kontroll (Feks. korrupte filer, systemfeil eller andre former for IOexceptions).
 - Dokumentasjon knyttet til arbeidsvaner
 - Diagrammer:
   - Pakkediagram av løsning
-  - Sekvensdiagram
+  - Sekvensdiagram 
   - Klassediagram
 
 ---
@@ -33,7 +32,7 @@ Funksjonalitet i applikasjonen:
 - *Logge inn med eksisterende bruker*
 - *Leie ledig sykkel fra ønsket sted*
 - *Levere tilbake sykkel på ønsket sted*
-+ Endre passord
-+ Logge ut av applikasjonen
++ Bruker har mulighet til å endre passord
++ Bruker har mulighet til å logge ut av applikasjonen
 
 ---
