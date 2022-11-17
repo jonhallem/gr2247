@@ -24,7 +24,7 @@ I denne releasen er følgende utarbeidet og/eller implementert:
 
 ---
 
-I denne releasen er applikasjonen utvidet med profilside funksjonalitet knyttet opp til [brukerhistorie-2](../2247/readme.md#brukerhistorie-2). 
+I denne releasen er applikasjonen utvidet med profilside funksjonalitet knyttet opp til [brukerhistorie-2](../../2247/readme.md#brukerhistorie-2). 
 
 
 Funksjonalitet i applikasjonen:
