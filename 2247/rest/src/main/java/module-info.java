@@ -1,0 +1,3 @@
+module bikerentalapp.rest {
+
+}
