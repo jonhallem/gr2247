@@ -86,12 +86,17 @@ Applikasjonen kan kjøres ved bruk av **mvn javafx:run** fra mappen *GR2247/2247
 
 Om det oppstår dependency-problemer når 'mvn javafx:run' kjøres i /fxui, naviger tilbake til rotnivå /2247 og kjør kommandoen *'mvn clean -U install'*. Dette burde fikse problemet.
 
+### Kjøre applikasjonen med lokal jersey server
+
+For å starte applikasjonen med lokal server er det nødvendig å bruke en *split terminal*, noe som kan gjøres ved å høyreklikke på terminalen i VS Code og velge *Split Terminal*. 
+Deretter navigeres til mappen *2247/integrationtests* i den ene terminalen, for så å starte den lokale jersey serveren ved å kalle **mvn jetty:run -D"jetty:port=8080"**. For å starte applikasjonen navigeres det til mappen *2247/fxui* i den andre terminalen, og kalles **mvn -Premoteapp javafx:run**. Dette starter applikasjonen med *remoteapp* profilen, som kjører *RemoteApp.java* og starter applikasjonen med oppkobling til server.  
+
 ## Kodekvalitet
 
 ### Tester
 
 Tester er blitt skrevet for majoriteten av all funksjonalitet i alle modulene. 
-Testdekningsgraden er undersøkt ved bruk av JaCoCo (se neste avsnitt). Det er oppnådd et dekningsgrad på 96% hele prosjektet. 
+Testdekningsgraden er undersøkt ved bruk av JaCoCo (se neste avsnitt). Det er oppnådd et dekningsgrad på 99% core modulen, og 80% på fxui modulen. 
 
 ### Verktøy
 
