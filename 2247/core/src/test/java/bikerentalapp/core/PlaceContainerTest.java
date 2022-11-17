@@ -23,9 +23,6 @@ public class PlaceContainerTest {
     @BeforeEach
     public void setUp() throws IOException {
         System.out.println("Initialiserer, setup.");
-        // List<Place> places = new ArrayList<>();
-        // this.bikeRentalManager = new BikeRentalManager();
-        // this.placeContainer = new PlaceContainer(bikeRentalManager.getPlaces());
         place1 = new Place("TestPlace1", 1);
         place2 = new Place("TestPlace2", 1);
         testPlaceList = new ArrayList<>(Arrays.asList(place1, place2));

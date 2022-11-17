@@ -76,7 +76,6 @@ public class BikeRentalAppController {
     @FXML
     private Pane departureGroup;
 
-    // TODO: Generer innhold med utgangspunkt i etablerte lokasjoner
     @FXML
     private ComboBox<String> selectDepartureLocation;
 
@@ -327,10 +326,7 @@ public class BikeRentalAppController {
                     chosenDepartureLocation = place;
                 }
             }
-
-            // TODO: change exception?
         } catch (Exception e) {
-
             errorMessage(e.getMessage());
         }
     }
