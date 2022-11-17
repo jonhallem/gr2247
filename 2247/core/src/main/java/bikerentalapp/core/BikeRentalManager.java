@@ -49,8 +49,8 @@ public class BikeRentalManager {
     // ----------- Metoder -------------
 
     /**
-     * Changes the password of the logged in user and saves the change to
-     * persistence.
+     * Changes the password of the {@code User} object, saves the change to
+     * persistence, and returns the {@code User} object.
      *
      * @param username    the username of the user
      * @param newPassword the new password of the user
