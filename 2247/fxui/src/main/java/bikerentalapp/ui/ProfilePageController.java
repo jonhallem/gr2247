@@ -105,7 +105,7 @@ public class ProfilePageController {
      */
     public void setBikeRentalManagerAccess(
             BikeRentalManagerAccess brmAcc) {
-        if (bikeRentalManagerAccess instanceof RemoteBikeRentalManagerAccess) {
+        if (brmAcc instanceof RemoteBikeRentalManagerAccess) {
             RemoteBikeRentalManagerAccess remoteBrMa = (RemoteBikeRentalManagerAccess) brmAcc;
             this.bikeRentalManagerAccess = new RemoteBikeRentalManagerAccess(
                     remoteBrMa.getUri());
@@ -165,7 +165,7 @@ public class ProfilePageController {
                 }
             }
         } else {
-            this.errorMessage("Feil: BikeRentalManager er \"null\".");
+            this.errorMessage("Feil: loggedInUser er \"null\".");
         }
 
     }
