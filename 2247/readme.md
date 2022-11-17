@@ -48,13 +48,13 @@ For å være tilgjengelig for Bike Rental App's kunder, er vi tilgjengelige der 
 *Merk at her ønsket vi også å implementere lånehistorikk, men grunnet manglende gruppemedlem og diskusjon med studass ble det bestemt å kun utvide applikasjonens funksjonalitet med utlogging og passordendring på profilsiden.*
 
 ---
+## Brukerhistorier
 
-
-## Brukerhistorie-1
+### Brukerhistorie-1
 
 "Som en tidsskvist hverdagspendler ønsker jeg å kunne sykle til og/eller fra jobb, uten å måtte forplikte meg til å sykle begge veier."
 
-## Brukerhistorie-2
+### Brukerhistorie-2
 
 "Som en vanlig person med samme passord på alle digitale tjenester, har jeg - Mona (23) - blitt hacket, og mitt eneste passord er lekket ut på internettet. Jeg må derfor endre passordene på alle tjenester"
 
@@ -74,7 +74,6 @@ Mona (23) kommer fra Kristiansand, og studerer medisin i Trondheim. Hun er veldi
 - En oversikt over tilgjengelige sykler på de ulike utleieområdene (Brukerhistorie 1)
 - En oversikt over ulike tilgjengelige sykkeltyper (Brukerhistorie 1)
 - Hvilken sykkel du leier (Brukerhistorie 1)
-- En historikk over syklene du har leid (Brukerhistorie 3)
 
 ### Viktig å kunne gjøre 
 - Leie og levere en sykkel ved ulike utleieområder (Brukerhistorie 1)
