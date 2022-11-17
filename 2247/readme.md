@@ -41,7 +41,7 @@ For å være tilgjengelig for Bike Rental App's kunder, er vi tilgjengelige der 
 
 ---
 
-## Prototype som skjermbilder, brukerhistorie 2 og 3
+## Prototype som skjermbilder, brukerhistorie 2
 
 ![alt text](skjermbilder/BikeRentalAppSkjermbilde4.jpg "GUI for applikasjonens profilvindu")
 
